@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre e Quem Somos - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.1);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #3B82F6, #E2E8F0);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: #3B82F6;
+            border-radius: 50%;
+        }
+        
+        .timeline-item:last-child::before {
+            background: linear-gradient(180deg, #3B82F6 0%, #3B82F6 50%, transparent 50%);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+        
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    
+    <script>
+        // Função para rolar suavemente até uma seção
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        // Smooth scroll para todos os links de navegação
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar evento de click para todos os links internos
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Animação de contadores
+            function animateCounters() {
+                const counters = document.querySelectorAll('.counter');
+                const observerOptions = {
+                    threshold: 0.7
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const counter = entry.target;
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            const duration = 2000; // 2 segundos
+                            const increment = target / (duration / 16); // 60fps
+                            let current = 0;
+                            
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    counter.textContent = target + '+';
+                                    clearInterval(timer);
+                                } else {
+                                    counter.textContent = Math.floor(current) + '+';
+                                }
+                            }, 16);
+                            
+                            observer.unobserve(counter);
+                        }
+                    });
+                }, observerOptions);
+                
+                counters.forEach(counter => observer.observe(counter));
+            }
+            
+            // Inicializar animações após o carregamento
+            setTimeout(animateCounters, 500);
+        });
+    </script>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="assets/team-office.png?prompt=Modern%20technology%20office%20with%20developers%20working%20together%2C%20collaborative%20workspace%2C%20bright%20and%20professional%20environment%2C%20team%20meeting" 
+                 alt="Equipe Varcom" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        👥 Sobre Nós
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Quem
+                    <span class="text-blue-300">Somos</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Somos uma equipe apaixonada por transformar estabelecimentos comerciais através da tecnologia. 
+                    Especializados em criar soluções que otimizam processos, reduzem custos e melhoram a experiência do cliente.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button onclick="scrollToSection('missao')" class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                        Nossa Missão
+                    </button>
+                    <button onclick="scrollToSection('contato')" class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Fale Conosco
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    Resultados <span class="text-varcom-blue">Comprovados</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="stats-counter counter mb-2" data-target="300">0+</div>
+                    <div class="text-varcom-gray font-semibold">Projetos Entregues</div>
+                    <div class="text-sm text-varcom-gray mt-1">Desde 2018</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter counter mb-2" data-target="150">0+</div>
+                    <div class="text-varcom-gray font-semibold">Clientes Ativos</div>
+                    <div class="text-sm text-varcom-gray mt-1">Em todo o Brasil</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter counter mb-2" data-target="98">0+</div>
+                    <div class="text-varcom-gray font-semibold">% Satisfação</div>
+                    <div class="text-sm text-varcom-gray mt-1">Avaliação dos clientes</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter counter mb-2" data-target="6">0+</div>
+                    <div class="text-varcom-gray font-semibold">Anos de Experiência</div>
+                    <div class="text-sm text-varcom-gray mt-1">No mercado</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Missão, Visão e Valores -->
+    <section id="missao" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Missão, Visão e <span class="text-varcom-blue">Valores</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Os princípios que nos guiam em cada projeto e decisão
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <!-- Missão -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Nossa Missão</h3>
+                    <p class="text-varcom-gray leading-relaxed">
+                        Transformar estabelecimentos comerciais através de soluções tecnológicas inovadoras, 
+                        otimizando processos, reduzindo custos e melhorando a experiência do cliente.
+                    </p>
+                </div>
+
+                <!-- Visão -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Nossa Visão</h3>
+                    <p class="text-varcom-gray leading-relaxed">
+                        Ser a referência nacional em soluções tecnológicas para comércio, 
+                        reconhecida pela excelência, inovação e impacto positivo nos negócios dos nossos clientes.
+                    </p>
+                </div>
+
+                <!-- Propósito -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Nosso Propósito</h3>
+                    <p class="text-varcom-gray leading-relaxed">
+                        Democratizar o acesso à tecnologia comercial de qualidade, 
+                        capacitando empresas de todos os portes a competir e prosperar no mercado digital.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores -->
+    <section id="valores" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nossos <span class="text-varcom-blue">Valores</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Os princípios fundamentais que orientam nossa cultura e forma de trabalhar
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                <!-- Excelência -->
+                <div class="value-card p-8 rounded-xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Excelência</h3>
+                            <p class="text-varcom-gray mb-4">
+                                Buscamos sempre a mais alta qualidade em tudo que fazemos, desde o código que escrevemos 
+                                até o atendimento que prestamos aos nossos clientes.
+                            </p>
+                            <div class="text-sm text-varcom-gray">
+                                "A excelência não é um destino, é uma jornada contínua"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inovação -->
+                <div class="value-card p-8 rounded-xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Inovação</h3>
+                            <p class="text-varcom-gray mb-4">
+                                Estamos sempre em busca de novas tecnologias e metodologias para oferecer 
+                                as soluções mais modernas e eficientes do mercado.
+                            </p>
+                            <div class="text-sm text-varcom-gray">
+                                "Inovação é transformar ideias em soluções reais"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transparência -->
+                <div class="value-card p-8 rounded-xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Transparência</h3>
+                            <p class="text-varcom-gray mb-4">
+                                Mantemos comunicação clara e honesta com nossos clientes, fornecendo 
+                                relatórios detalhados e acesso total ao desenvolvimento dos projetos.
+                            </p>
+                            <div class="text-sm text-varcom-gray">
+                                "A confiança é construída através da transparência"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colaboração -->
+                <div class="value-card p-8 rounded-xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Colaboração</h3>
+                            <p class="text-varcom-gray mb-4">
+                                Acreditamos que os melhores resultados surgem do trabalho em equipe, 
+                                tanto internamente quanto em parceria estreita com nossos clientes.
+                            </p>
+                            <div class="text-sm text-varcom-gray">
+                                "Juntos chegamos mais longe"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipe -->
+    <section id="equipe" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nossa <span class="text-varcom-blue">Equipe</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Profissionais apaixonados por tecnologia e comprometidos com a excelência
+                </p>
+            </div>
+
+            <!-- Fundadores/Liderança -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Liderança</h3>
+                <div class="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- CEO/Fundador -->
+                    <div class="team-card">
+                        <div class="relative">
+                            <img src="assets/ceo-profile.png?prompt=Professional%20CEO%20portrait%2C%20confident%20business%20leader%2C%20modern%20office%20background%2C%20tech%20executive%20style" 
+                                 alt="CEO" 
+                                 class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Carlos Eduardo Silva</h4>
+                            <p class="text-varcom-blue font-semibold mb-3">CEO & Fundador</p>
+                            <p class="text-varcom-gray text-sm mb-4">
+                                Engenheiro de Software com 15+ anos de experiência em desenvolvimento de soluções corporativas. 
+                                Especialista em arquitetura de sistemas e liderança técnica.
+                            </p>
+                            <div class="flex space-x-3">
+                                <div class="w-8 h-8 bg-varcom-blue rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                                    </svg>
+                                </div>
+                                <div class="w-8 h-8 bg-varcom-blue rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTO -->
+                    <div class="team-card">
+                        <div class="relative">
+                            <img src="assets/cto-profile.png?prompt=Professional%20CTO%20portrait%2C%20technical%20leader%2C%20software%20architect%2C%20modern%20tech%20office%20background" 
+                                 alt="CTO" 
+                                 class="w-full h-64 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ana Paula Santos</h4>
+                            <p class="text-varcom-blue font-semibold mb-3">CTO & Co-fundadora</p>
+                            <p class="text-varcom-gray text-sm mb-4">
+                                Especialista em arquitetura de software e DevOps com 12+ anos de experiência. 
+                                Responsável pela estratégia tecnológica e inovação da empresa.
+                            </p>
+                            <div class="flex space-x-3">
+                                <div class="w-8 h-8 bg-varcom-blue rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                                    </svg>
+                                </div>
+                                <div class="w-8 h-8 bg-varcom-blue rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipe Técnica -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Equipe de Desenvolvimento</h3>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Desenvolvedor Senior -->
+                    <div class="team-card">
+                        <div class="relative">
+                            <img src="assets/dev-senior.png?prompt=Professional%20software%20developer%20portrait%2C%20senior%20engineer%2C%20coding%20workspace%20background" 
+                                 alt="Desenvolvedor Senior" 
+                                 class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">Rafael Oliveira</h4>
+                            <p class="text-varcom-blue font-semibold mb-2">Desenvolvedor Senior</p>
+                            <p class="text-varcom-gray text-sm mb-3">
+                                Especialista em React, Node.js e arquitetura de microsserviços. 
+                                8+ anos focado em soluções e-commerce.
+                            </p>
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">React</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Node.js</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">AWS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UI/UX Designer -->
+                    <div class="team-card">
+                        <div class="relative">
+                            <img src="assets/designer-profile.png?prompt=Professional%20UI%2FUX%20designer%20portrait%2C%20creative%20workspace%2C%20design%20tools%20background" 
+                                 alt="Designer" 
+                                 class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">Mariana Costa</h4>
+                            <p class="text-varcom-blue font-semibold mb-2">UI/UX Designer</p>
+                            <p class="text-varcom-gray text-sm mb-3">
+                                Especialista em design de interfaces e experiência do usuário. 
+                                6+ anos criando interfaces intuitivas.
+                            </p>
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Figma</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Adobe XD</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Research</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DevOps -->
+                    <div class="team-card">
+                        <div class="relative">
+                            <img src="assets/devops-profile.png?prompt=Professional%20DevOps%20engineer%20portrait%2C%20infrastructure%20specialist%2C%20server%20room%20background" 
+                                 alt="DevOps" 
+                                 class="w-full h-48 object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">Lucas Ferreira</h4>
+                            <p class="text-varcom-blue font-semibold mb-2">DevOps Engineer</p>
+                            <p class="text-varcom-gray text-sm mb-3">
+                                Especialista em infraestrutura cloud e automação. 
+                                7+ anos garantindo alta disponibilidade.
+                            </p>
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Docker</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">Kubernetes</span>
+                                <span class="bg-varcom-bg text-varcom-blue px-2 py-1 rounded text-xs">CI/CD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Características da Equipe -->
+            <div class="tech-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Por que Nossa Equipe é Diferente</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Especialização</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">100% focados em soluções comerciais</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">Conhecimento profundo do setor</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">Experiência em diferentes segmentos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Compromisso</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">Atualização constante em tecnologias</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">Acompanhamento pós-entrega</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-varcom-blue rounded-full"></span>
+                                <span class="text-varcom-gray">Relacionamento próximo com clientes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                Quer Fazer Parte da Nossa <span class="text-varcom-blue">Equipe</span>?
+            </h2>
+            <p class="text-xl text-varcom-gray mb-12 max-w-3xl mx-auto">
+                Estamos sempre em busca de talentos apaixonados por tecnologia e comprometidos 
+                com a excelência. Venha crescer conosco!
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <button onclick="scrollToSection('contato')" class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Entre em Contato
+                </button>
+                <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Ver Vagas Abertas
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                        Fale <span class="text-varcom-blue">Conosco</span>
+                    </h2>
+                    <p class="text-xl text-varcom-gray">Estamos prontos para conhecer você e seu projeto</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Informações -->
+                    <div class="space-y-8">
+                        <div class="tech-card p-6 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Email</div>
+                                    <div class="text-varcom-gray">contato@varcom.dev</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-card p-6 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Telefone</div>
+                                    <div class="text-varcom-gray">+55 (11) 9 9999-8888</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-card p-6 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Localização</div>
+                                    <div class="text-varcom-gray">São Paulo, SP - Brasil</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-varcom-blue/5 p-6 rounded-xl border border-varcom-blue/20">
+                            <h4 class="font-semibold text-varcom-blue mb-3">💼 Interessado em fazer parte da equipe?</h4>
+                            <p class="text-sm text-varcom-gray">
+                                Envie seu currículo para <strong>rh@varcom.dev</strong> ou entre em contato conosco 
+                                para saber sobre nossas oportunidades atuais.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Formulário -->
+                    <div class="tech-card p-8 rounded-xl">
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Nome Completo</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Email</label>
+                                <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Empresa/Organização</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Assunto</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option>Novo Projeto</option>
+                                    <option>Parcerias</option>
+                                    <option>Oportunidades de Trabalho</option>
+                                    <option>Dúvidas Técnicas</option>
+                                    <option>Outros</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Mensagem</label>
+                                <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Conte-nos mais sobre sua necessidade ou interesse..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold transition-all">
+                                Enviar Mensagem
+                            </button>
+                            <div class="text-center text-sm text-varcom-gray">
+                                Resposta em até 24 horas úteis
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
