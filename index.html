@@ -1327,4 +1327,124 @@ Solicitar Consultoria
     </div>
     </footer>
 </body>
+
+//
+# Ler o conteúdo atual do index.html
+with open('index.html', 'r', encoding='utf-8') as f:
+    index_content = f.read()
+
+# Encontrar onde o footer começa e termina no HTML atual
+footer_start = index_content.find('<!-- Footer -->')
+footer_end = index_content.find('</footer>') + len('</footer>')
+
+# Remover o footer antigo e adicionar o container para o footer dinâmico
+new_index_content = index_content[:footer_start] + '''<!-- Container para o Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Script para carregar o Footer -->
+    <script>
+    // Função para carregar o footer
+    function loadFooter() {
+        fetch('components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Footer não encontrado');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+                
+                // Reinicializar scripts do footer após carregamento
+                initializeFooterScripts();
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o footer:', error);
+                // Fallback: mostrar mensagem de erro amigável
+                document.getElementById('footer-container').innerHTML = `
+                    <footer class="bg-gray-900 text-white py-8">
+                        <div class="container mx-auto px-6 text-center">
+                            <p class="text-gray-400">© 2024 Varcom. Todos os direitos reservados.</p>
+                        </div>
+                    </footer>
+                `;
+            });
+    }
+
+    // Função para inicializar scripts do footer
+    function initializeFooterScripts() {
+        // Animação de contadores
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Observer para animação do footer
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    footerObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        // Observar o footer quando carregado
+        const footerElement = document.querySelector('footer');
+        if (footerElement) {
+            footerObserver.observe(footerElement);
+        }
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                if (email) {
+                    alert('Obrigado por se inscrever! Em breve você receberá nossas novidades técnicas.');
+                    e.target.reset();
+                }
+            });
+        }
+    }
+
+    // Carregar o footer quando o DOM estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFooter);
+    } else {
+        loadFooter();
+    }
+    </script>''' + index_content[footer_end:]
+
+# Salvar o arquivo modificado
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(new_index_content)
+
+print("✅ Arquivo index.html modificado com sucesso!")
+print("📋 Alterações realizadas:")
+print("   - Footer antigo removido")
+print("   - Container para footer dinâmico adicionado")
+print("   - Script para carregar o footer de 'components/footer.html' incluído")
+print("   - Fallback implementado caso o arquivo não seja encontrado")
+print("\n⚠️  IMPORTANTE:")
+print("   - Certifique-se de que o arquivo footer.html está em: components/footer.html")
+print("   - Se estiver testando localmente, use um servidor web (ex: Live Server do VSCode)")
+print("   - O fetch() não funciona com file:// por questões de segurança")
 </html>
