@@ -1328,17 +1328,16 @@ Solicitar Consultoria
     </footer>
 </body>
 
-//
-# Ler o conteúdo atual do index.html
+<!--// # Ler o conteúdo atual do index.html
 with open('index.html', 'r', encoding='utf-8') as f:
     index_content = f.read()
 
 # Encontrar onde o footer começa e termina no HTML atual
 footer_start = index_content.find('<!-- Footer -->')
-footer_end = index_content.find('</footer>') + len('</footer>')
+<!--footer_end = index_content.find('</footer>') + len('</footer>')
 
 # Remover o footer antigo e adicionar o container para o footer dinâmico
-new_index_content = index_content[:footer_start] + '''<!-- Container para o Footer -->
+new_index_content = index_content[:footer_start] + ''' Container para o Footer -->
     <div id="footer-container"></div>
 
     <!-- Script para carregar o Footer -->
@@ -1433,7 +1432,7 @@ new_index_content = index_content[:footer_start] + '''<!-- Container para o Foot
     }
     </script>''' + index_content[footer_end:]
 
-# Salvar o arquivo modificado
+<!--# Salvar o arquivo modificado
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(new_index_content)
 
@@ -1446,5 +1445,5 @@ print("   - Fallback implementado caso o arquivo não seja encontrado")
 print("\n⚠️  IMPORTANTE:")
 print("   - Certifique-se de que o arquivo footer.html está em: components/footer.html")
 print("   - Se estiver testando localmente, use um servidor web (ex: Live Server do VSCode)")
-print("   - O fetch() não funciona com file:// por questões de segurança")
+print("   - O fetch() não funciona com file:// por questões de segurança")-->
 </html>
