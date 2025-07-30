@@ -876,9 +876,69 @@
     }
     </script>
 
-
+<!-- Script para carregar o Navbar insrir nas páginas -->
 </body>
     <!-- Container para o Navbar -->
+<div id="navbar-container"></div>
+
+<!-- Script para carregar o Navbar insrir nas páginas -->
+<script>
+// Função para carregar o navbar
+function loadNavbar() {
+    fetch('components/navbar.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Navbar não encontrado');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Extrair apenas o conteúdo relevante do navbar
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            
+            // Pegar o navbar
+            const navbar = doc.querySelector('nav.glass-navbar');
+            const mobileOverlay = doc.querySelector('.mobile-overlay');
+            const mobileMenu = doc.querySelector('.mobile-menu');
+            
+            // Pegar os estilos
+            const styles = doc.querySelector('style');
+            
+            // Pegar os scripts
+            const scripts = doc.querySelectorAll('script');
+            const navScript = scripts[scripts.length - 1]; // Último script é o do navbar
+            
+            // Inserir no container
+            if (navbar && mobileOverlay && mobileMenu && styles) {
+                // Adicionar estilos
+                document.head.appendChild(styles.cloneNode(true));
+                
+                // Adicionar elementos do navbar
+                document.getElementById('navbar-container').innerHTML = 
+                    navbar.outerHTML + 
+                    mobileOverlay.outerHTML + 
+                    mobileMenu.outerHTML;
+                
+                // Executar o script do navbar
+                eval(navScript.textContent);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar o navbar:', error);
+        });
+}
+
+// Carregar o navbar quando o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadNavbar);
+} else {
+    loadNavbar();
+}
+
+<body>
+
+    <!-- Container para o Navbar --> 
 <div id="navbar-container"></div>
 
 <!-- Script para carregar o Navbar -->
@@ -935,7 +995,5 @@ if (document.readyState === 'loading') {
 } else {
     loadNavbar();
 }
-
-
-
+</script>
 </html>
