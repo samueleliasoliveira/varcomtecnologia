@@ -936,69 +936,6 @@ if (document.readyState === 'loading') {
     loadNavbar();
 }
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sua Página - Varcom</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    <!-- Container da navbar -->
-    <div id="navbar-container"></div>
-    
-    <!-- Seu conteúdo aqui -->
-    
-    <script>
-        // Função para inicializar o menu móvel
-        function initializeNavbar() {
 
-            fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-        
-        // ADICIONE ESTA LINHA! 👇
-        initializeNavbar();
-    })
-    .catch(error => console.error('Erro ao carregar navbar:', error));
-            // [Cole todo o código da função aqui]
-        }
-        
-        // Carregar navbar
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('navbar.html')
-                .then(response => response.text())
-                .then(data => {
-                    // Criar elemento temporário
-                    const temp = document.createElement('div');
-                    temp.innerHTML = data;
-                    
-                    // Extrair elementos necessários
-                    const navbar = temp.querySelector('nav');
-                    const mobileOverlay = temp.querySelector('.mobile-overlay');
-                    const mobileMenu = temp.querySelector('.mobile-menu');
-                    const styles = temp.querySelector('style');
-                    
-                    // Adicionar estilos
-                    if (styles) {
-                        document.head.appendChild(styles);
-                    }
-                    
-                    // Adicionar elementos ao container
-                    const container = document.getElementById('navbar-container');
-                    if (navbar) container.appendChild(navbar);
-                    if (mobileOverlay) container.appendChild(mobileOverlay);
-                    if (mobileMenu) container.appendChild(mobileMenu);
-                    
-                    // IMPORTANTE: Inicializar o menu após inserir no DOM
-                    initializeNavbar();
-                })
-                .catch(error => console.error('Erro:', error));
-        });
-    </script>
-</body>
-</html>
 
 </html>
