@@ -935,7 +935,6 @@ if (document.readyState === 'loading') {
 } else {
     loadNavbar();
 }
-</script>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -954,6 +953,16 @@ if (document.readyState === 'loading') {
     <script>
         // Função para inicializar o menu móvel
         function initializeNavbar() {
+
+            fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+        
+        // ADICIONE ESTA LINHA! 👇
+        initializeNavbar();
+    })
+    .catch(error => console.error('Erro ao carregar navbar:', error));
             // [Cole todo o código da função aqui]
         }
         
@@ -992,5 +1001,4 @@ if (document.readyState === 'loading') {
 </body>
 </html>
 
-</script>
 </html>
