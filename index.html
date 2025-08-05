@@ -264,10 +264,9 @@
     }
 
     // Carregar o navbar quando o DOM estiver pronto
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadNavbar);
-    } else {
+    document.addEventListener('DOMContentLoaded', () => {
         loadNavbar();
+    });
     }
     </script>
 </body>
