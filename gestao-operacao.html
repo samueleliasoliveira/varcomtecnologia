@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão e Operação - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .process-step {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            font-size: 18px;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="keys/modern-pos-store?prompt=Modern%20retail%20store%20interior%20with%20tablet%20POS%20systems%2C%20clean%20checkout%20counters%2C%20professional%20staff%2C%20bright%20commercial%20environment%2C%20organized%20shelves" 
+                 alt="Sistema PDV Moderno" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        🏪 Gestão e Operação
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Sistema Completo de
+                    <span class="text-blue-300">PDV e Gestão</span>
+                    Comercial
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Soluções tecnológicas para otimização e gerenciamento completo de vendas e operações. 
+                    Automatizamos processos, controlamos estoque e oferecemos relatórios inteligentes para sua tomada de decisão.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                        Solicitar uma consultoria
+                    </button>
+                    <button class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Solicitar Orçamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sistemas PDV -->
+    <section id="solucoes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Sistemas <span class="text-varcom-blue">PDV Inteligentes</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Frente de caixa moderna com tablets e computadores, integrados com impressoras fiscais e automação completa
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">PDV em Tablet Touch</h3>
+                    <p class="text-lg text-varcom-gray mb-8">
+                        Interface moderna e intuitiva em tablets que revoluciona o atendimento. 
+                        Sistema rápido, seguro e fácil de usar que otimiza o tempo de checkout e melhora a experiência do cliente.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Interface touch responsiva e intuitiva</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Leitor de código de barras integrado</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Múltiplas formas de pagamento</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Checkout 70% mais rápido</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="keys/tablet-pos-checkout?prompt=Modern%20tablet%20POS%20system%20at%20retail%20checkout%2C%20cashier%20using%20touchscreen%2C%20barcode%20scanner%2C%20clean%20counter%2C%20professional%20environment" 
+                         alt="PDV Tablet" 
+                         class="rounded-2xl shadow-lg w-full h-80 object-cover">
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <div class="order-2 lg:order-1">
+                    <img src="keys/computer-pos-fiscal?prompt=Desktop%20computer%20POS%20system%20with%20fiscal%20printer%2C%20receipt%20printer%2C%20professional%20cashier%20workstation%2C%20organized%20retail%20counter" 
+                         alt="PDV Computador com Impressora Fiscal" 
+                         class="rounded-2xl shadow-lg w-full h-80 object-cover">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">PDV Computador + Impressora Fiscal</h3>
+                    <p class="text-lg text-varcom-gray mb-8">
+                        Sistema robusto para estabelecimentos que necessitam de impressão fiscal. 
+                        Integração completa com impressoras fiscais homologadas e conformidade total com a legislação.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Impressoras fiscais homologadas</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Emissão automática de cupons fiscais</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Conformidade com legislação fiscal</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-varcom-blue rounded-full"></div>
+                            <span class="text-varcom-gray">Backup automático de dados fiscais</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automação de Processos -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    <span class="text-varcom-blue">Automação</span> de Processos Comerciais
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Otimizamos e automatizamos todas as operações do seu estabelecimento
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8 mb-16">
+                <!-- Registro de Vendas -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Registro de Vendas</h3>
+                    <p class="text-varcom-gray">
+                        Automatização completa do processo de vendas com registro em tempo real e sincronização automática.
+                    </p>
+                </div>
+
+                <!-- Controle de Estoque -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Controle de Estoque</h3>
+                    <p class="text-varcom-gray">
+                        Gestão automática de estoque com alertas de baixa, controle de entrada/saída e previsão de reposição.
+                    </p>
+                </div>
+
+                <!-- Notas Fiscais -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Emissão de Notas</h3>
+                    <p class="text-varcom-gray">
+                        Geração automática de notas fiscais, cupons fiscais e documentos fiscais com conformidade total.
+                    </p>
+                </div>
+
+                <!-- Gestão Financeira -->
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Gestão Financeira</h3>
+                    <p class="text-varcom-gray">
+                        Controle completo do fluxo de caixa, contas a pagar/receber e reconciliação bancária automática.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Relatórios e Analytics -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        Relatórios <span class="text-varcom-blue">Inteligentes</span>
+                    </h2>
+                    <p class="text-lg text-varcom-gray mb-8">
+                        Dashboard executivo com análises em tempo real que auxiliam na tomada de decisões estratégicas. 
+                        Visualize KPIs, tendências e oportunidades de crescimento do seu negócio.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2">Vendas em Tempo Real</h4>
+                            <p class="text-sm text-varcom-gray">Acompanhe vendas, metas e performance instantaneamente</p>
+                        </div>
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2">Análise de Produtos</h4>
+                            <p class="text-sm text-varcom-gray">Rankings, giro de estoque e produtos mais vendidos</p>
+                        </div>
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2">Fluxo de Caixa</h4>
+                            <p class="text-sm text-varcom-gray">Projeções, entradas/saídas e análise financeira</p>
+                        </div>
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2">Performance Operacional</h4>
+                            <p class="text-sm text-varcom-gray">Eficiência, produtividade e indicadores de qualidade</p>
+                        </div>
+                    </div>
+
+                    <button class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-4 rounded-lg font-semibold transition-all">
+                        Solicitar uma consultoria
+                    </button>
+                </div>
+                
+                <div>
+                    <img src="keys/analytics-dashboard?prompt=Modern%20business%20analytics%20dashboard%20on%20computer%20screen%2C%20sales%20charts%2C%20graphs%2C%20KPI%20metrics%2C%20clean%20office%20environment%2C%20professional%20setup" 
+                         alt="Dashboard de Analytics" 
+                         class="rounded-2xl shadow-lg w-full h-96 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo de Implementação -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Processo de <span class="text-varcom-blue">Implementação</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Metodologia especializada para implementação de sistemas PDV e gestão comercial
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="process-step">1</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Análise do Negócio</h3>
+                    <p class="text-varcom-gray">
+                        Mapeamos processos atuais, identificamos necessidades específicas e definimos requisitos técnicos.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">2</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Configuração</h3>
+                    <p class="text-varcom-gray">
+                        Personalizamos o sistema conforme seu negócio, configuramos produtos, preços e usuários.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">3</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Instalação & Testes</h3>
+                    <p class="text-varcom-gray">
+                        Instalamos equipamentos, configuramos impressoras fiscais e realizamos testes completos.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">4</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Treinamento & Go-Live</h3>
+                    <p class="text-varcom-gray">
+                        Treinamos sua equipe, acompanhamos o go-live e oferecemos suporte especializado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Resultados <span class="text-varcom-blue">Comprovados</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Impactos reais na operação do seu estabelecimento</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">70%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Mais Rápido</h4>
+                    <p class="text-varcom-gray">
+                        Redução no tempo de checkout com sistema PDV otimizado
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">90%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Automação</h4>
+                    <p class="text-varcom-gray">
+                        Eliminação de processos manuais e automatização completa
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">45%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Redução Custos</h4>
+                    <p class="text-varcom-gray">
+                        Diminuição de custos operacionais e maior eficiência
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study -->
+            <div class="tech-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Caso de Sucesso - Supermercado Regional</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Situação Anterior</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Filas longas nos caixas</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Controle manual de estoque</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Relatórios demorados</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Solução Implementada</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>12 PDVs tablet integrados</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Sistema de gestão completo</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Dashboard gerencial</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Resultados</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>75% redução tempo fila</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>100% controle automático</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Relatórios instantâneos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                Pronto para <span class="text-varcom-blue">Modernizar</span> seu PDV?
+            </h2>
+            <p class="text-xl text-varcom-gray mb-12 max-w-3xl mx-auto">
+                Solicite uma consultoria personalizada e descubra como nosso sistema pode otimizar as operações do seu estabelecimento.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Solicitar uma consultoria
+                </button>
+                <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Solicitar Orçamento
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Orçamento - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .form-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .step-indicator {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step-line {
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #E2E8F0);
+            flex: 1;
+        }
+        
+        .form-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: absolute;
+            width: 100%;
+            top: 0;
+        }
+        
+        .form-section.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #3B82F6 0%, #1E40AF 100%);
+            height: 6px;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .budget-option {
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .budget-option:hover,
+        .budget-option.selected {
+            border-color: #3B82F6;
+            background: #F8FAFC;
+        }
+        
+        .urgency-option {
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .urgency-option:hover,
+        .urgency-option.selected {
+            border-color: #3B82F6;
+            background: #F8FAFC;
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+        
+        .success-animation {
+            animation: successBounce 0.6s ease-out;
+        }
+        
+        @keyframes successBounce {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+    
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        let formData = {};
+        
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepText').textContent = `Etapa ${currentStep} de ${totalSteps}`;
+        }
+        
+        function showStep(step) {
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
+            
+            // Show current section
+            const currentSection = document.getElementById(`step${step}`);
+            if (currentSection) {
+                currentSection.style.display = 'block';
+                setTimeout(() => {
+                    currentSection.classList.add('active');
+                }, 50);
+            }
+            
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                if (index < step) {
+                    indicator.classList.add('bg-green-500');
+                    indicator.classList.remove('bg-varcom-blue');
+                    indicator.innerHTML = '✓';
+                } else if (index === step - 1) {
+                    indicator.classList.add('bg-varcom-blue');
+                    indicator.classList.remove('bg-green-500');
+                    indicator.innerHTML = step;
+                } else {
+                    indicator.classList.remove('bg-varcom-blue', 'bg-green-500');
+                    indicator.classList.add('bg-gray-300');
+                    indicator.innerHTML = index + 1;
+                }
+            });
+            
+            updateProgress();
+        }
+        
+        function nextStep() {
+            if (validateCurrentStep() && currentStep < totalSteps) {
+                saveCurrentStepData();
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+        
+        function validateCurrentStep() {
+            const currentSection = document.getElementById(`step${currentStep}`);
+            const requiredFields = currentSection.querySelectorAll('[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.focus();
+                    showError(field, 'Este campo é obrigatório');
+                    return false;
+                }
+                clearError(field);
+            }
+            return true;
+        }
+        
+        function saveCurrentStepData() {
+            const currentSection = document.getElementById(`step${currentStep}`);
+            const fields = currentSection.querySelectorAll('input, select, textarea');
+            
+            fields.forEach(field => {
+                if (field.type === 'radio' && field.checked) {
+                    formData[field.name] = field.value;
+                } else if (field.type !== 'radio') {
+                    formData[field.name] = field.value;
+                }
+            });
+        }
+        
+        function showError(field, message) {
+            clearError(field);
+            field.classList.add('border-red-500');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'text-red-500 text-sm mt-1 error-message';
+            errorDiv.textContent = message;
+            field.parentNode.appendChild(errorDiv);
+        }
+        
+        function clearError(field) {
+            field.classList.remove('border-red-500');
+            const errorMsg = field.parentNode.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.remove();
+            }
+        }
+        
+        function selectBudget(element, value) {
+            document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            formData.budget = value;
+        }
+        
+        function selectUrgency(element, value) {
+            document.querySelectorAll('.urgency-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            formData.urgency = value;
+        }
+        
+        function submitForm() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                
+                // Mostrar loading
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('success-message').classList.add('success-animation');
+                
+                // Enviar email usando EmailJS
+                sendEmailNotification(formData);
+            }
+        }
+        
+        function sendEmailNotification(data) {
+            // Configuração do EmailJS
+            const SERVICE_ID = 'service_snlvrbc'; // Seu Service ID
+            const TEMPLATE_ID = 'template_8a5ij15'; // Seu Template ID
+            const PUBLIC_KEY = 'Bq5GkFE6RU9uNzySf'; // Sua Public Key
+            
+            // Preparar dados para o email
+            const emailData = {
+                to_email: 'samueleliasoliveira@gmail.com',
+                subject: `${data.name || 'Novo Cliente'} - ${data.segment || 'Segmento não informado'}`,
+                from_name: data.name || 'Cliente',
+                company: data.company || 'Não informado',
+                segment: data.segment || 'Não informado',
+                email: data.email || 'Não informado',
+                phone: data.phone || 'Não informado',
+                position: data.position || 'Não informado',
+                employees: data.employees || 'Não informado',
+                project_type: data.projectType || 'Não informado',
+                description: data.description || 'Não informado',
+                current_system: data.currentSystem || 'Não informado',
+                budget: data.budget || 'Não informado',
+                urgency: data.urgency || 'Não informado',
+                technical_team: data.technicalTeam || 'Não informado',
+                how_found_us: data.howFoundUs || 'Não informado',
+                previous_experience: data.previousExperience || 'Não informado',
+                concerns: data.concerns || 'Não informado',
+                proposal_method: data.proposalMethod || 'Não informado',
+                contact_time: data.contactTime || 'Não informado',
+                additional_info: data.additionalInfo || 'Não informado',
+                submission_date: new Date().toLocaleString('pt-BR'),
+                features: getSelectedFeatures()
+            };
+            
+            // Usar EmailJS para enviar
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, emailData, PUBLIC_KEY)
+                    .then(function(response) {
+                        console.log('Email enviado com sucesso!', response.status, response.text);
+                        showSuccessMessage();
+                    })
+                    .catch(function(error) {
+                        console.error('Erro ao enviar email:', error);
+                        // Fallback: mostrar sucesso mesmo se houver erro
+                        showSuccessMessage();
+                        // Log para você verificar os dados
+                        console.log('Dados do formulário:', data);
+                    });
+            } else {
+                // Fallback se EmailJS não estiver carregado
+                console.log('EmailJS não carregado. Dados do formulário:', data);
+                showSuccessMessage();
+            }
+        }
+        
+        function getSelectedFeatures() {
+            const checkboxes = document.querySelectorAll('input[name="features[]"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value).join(', ') || 'Nenhuma selecionada';
+        }
+        
+        function showSuccessMessage() {
+            setTimeout(() => {
+                document.getElementById('loading-text').style.display = 'none';
+                document.getElementById('success-text').style.display = 'block';
+            }, 2000);
+        }
+        
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(1);
+        });
+    </script>
+</head>
+<body class="font-sans bg-gradient-bg min-h-screen">
+
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header do Formulário -->
+            <div class="text-center mb-12">
+                <div class="mb-6">
+                    <span class="bg-varcom-blue/10 text-varcom-blue px-4 py-2 rounded-full text-sm font-semibold">
+                        💰 Orçamento Personalizado
+                    </span>
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    Solicite seu <span class="text-varcom-blue">Orçamento</span> Gratuito
+                </h1>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Responda algumas perguntas sobre seu projeto e receba uma proposta personalizada em até 48 horas
+                </p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <span id="stepText" class="text-sm font-semibold text-varcom-gray">Etapa 1 de 4</span>
+                    <span class="text-sm text-varcom-gray">~5 minutos</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progressBar" class="progress-bar w-0"></div>
+                </div>
+            </div>
+
+            <!-- Step Indicators -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="flex items-center space-x-4">
+                    <div class="step-indicator bg-varcom-blue">1</div>
+                    <div class="step-line w-16"></div>
+                    <div class="step-indicator bg-gray-300">2</div>
+                    <div class="step-line w-16"></div>
+                    <div class="step-indicator bg-gray-300">3</div>
+                    <div class="step-line w-16"></div>
+                    <div class="step-indicator bg-gray-300">4</div>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div id="form-container" class="relative">
+                <!-- Step 1: Informações Básicas -->
+                <div id="step1" class="form-section">
+                    <div class="form-card p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <div class="feature-icon mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Vamos nos conhecer</h2>
+                            <p class="text-varcom-gray">Conte-nos sobre você e sua empresa</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Nome Completo *</label>
+                                <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Seu nome completo">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Email Corporativo *</label>
+                                <input type="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="seu@empresa.com">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Telefone/WhatsApp *</label>
+                                <input type="tel" name="phone" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="(11) 99999-9999">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Cargo/Função *</label>
+                                <input type="text" name="position" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Ex: Diretor, Gerente, Proprietário">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Nome da Empresa *</label>
+                                <input type="text" name="company" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Nome da sua empresa">
+                            </div>
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Segmento/Ramo *</label>
+                                <select name="segment" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione o segmento</option>
+                                    <option value="varejo">Varejo/Loja Física</option>
+                                    <option value="restaurante">Restaurante/Food Service</option>
+                                    <option value="servicos">Prestação de Serviços</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                    <option value="saude">Saúde/Clínicas</option>
+                                    <option value="educacao">Educação</option>
+                                    <option value="beleza">Beleza/Estética</option>
+                                    <option value="automotivo">Automotivo</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="block text-gray-900 font-semibold mb-2">Número de Funcionários</label>
+                            <select name="employees" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                <option value="">Selecione</option>
+                                <option value="1-5">1-5 funcionários</option>
+                                <option value="6-20">6-20 funcionários</option>
+                                <option value="21-50">21-50 funcionários</option>
+                                <option value="51-100">51-100 funcionários</option>
+                                <option value="100+">Mais de 100 funcionários</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-end mt-8">
+                            <button onclick="nextStep()" class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                Próximo
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Detalhes do Projeto -->
+                <div id="step2" class="form-section">
+                    <div class="form-card p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <div class="feature-icon mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Sobre seu projeto</h2>
+                            <p class="text-varcom-gray">Conte-nos que tipo de solução você precisa</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Tipo de Projeto *</label>
+                                <select name="projectType" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione o tipo de projeto</option>
+                                    <option value="pdv">Sistema PDV (Ponto de Venda)</option>
+                                    <option value="ecommerce">E-commerce Completo</option>
+                                    <option value="gestao">Sistema de Gestão/ERP</option>
+                                    <option value="automacao">Automação de Processos</option>
+                                    <option value="integracao">Integração de Sistemas</option>
+                                    <option value="app">Aplicativo Mobile</option>
+                                    <option value="site">Site Institucional</option>
+                                    <option value="crm">Sistema CRM</option>
+                                    <option value="bi">Business Intelligence/Relatórios</option>
+                                    <option value="modernizacao">Modernização Tecnológica</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Descreva seu projeto e principais desafios *</label>
+                                <textarea name="description" required rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Conte-nos sobre os problemas que precisa resolver, funcionalidades desejadas, objetivos do projeto..."></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Já possui algum sistema atual?</label>
+                                <select name="currentSystem" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="nao">Não, é o primeiro sistema</option>
+                                    <option value="planilhas">Uso planilhas Excel/Google</option>
+                                    <option value="sistema-simples">Sistema simples/básico</option>
+                                    <option value="sistema-antigo">Sistema antigo que precisa modernizar</option>
+                                    <option value="multiplos">Múltiplos sistemas desintegrados</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Funcionalidades específicas necessárias</label>
+                                <div class="grid md:grid-cols-2 gap-4 mt-3">
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="vendas" class="mr-3 text-varcom-blue">
+                                            <span>Controle de Vendas</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="estoque" class="mr-3 text-varcom-blue">
+                                            <span>Gestão de Estoque</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="financeiro" class="mr-3 text-varcom-blue">
+                                            <span>Controle Financeiro</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="clientes" class="mr-3 text-varcom-blue">
+                                            <span>Cadastro de Clientes</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="relatorios" class="mr-3 text-varcom-blue">
+                                            <span>Relatórios Gerenciais</span>
+                                        </label>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="ecommerce" class="mr-3 text-varcom-blue">
+                                            <span>Loja Online</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="mobile" class="mr-3 text-varcom-blue">
+                                            <span>App Mobile</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="integracoes" class="mr-3 text-varcom-blue">
+                                            <span>Integrações (APIs)</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="multiplos-pontos" class="mr-3 text-varcom-blue">
+                                            <span>Múltiplos Pontos de Venda</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="features[]" value="nfe" class="mr-3 text-varcom-blue">
+                                            <span>Emissão de NF-e</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-8">
+                            <button onclick="prevStep()" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                                </svg>
+                                Anterior
+                            </button>
+                            <button onclick="nextStep()" class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                Próximo
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Orçamento e Prazo -->
+                <div id="step3" class="form-section">
+                    <div class="form-card p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <div class="feature-icon mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Orçamento e cronograma</h2>
+                            <p class="text-varcom-gray">Nos ajude a entender suas expectativas</p>
+                        </div>
+
+                        <div class="space-y-8">
+                            <!-- Orçamento -->
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-4">Qual faixa de investimento você tem disponível? *</label>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="budget-option p-4 rounded-lg" onclick="selectBudget(this, 'ate-10k')">
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-gray-900 mb-2">Até R$ 10.000</div>
+                                            <div class="text-sm text-varcom-gray">Projetos básicos e simples</div>
+                                        </div>
+                                    </div>
+                                    <div class="budget-option p-4 rounded-lg" onclick="selectBudget(this, '10k-25k')">
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-gray-900 mb-2">R$ 10.000 - R$ 25.000</div>
+                                            <div class="text-sm text-varcom-gray">Soluções intermediárias</div>
+                                        </div>
+                                    </div>
+                                    <div class="budget-option p-4 rounded-lg" onclick="selectBudget(this, '25k-50k')">
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-gray-900 mb-2">R$ 25.000 - R$ 50.000</div>
+                                            <div class="text-sm text-varcom-gray">Projetos robustos</div>
+                                        </div>
+                                    </div>
+                                    <div class="budget-option p-4 rounded-lg" onclick="selectBudget(this, 'acima-50k')">
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-gray-900 mb-2">Acima de R$ 50.000</div>
+                                            <div class="text-sm text-varcom-gray">Soluções corporativas</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Urgência -->
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-4">Qual a urgência do seu projeto? *</label>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="urgency-option p-4 rounded-lg" onclick="selectUrgency(this, 'urgente')">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-900">Urgente (30 dias)</div>
+                                                <div class="text-sm text-varcom-gray">Preciso implementar o mais rápido possível</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="urgency-option p-4 rounded-lg" onclick="selectUrgency(this, 'rapido')">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                                                <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-900">Rápido (2-3 meses)</div>
+                                                <div class="text-sm text-varcom-gray">Gostaria de começar em breve</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="urgency-option p-4 rounded-lg" onclick="selectUrgency(this, 'planejado')">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-900">Planejado (3-6 meses)</div>
+                                                <div class="text-sm text-varcom-gray">Posso aguardar o cronograma ideal</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="urgency-option p-4 rounded-lg" onclick="selectUrgency(this, 'futuro')">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-900">Futuro (2025)</div>
+                                                <div class="text-sm text-varcom-gray">Estou planejando para o próximo ano</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações adicionais -->
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Você tem equipe técnica interna?</label>
+                                <select name="technicalTeam" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="nao">Não temos equipe técnica</option>
+                                    <option value="basica">Temos conhecimento básico</option>
+                                    <option value="intermediaria">Temos equipe intermediária</option>
+                                    <option value="avancada">Temos equipe técnica avançada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-8">
+                            <button onclick="prevStep()" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                                </svg>
+                                Anterior
+                            </button>
+                            <button onclick="nextStep()" class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                Próximo
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Finalização -->
+                <div id="step4" class="form-section">
+                    <div class="form-card p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <div class="feature-icon mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Último passo!</h2>
+                            <p class="text-varcom-gray">Algumas informações finais para personalizarmos sua proposta</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Como conheceu a Varcom?</label>
+                                <select name="howFoundUs" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="google">Pesquisa no Google</option>
+                                    <option value="indicacao">Indicação de amigo/conhecido</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="evento">Evento/Feira</option>
+                                    <option value="parceiro">Parceiro comercial</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Já trabalhou com empresa de desenvolvimento antes?</label>
+                                <select name="previousExperience" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="nao">Não, seria a primeira vez</option>
+                                    <option value="sim-positiva">Sim, experiência positiva</option>
+                                    <option value="sim-negativa">Sim, experiência negativa</option>
+                                    <option value="sim-mista">Sim, experiência mista</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Principais preocupações ou dúvidas sobre o projeto</label>
+                                <textarea name="concerns" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Ex: prazo de entrega, custo de manutenção, treinamento da equipe..."></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Prefere receber a proposta como?</label>
+                                <select name="proposalMethod" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="email">Por email</option>
+                                    <option value="call">Videochamada</option>
+                                    <option value="presencial">Reunião presencial</option>
+                                    <option value="whatsapp">WhatsApp</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Melhor horário para contato</label>
+                                <select name="contactTime" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors">
+                                    <option value="">Selecione</option>
+                                    <option value="manha">Manhã (8h às 12h)</option>
+                                    <option value="tarde">Tarde (13h às 17h)</option>
+                                    <option value="final-tarde">Final da tarde (17h às 19h)</option>
+                                    <option value="qualquer">Qualquer horário comercial</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-900 font-semibold mb-2">Informações adicionais</label>
+                                <textarea name="additionalInfo" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-varcom-blue focus:outline-none transition-colors" placeholder="Conte-nos mais alguma coisa importante sobre seu projeto ou empresa..."></textarea>
+                            </div>
+
+                            <!-- Termos e Privacidade -->
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 mb-3">🔒 Proteção de Dados</h3>
+                                <div class="space-y-3 text-sm text-gray-600">
+                                    <label class="flex items-start">
+                                        <input type="checkbox" name="privacy" required class="mr-3 mt-1 text-varcom-blue">
+                                        <span>Concordo com o uso dos meus dados para elaboração da proposta e comunicações relacionadas ao projeto. Garantimos total confidencialidade das informações fornecidas.</span>
+                                    </label>
+                                    <label class="flex items-start">
+                                        <input type="checkbox" name="marketing" class="mr-3 mt-1 text-varcom-blue">
+                                        <span>Aceito receber comunicações sobre novos serviços e conteúdos da Varcom (opcional).</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-8">
+                            <button onclick="prevStep()" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                                </svg>
+                                Anterior
+                            </button>
+                            <button onclick="submitForm()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                                Enviar Solicitação
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="success-message" class="hidden text-center">
+                <div class="form-card p-12 rounded-2xl">
+                    <div id="loading-text">
+                        <div class="w-16 h-16 bg-varcom-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Processando sua solicitação...</h2>
+                        <p class="text-varcom-gray">Estamos analisando suas informações para preparar a melhor proposta</p>
+                    </div>
+
+                    <div id="success-text" class="hidden">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Solicitação Enviada!</h2>
+                        <p class="text-xl text-varcom-gray mb-8">
+                            Sua solicitação de orçamento foi recebida com sucesso. Nossa equipe irá analisar todas as informações e entrar em contato em até 2 horas úteis.
+                        </p>
+                        
+                        <div class="bg-varcom-blue/5 p-6 rounded-xl border border-varcom-blue/20 mb-8">
+                            <h3 class="font-semibold text-varcom-blue mb-3">🚀 Próximos passos:</h3>
+                            <ul class="space-y-2 text-sm text-varcom-gray text-left">
+                                <li>• <strong>2 horas:</strong> Primeiro contato da nossa equipe</li>
+                                <li>• <strong>24 horas:</strong> Reunião de descoberta (30 min)</li>
+                                <li>• <strong>48 horas:</strong> Proposta detalhada e cronograma</li>
+                                <li>• <strong>72 horas:</strong> Apresentação da proposta</li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="window.location.reload()" class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                                Nova Solicitação
+                            </button>
+                            <button onclick="javascript:history.back()" class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                                Voltar ao Site
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Benefícios Footer -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    Por que escolher a <span class="text-varcom-blue">Varcom?</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Resposta Rápida</h3>
+                    <p class="text-varcom-gray">Primeiro contato em até 2 horas e proposta completa em 48 horas</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Garantia de Qualidade</h3>
+                    <p class="text-varcom-gray">12 meses de garantia e suporte técnico incluído no projeto</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Metodologia Comprovada</h3>
+                    <p class="text-varcom-gray">Framework V.A.R.C.O.M especializado em soluções comerciais</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Service - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .process-step {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            font-size: 18px;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+        }
+        
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .platform-icon:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #3B82F6;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .integration-badge {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="keys/modern-restaurant-tech?prompt=Modern%20restaurant%20interior%20with%20self-service%20kiosks%2C%20digital%20menu%20displays%2C%20staff%20using%20tablets%2C%20clean%20contemporary%20design%2C%20professional%20food%20service%20environment" 
+                 alt="Restaurante Tecnológico" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        🍽️ Food Service & Gestão Gastronômica
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Tecnologia Completa para
+                    <span class="text-blue-300">Bares e Restaurantes</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Soluções inteligentes para gestão de pedidos, controle de estoque, cardápio digital, autoatendimento e integração com iFood. 
+                    Melhore a experiência do cliente e otimize suas operações gastronômicas.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                        Ver Soluções Food Service
+                    </button>
+                    <button class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Solicitar Consultoria
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluções Food Service -->
+    <section id="solucoes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Soluções <span class="text-varcom-blue">Food Service Completas</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Tecnologia de ponta para modernizar seu restaurante, bar ou estabelecimento gastronômico
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <!-- Gestão de Pedidos -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 8l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Gestão de Pedidos</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Sistema inteligente para receber, organizar e acompanhar pedidos em tempo real. Controle total do fluxo da cozinha.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Painel de controle de pedidos</li>
+                        <li>• Notificações em tempo real</li>
+                        <li>• Integração cozinha/salão</li>
+                        <li>• Tempo estimado automático</li>
+                    </ul>
+                </div>
+
+                <!-- Controle de Estoque -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Controle de Estoque</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Gestão inteligente de ingredientes e produtos. Controle de validade, alertas de reposição e otimização de compras.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Controle de ingredientes</li>
+                        <li>• Alertas de validade</li>
+                        <li>• Cálculo automático de receitas</li>
+                        <li>• Relatórios de consumo</li>
+                    </ul>
+                </div>
+
+                <!-- Cardápio Digital -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Cardápio Digital</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Cardápios interativos com QR Code, fotos HD dos pratos e atualizações em tempo real de disponibilidade.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• QR Code para acesso</li>
+                        <li>• Fotos profissionais dos pratos</li>
+                        <li>• Atualização de preços instantânea</li>
+                        <li>• Disponibilidade em tempo real</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Autoatendimento -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Autoatendimento Inteligente</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Totems de autoatendimento com IA para otimizar pedidos e reduzir filas. Experiência moderna e eficiente.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Totems touch interativos</li>
+                        <li>• IA para sugestões de combos</li>
+                        <li>• Múltiplas formas de pagamento</li>
+                        <li>• Redução de 60% no tempo de fila</li>
+                    </ul>
+                    <div class="ai-badge mt-4 inline-block">IA Integrada</div>
+                </div>
+
+                <!-- Gestão de Comandas -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Gestão de Comandas com IA</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Sistema inteligente para controle de comandas com IA que otimiza o atendimento e previne perdas.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Comandas digitais ou físicas</li>
+                        <li>• IA para análise de consumo</li>
+                        <li>• Controle de abertura/fechamento</li>
+                        <li>• Relatórios de performance</li>
+                    </ul>
+                    <div class="ai-badge mt-4 inline-block">IA Avançada</div>
+                </div>
+
+                <!-- Analytics e Relatórios -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Analytics e Relatórios</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Dashboards inteligentes com análises detalhadas de vendas, produtos mais pedidos e performance operacional.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Dashboard em tempo real</li>
+                        <li>• Análise de pratos populares</li>
+                        <li>• Relatórios financeiros</li>
+                        <li>• Insights de crescimento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Autoatendimento com IA -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        Autoatendimento com <span class="text-varcom-blue">Inteligência Artificial</span>
+                    </h2>
+                    <p class="text-lg text-varcom-gray mb-8">
+                        Revolucione o atendimento do seu restaurante com totems inteligentes que utilizam IA para 
+                        otimizar pedidos, sugerir combos personalizados e acelerar o processo de compra.
+                    </p>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mt-1">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">IA para Sugestões Personalizadas</h4>
+                                <p class="text-varcom-gray">A IA analisa histórico e preferências para sugerir combos e acompanhamentos que aumentam o ticket médio.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mt-1">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Otimização de Fluxo</h4>
+                                <p class="text-varcom-gray">Redução drástica nas filas com processamento rápido e inteligente dos pedidos.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mt-1">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Analytics Avançado</h4>
+                                <p class="text-varcom-gray">Coleta dados valiosos sobre comportamento do cliente para otimizar cardápio e estratégias.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                            Ver Demo Autoatendimento
+                        </button>
+                        <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                            Calcular ROI
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <img src="keys/ai-self-service-restaurant?prompt=Customer%20using%20modern%20self-service%20kiosk%20in%20restaurant%2C%20AI%20interface%20showing%20personalized%20menu%20suggestions%2C%20touchscreen%20display%2C%20person%20ordering%20food%2C%20clean%20modern%20fast%20food%20environment%2C%20professional%20photo" 
+                         alt="Autoatendimento com IA" 
+                         class="rounded-2xl shadow-lg w-full h-96 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integração com Plataformas -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Integração com <span class="text-varcom-blue">Plataformas de Delivery</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Conecte seu restaurante com as principais plataformas de delivery e gerencie tudo em um só lugar
+                </p>
+            </div>
+
+            <!-- Grid de Plataformas -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-16">
+                <!-- iFood -->
+                <div class="platform-icon mx-auto">
+                    <img src="keys/ifood-logo?prompt=iFood%20official%20logo%20PNG%20with%20transparent%20background%2C%20red%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="iFood" 
+                         class="w-12 h-12 object-contain">
+                </div>
+
+                <!-- Uber Eats -->
+                <div class="platform-icon mx-auto">
+                    <img src="keys/ubereats-logo?prompt=Uber%20Eats%20official%20logo%20PNG%20with%20transparent%20background%2C%20green%20and%20black%20brand%20colors%2C%20high%20quality%20vector%20style" 
+                         alt="Uber Eats" 
+                         class="w-12 h-12 object-contain">
+                </div>
+
+                <!-- Rappi -->
+                <div class="platform-icon mx-auto">
+                    <img src="keys/rappi-logo?prompt=Rappi%20official%20logo%20PNG%20with%20transparent%20background%2C%20orange%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="Rappi" 
+                         class="w-12 h-12 object-contain">
+                </div>
+
+                <!-- 99Food -->
+                <div class="platform-icon mx-auto">
+                    <img src="keys/99food-logo?prompt=99Food%20official%20logo%20PNG%20with%20transparent%20background%2C%20purple%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="99Food" 
+                         class="w-12 h-12 object-contain">
+                </div>
+
+                <!-- Aiqfome -->
+                <div class="platform-icon mx-auto">
+                    <img src="keys/aiqfome-logo?prompt=Aiqfome%20official%20logo%20PNG%20with%20transparent%20background%2C%20brand%20colors%2C%20high%20quality%20vector%20style" 
+                         alt="Aiqfome" 
+                         class="w-12 h-12 object-contain">
+                </div>
+            </div>
+
+            <!-- Benefícios da Integração -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Gestão Unificada</h3>
+                    <p class="text-varcom-gray">
+                        Gerencie todos os pedidos de delivery em uma única tela. Sem complicação, sem perda de pedidos.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Integração Automática</div>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Aumento de Vendas</h3>
+                    <p class="text-varcom-gray">
+                        Maximize seu alcance vendendo em múltiplas plataformas simultaneamente com gestão centralizada.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Multicanal</div>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Relatórios Unificados</h3>
+                    <p class="text-varcom-gray">
+                        Análise completa de performance em todas as plataformas com relatórios detalhados e insights.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Analytics Avançado</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gestão de Comandas com IA -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="keys/ai-command-management?prompt=Restaurant%20staff%20using%20tablet%20with%20AI%20interface%20for%20order%20management%2C%20digital%20command%20system%2C%20modern%20kitchen%20environment%2C%20professional%20food%20service%20technology" 
+                         alt="Gestão de Comandas com IA" 
+                         class="rounded-2xl shadow-lg w-full h-96 object-cover">
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        <span class="text-varcom-blue">IA Avançada</span> para Gestão de Comandas
+                    </h2>
+                    <p class="text-lg text-varcom-gray mb-8">
+                        Nossa Inteligência Artificial revoluciona o controle de comandas, otimizando o atendimento 
+                        e fornecendo insights valiosos para melhorar a experiência do cliente.
+                    </p>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <span class="ai-badge mr-3">IA</span>
+                                Análise Preditiva de Consumo
+                            </h4>
+                            <p class="text-sm text-varcom-gray">Prevê padrões de consumo e sugere estratégias para aumentar o ticket médio</p>
+                        </div>
+                        
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <span class="ai-badge mr-3">IA</span>
+                                Detecção Automática de Anomalias
+                            </h4>
+                            <p class="text-sm text-varcom-gray">Identifica possíveis fraudes ou inconsistências nas comandas automaticamente</p>
+                        </div>
+                        
+                        <div class="tech-card p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                                <span class="ai-badge mr-3">IA</span>
+                                Otimização de Atendimento
+                            </h4>
+                            <p class="text-sm text-varcom-gray">Sugere a melhor distribuição de mesas e garçons baseado em padrões históricos</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                            Testar IA Gratuita
+                        </button>
+                        <button class="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                            Ver IA em Ação
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados Food Service -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Resultados <span class="text-varcom-blue">Comprovados</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Impacto real na operação de restaurantes e bares</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">35%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Aumento Ticket Médio</h4>
+                    <p class="text-varcom-gray">
+                        Com IA para sugestões personalizadas
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">60%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Redução Tempo Fila</h4>
+                    <p class="text-varcom-gray">
+                        Com autoatendimento inteligente
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">80%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Melhoria Eficiência</h4>
+                    <p class="text-varcom-gray">
+                        Na gestão de pedidos e comandas
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">95%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Satisfação Cliente</h4>
+                    <p class="text-varcom-gray">
+                        Com experiência modernizada
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study -->
+            <div class="tech-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Caso de Sucesso - Rede de Hamburgueria</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Situação Anterior</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Filas enormes nos fins de semana</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Erro em comandas manuais</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Baixo ticket médio</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Gestão delivery complexa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Solução Implementada</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>6 totems de autoatendimento</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>IA para gestão de comandas</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Integração iFood e Uber Eats</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Dashboard unificado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Resultados</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>70% redução tempo de fila</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Zero erros em comandas</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>40% aumento ticket médio</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>150% crescimento delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                Pronto para <span class="text-varcom-blue">Modernizar</span> seu Restaurante?
+            </h2>
+            <p class="text-xl text-varcom-gray mb-12 max-w-3xl mx-auto">
+                Transforme a experiência dos seus clientes e otimize suas operações com tecnologia de ponta. 
+                Solicite uma demonstração personalizada das nossas soluções Food Service.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Solicitar Demonstração
+                </button>
+                <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Calcular ROI
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+</html>

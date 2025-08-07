@@ -1,278 +1,5 @@
-<!-- Script para carregar o Navbar insrir nas páginas -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre e Quem Somos - Varcom</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
-    
-    <!-- Estilos do Navbar -->
-    <style>
-        :root {
-            --varcom-blue: #2563eb;
-            --varcom-light: #3b82f6;
-        }
-
-        /* Classes de cores personalizadas */
-        .text-varcom-blue { color: var(--varcom-blue); }
-        .bg-varcom-blue { background-color: var(--varcom-blue); }
-        .bg-varcom-light { background-color: var(--varcom-light); }
-        .hover\:bg-varcom-light:hover { background-color: var(--varcom-light); }
-        .hover\:text-varcom-blue:hover { color: var(--varcom-blue); }
-        .border-varcom-blue { border-color: var(--varcom-blue); }
-        .hover\:border-varcom-blue:hover { border-color: var(--varcom-blue); }
-
-        /* Glassmorphism navbar */
-        .glass-navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        /* Font alternativa se não tiver Cocogoose */
-        .font-cocogoose {
-            font-family: 'Cocogoose', 'Arial Black', sans-serif;
-            font-weight: 900;
-        }
-
-        /* CTA Button */
-        .cta-button {
-            background-color: var(--varcom-blue);
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            background-color: var(--varcom-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Links hover effect */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--varcom-blue);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Dropdown animations */
-        .dropdown-menu {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .dropdown:hover .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-        .dropdown-arrow {
-            transition: transform 0.3s ease;
-        }
-
-        /* Submenu hover effects */
-        .submenu-item {
-            transition: all 0.3s ease;
-        }
-        .submenu-item:hover {
-            background-color: #f9fafb;
-            padding-left: 1.25rem;
-        }
-
-        /* Mobile menu styles */
-        .mobile-dropdown-content {
-            transition: max-height 0.3s ease;
-        }
-        .mobile-dropdown-arrow {
-            transition: transform 0.3s ease;
-        }
-        .mobile-dropdown-arrow.rotate-180 {
-            transform: rotate(180deg);
-        }
-
-        /* Mobile nav link hover */
-        .mobile-nav-link {
-            transition: all 0.3s ease;
-        }
-        .mobile-nav-link:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Estilos da página About */
-        .gradient-bg {
-            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
-        }
-        
-        /* ... resto dos estilos da página about ... */
-    </style>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                        'code': ['Fira Code', 'monospace'],
-                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
-                    },
-                    colors: {
-                        'varcom-blue': '#1E40AF',
-                        'varcom-light': '#3B82F6',
-                        'varcom-bg': '#F8FAFC',
-                        'varcom-gray': '#64748B'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="font-sans bg-white text-gray-800">
-
-    <!-- Container para o Navbar -->
-    <div id="navbar-container"></div>
-
-    <!-- Script para carregar o Navbar -->
-    <script>
-    // Função para carregar o navbar
-    function loadNavbar() {
-        fetch('components/navbar.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Navbar não encontrado');
-                }
-                return response.text();
-            })
-            .then(data => {
-                // Extrair apenas o conteúdo relevante do navbar
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, 'text/html');
-                
-                // Pegar o navbar e elementos relacionados
-                const navbar = doc.querySelector('nav.glass-navbar');
-                const mobileOverlay = doc.querySelector('.mobile-overlay');
-                const mobileMenu = doc.querySelector('.mobile-menu');
-                
-                // Inserir no container
-                if (navbar && mobileOverlay && mobileMenu) {
-                    document.getElementById('navbar-container').innerHTML = 
-                        navbar.outerHTML + 
-                        mobileOverlay.outerHTML + 
-                        mobileMenu.outerHTML;
-                    
-                    // Inicializar scripts do navbar
-                    initializeNavbarScripts();
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao carregar o navbar:', error);
-            });
-    }
-
-    // Função para inicializar os scripts do navbar
-    function initializeNavbarScripts() {
-        // Mobile menu elements
-        const mobileMenuBtn = document.querySelector('.mobile-menu-button');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileOverlay = document.querySelector('.mobile-overlay');
-        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
-        const hamburgerIcon = document.querySelector('.hamburger-icon');
-        const closeIcon = document.querySelector('.close-icon');
-        
-        // Toggle mobile menu
-        function toggleMenu() {
-            const isOpen = !mobileMenu.classList.contains('translate-x-full');
-            
-            if (isOpen) {
-                // Close menu
-                mobileMenu.classList.add('translate-x-full');
-                mobileOverlay.classList.add('opacity-0', 'invisible');
-                hamburgerIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-                document.body.style.overflow = '';
-            } else {
-                // Open menu
-                mobileMenu.classList.remove('translate-x-full');
-                mobileOverlay.classList.remove('opacity-0', 'invisible');
-                hamburgerIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        // Event listeners
-        mobileMenuBtn?.addEventListener('click', toggleMenu);
-        mobileCloseBtn?.addEventListener('click', toggleMenu);
-        mobileOverlay?.addEventListener('click', toggleMenu);
-        
-        // Mobile dropdown functionality
-        document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const arrow = this.querySelector('.mobile-dropdown-arrow');
-                const isOpen = !content.classList.contains('max-h-0');
-                
-                if (isOpen) {
-                    content.classList.add('max-h-0');
-                    content.classList.remove('max-h-96');
-                    arrow.classList.remove('rotate-180');
-                } else {
-                    content.classList.remove('max-h-0');
-                    content.classList.add('max-h-96');
-                    arrow.classList.add('rotate-180');
-                }
-            });
-        });
-        
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-content a').forEach(link => {
-            link.addEventListener('click', function() {
-                if (!mobileMenu.classList.contains('translate-x-full')) {
-                    toggleMenu();
-                }
-            });
-        });
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.glass-navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
-            }
-        });
-    }
-
-    // Carregar o navbar quando o DOM estiver pronto
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadNavbar);
-    } else {
-        loadNavbar();
-    }
-    </script>
-
-    <!-- ... fim do navbar ... -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -497,10 +224,10 @@
 
 
     <!-- Hero Section -->
-    <section class="relative py-20 overflow-hidden" style="padding-top: 100px;>
+    <section class="relative py-20 overflow-hidden">
         <div class="absolute inset-0">
-            <img src="assets/team-office.png?prompt=Modern%20technology%20office%20with%20developers%20working%20together%2C%20collaborative%20workspace%2C%20bright%20and%20professional%20environment%2C%20team%20meeting" 
-                 alt="" 
+            <img src="keys/team-office?prompt=Modern%20technology%20office%20with%20developers%20working%20together%2C%20collaborative%20workspace%2C%20bright%20and%20professional%20environment%2C%20team%20meeting" 
+                 alt="Equipe Varcom" 
                  class="w-full h-full object-cover">
             <div class="hero-overlay absolute inset-0"></div>
         </div>
@@ -748,7 +475,7 @@
                     <!-- CEO/Fundador -->
                     <div class="team-card">
                         <div class="relative">
-                            <img src="assets/ceo-profile.png?prompt=Professional%20CEO%20portrait%2C%20confident%20business%20leader%2C%20modern%20office%20background%2C%20tech%20executive%20style" 
+                            <img src="keys/ceo-profile?prompt=Professional%20CEO%20portrait%2C%20confident%20business%20leader%2C%20modern%20office%20background%2C%20tech%20executive%20style" 
                                  alt="CEO" 
                                  class="w-full h-64 object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -778,7 +505,7 @@
                     <!-- CTO -->
                     <div class="team-card">
                         <div class="relative">
-                            <img src="assets/cto-profile.png?prompt=Professional%20CTO%20portrait%2C%20technical%20leader%2C%20software%20architect%2C%20modern%20tech%20office%20background" 
+                            <img src="keys/cto-profile?prompt=Professional%20CTO%20portrait%2C%20technical%20leader%2C%20software%20architect%2C%20modern%20tech%20office%20background" 
                                  alt="CTO" 
                                  class="w-full h-64 object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -814,7 +541,7 @@
                     <!-- Desenvolvedor Senior -->
                     <div class="team-card">
                         <div class="relative">
-                            <img src="assets/dev-senior.png?prompt=Professional%20software%20developer%20portrait%2C%20senior%20engineer%2C%20coding%20workspace%20background" 
+                            <img src="keys/dev-senior?prompt=Professional%20software%20developer%20portrait%2C%20senior%20engineer%2C%20coding%20workspace%20background" 
                                  alt="Desenvolvedor Senior" 
                                  class="w-full h-48 object-cover">
                         </div>
@@ -836,7 +563,7 @@
                     <!-- UI/UX Designer -->
                     <div class="team-card">
                         <div class="relative">
-                            <img src="assets/designer-profile.png?prompt=Professional%20UI%2FUX%20designer%20portrait%2C%20creative%20workspace%2C%20design%20tools%20background" 
+                            <img src="keys/designer-profile?prompt=Professional%20UI%2FUX%20designer%20portrait%2C%20creative%20workspace%2C%20design%20tools%20background" 
                                  alt="Designer" 
                                  class="w-full h-48 object-cover">
                         </div>
@@ -858,7 +585,7 @@
                     <!-- DevOps -->
                     <div class="team-card">
                         <div class="relative">
-                            <img src="assets/devops-profile.png?prompt=Professional%20DevOps%20engineer%20portrait%2C%20infrastructure%20specialist%2C%20server%20room%20background" 
+                            <img src="keys/devops-profile?prompt=Professional%20DevOps%20engineer%20portrait%2C%20infrastructure%20specialist%2C%20server%20room%20background" 
                                  alt="DevOps" 
                                  class="w-full h-48 object-cover">
                         </div>
@@ -1054,102 +781,6 @@
         </div>
     </section>
 
-<!--Scripit para carregar o Footer da pasta components/footers-->
-    <div id="footer-container"></div>
-
-    <!-- Script para carregar o Footer -->
-    <script>
-    // Função para carregar o footer
-    function loadFooter() {
-        fetch('components/footer.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Footer não encontrado');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-                
-                // Reinicializar scripts do footer após carregamento
-                initializeFooterScripts();
-            })
-            .catch(error => {
-                console.error('Erro ao carregar o footer:', error);
-                // Fallback: mostrar mensagem de erro amigável
-                document.getElementById('footer-container').innerHTML = `
-                    <footer class="bg-gray-900 text-white py-8">
-                        <div class="container mx-auto px-6 text-center">
-                            <p class="text-gray-400">© 2024 Varcom. Todos os direitos reservados.</p>
-                        </div>
-                    </footer>
-                `;
-            });
-    }
-
-    // Função para inicializar scripts do footer
-    function initializeFooterScripts() {
-        // Animação de contadores
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stats-counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent);
-                const increment = target / 100;
-                let current = 0;
-                
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-                    }
-                };
-                
-                updateCounter();
-            });
-        }
-
-        // Observer para animação do footer
-        const footerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    footerObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        // Observar o footer quando carregado
-        const footerElement = document.querySelector('footer');
-        if (footerElement) {
-            footerObserver.observe(footerElement);
-        }
-
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = e.target.querySelector('input[type="email"]').value;
-                if (email) {
-                    alert('Obrigado por se inscrever! Em breve você receberá nossas novidades técnicas.');
-                    e.target.reset();
-                }
-            });
-        }
-    }
-
-    // Carregar o footer quando o DOM estiver pronto
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadFooter);
-    } else {
-        loadFooter();
-    }
-    </script>
-
 
 </body>
 </html>
-

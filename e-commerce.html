@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .process-step {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            font-size: 18px;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+        }
+        
+        .marketplace-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 16px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .marketplace-icon:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border-color: #3B82F6;
+        }
+        
+        .marketplace-icon img {
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.1));
+        }
+        
+        .integration-badge {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="keys/ecommerce-store?prompt=Modern%20e-commerce%20workspace%20with%20multiple%20screens%20showing%20online%20stores%2C%20shopping%20analytics%2C%20professional%20setup%2C%20clean%20office%20environment" 
+                 alt="E-commerce Moderno" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        🛒 E-commerce & Comércio Digital
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Soluções Completas para
+                    <span class="text-blue-300">Comércio Digital</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Especializados em desenvolver, implementar e gerenciar plataformas de e-commerce. 
+                    Oferecemos soluções completas para empresas que desejam vender online com máxima eficiência.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                        Ver Projetos E-commerce
+                    </button>
+                    <button class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Solicitar Orçamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossos Serviços E-commerce -->
+    <section id="solucoes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Serviços <span class="text-varcom-blue">E-commerce Completos</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Desenvolvemos, implementamos e gerenciamos sua presença digital com soluções personalizadas
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <!-- Desenvolvimento da Loja -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7H6l-1-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Desenvolvimento da Loja Virtual</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Criamos lojas virtuais modernas, responsivas e otimizadas para conversão. Design personalizado que reflete sua marca.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Design responsivo e moderno</li>
+                        <li>• Otimização para conversão</li>
+                        <li>• SEO integrado</li>
+                        <li>• Performance otimizada</li>
+                    </ul>
+                </div>
+
+                <!-- Pagamentos e Logística -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Pagamentos & Logística</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Integração com principais gateways de pagamento e soluções logísticas para uma operação fluida.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Múltiplos meios de pagamento</li>
+                        <li>• Integração com transportadoras</li>
+                        <li>• Cálculo de frete automático</li>
+                        <li>• Sistema antifraude</li>
+                    </ul>
+                </div>
+
+                <!-- Gestão de Estoque -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Gestão de Estoque</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Controle inteligente de estoque com sincronização em tempo real entre loja física e virtual.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Sincronização automática</li>
+                        <li>• Alertas de baixo estoque</li>
+                        <li>• Controle de variações</li>
+                        <li>• Relatórios detalhados</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Atendimento ao Cliente -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Atendimento ao Cliente</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Ferramentas de atendimento integradas para oferecer suporte excepcional aos seus clientes.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Chat online automático</li>
+                        <li>• Sistema de tickets</li>
+                        <li>• FAQ inteligente</li>
+                        <li>• WhatsApp Business integrado</li>
+                    </ul>
+                </div>
+
+                <!-- Marketing Digital -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Marketing Digital</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Estratégias completas de marketing digital para aumentar suas vendas e visibilidade online.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Email marketing automatizado</li>
+                        <li>• Campanhas Google Ads</li>
+                        <li>• Recuperação de carrinho</li>
+                        <li>• Analytics e conversão</li>
+                    </ul>
+                </div>
+
+                <!-- Integração Loja Física -->
+                <div class="tech-card p-8 rounded-xl">
+                    <div class="feature-icon mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Integração Loja Física</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Conectamos seu e-commerce com a loja física para uma operação omnichannel perfeita.
+                    </p>
+                    <ul class="space-y-2 text-sm text-varcom-gray">
+                        <li>• Estoque unificado</li>
+                        <li>• Vendas multicanal</li>
+                        <li>• Retirada na loja</li>
+                        <li>• CRM integrado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integração com Marketplaces -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Integração com <span class="text-varcom-blue">Principais Marketplaces</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Conectamos sua loja com os maiores marketplaces do Brasil para maximizar suas vendas
+                </p>
+            </div>
+
+            <!-- Grid de Marketplaces -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 mb-16">
+                <!-- Mercado Livre -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/mercadolivre-transparent?prompt=Mercado%20Livre%20official%20logo%20PNG%20with%20transparent%20background%2C%20yellow%20and%20blue%20brand%20colors%2C%20high%20quality%20vector%20style" 
+                         alt="Mercado Livre" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Americanas -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/americanas-transparent?prompt=Americanas%20official%20logo%20PNG%20with%20transparent%20background%2C%20red%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="Americanas" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Shopee -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/shopee-transparent?prompt=Shopee%20official%20logo%20PNG%20with%20transparent%20background%2C%20orange%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="Shopee" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Amazon -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/amazon-transparent?prompt=Amazon%20official%20logo%20PNG%20with%20transparent%20background%2C%20black%20text%20with%20orange%20smile%20arrow%2C%20high%20quality%20vector%20style" 
+                         alt="Amazon" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Magazine Luiza -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/magalu-transparent?prompt=Magazine%20Luiza%20Magalu%20official%20logo%20PNG%20with%20transparent%20background%2C%20blue%20brand%20color%2C%20high%20quality%20vector%20style" 
+                         alt="Magazine Luiza" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Dafiti -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/dafiti-transparent?prompt=Dafiti%20official%20logo%20PNG%20with%20transparent%20background%2C%20orange%20and%20black%20brand%20colors%2C%20high%20quality%20vector%20style" 
+                         alt="Dafiti" 
+                         class="w-14 h-14 object-contain">
+                </div>
+
+                <!-- Zattini -->
+                <div class="marketplace-icon mx-auto">
+                    <img src="keys/zattini-transparent?prompt=Zattini%20official%20logo%20PNG%20with%20transparent%20background%2C%20black%20and%20white%20brand%20colors%2C%20high%20quality%20vector%20style" 
+                         alt="Zattini" 
+                         class="w-14 h-14 object-contain">
+                </div>
+            </div>
+
+            <!-- Benefícios da Integração -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Alcance Ampliado</h3>
+                    <p class="text-varcom-gray">
+                        Expanda sua presença digital alcançando milhões de compradores nos principais marketplaces.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Integração Automática</div>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Sincronização Total</h3>
+                    <p class="text-varcom-gray">
+                        Estoque, preços e produtos sincronizados automaticamente em todos os canais de venda.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Tempo Real</div>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Gestão Centralizada</h3>
+                    <p class="text-varcom-gray">
+                        Gerencie todos os marketplaces através de uma única plataforma com relatórios unificados.
+                    </p>
+                    <div class="integration-badge mt-4 inline-block">Dashboard Único</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tecnologias E-commerce -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Tecnologias <span class="text-varcom-blue">E-commerce</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Utilizamos as melhores tecnologias para seu comércio digital</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8">Plataformas & Frameworks</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">🛒</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Magento / Adobe Commerce</div>
+                                <div class="text-varcom-gray">Plataforma robusta para grandes operações</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">🔧</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">WooCommerce / WordPress</div>
+                                <div class="text-varcom-gray">Flexibilidade e customização total</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">⚡</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">VTEX / Shopify</div>
+                                <div class="text-varcom-gray">SaaS moderno e escalável</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">💻</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Soluções Customizadas</div>
+                                <div class="text-varcom-gray">Desenvolvimento sob medida</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <img src="keys/ecommerce-platform?prompt=Modern%20e-commerce%20development%20workspace%20with%20code%20on%20multiple%20screens%2C%20shopping%20cart%20interfaces%2C%20professional%20developer%20environment" 
+                         alt="Plataformas E-commerce" 
+                         class="rounded-2xl shadow-lg w-full h-80 object-cover">
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="keys/ecommerce-integration?prompt=E-commerce%20integration%20dashboard%20showing%20multiple%20marketplace%20logos%2C%20payment%20gateways%2C%20shipping%20providers%2C%20analytics%20charts" 
+                         alt="Integrações E-commerce" 
+                         class="rounded-2xl shadow-lg w-full h-80 object-cover">
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8">Integrações & APIs</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">💳</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Gateways de Pagamento</div>
+                                <div class="text-varcom-gray">PagSeguro, Mercado Pago, PayPal</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">📦</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Transportadoras</div>
+                                <div class="text-varcom-gray">Correios, Jadlog, Total Express</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">🏪</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Marketplaces</div>
+                                <div class="text-varcom-gray">APIs nativas de integração</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-varcom-blue font-bold text-lg">📊</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">Analytics & BI</div>
+                                <div class="text-varcom-gray">Google Analytics, Facebook Pixel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo de Implementação E-commerce -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Processo de <span class="text-varcom-blue">Implementação</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Metodologia especializada para lançamento de e-commerce de sucesso
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="process-step">1</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Planejamento & Estratégia</h3>
+                    <p class="text-varcom-gray">
+                        Análise do mercado, definição de objetivos, escolha da plataforma e arquitetura da solução.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">2</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Desenvolvimento & Design</h3>
+                    <p class="text-varcom-gray">
+                        Criação do design, desenvolvimento da loja, integração de sistemas e testes de qualidade.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">3</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Integrações & Configuração</h3>
+                    <p class="text-varcom-gray">
+                        Integração com pagamentos, logística, marketplaces e configuração de todas as funcionalidades.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="process-step">4</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Lançamento & Otimização</h3>
+                    <p class="text-varcom-gray">
+                        Go-live da loja, treinamento da equipe, monitoramento e otimizações contínuas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados E-commerce -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Resultados <span class="text-varcom-blue">E-commerce</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Números que comprovam a eficácia das nossas soluções</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">150%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Aumento Vendas</h4>
+                    <p class="text-varcom-gray">
+                        Crescimento médio nas vendas após implementação
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">85%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Conversão</h4>
+                    <p class="text-varcom-gray">
+                        Melhoria na taxa de conversão das lojas
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">60%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Tempo Implementação</h4>
+                    <p class="text-varcom-gray">
+                        Redução no tempo de desenvolvimento
+                    </p>
+                </div>
+                
+                <div class="tech-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">98%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Uptime</h4>
+                    <p class="text-varcom-gray">
+                        Disponibilidade das lojas desenvolvidas
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study E-commerce -->
+            <div class="tech-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Caso de Sucesso - Loja de Moda Online</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Desafios Iniciais</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Loja desatualizada e lenta</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Baixa taxa de conversão</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Sem integração com marketplaces</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>Gestão manual do estoque</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Solução Implementada</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Nova loja responsiva</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Integração com 5 marketplaces</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Automação de marketing</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Gestão integrada de estoque</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Resultados</h4>
+                        <div class="space-y-3 text-varcom-gray">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>200% aumento nas vendas</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Conversão de 2,1% para 5,8%</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>ROI de 320% em 6 meses</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Presença em todos os canais</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                Pronto para <span class="text-varcom-blue">Vender Online</span>?
+            </h2>
+            <p class="text-xl text-varcom-gray mb-12 max-w-3xl mx-auto">
+                Transforme seu negócio com uma loja virtual profissional e integração completa com marketplaces. 
+                Vamos discutir sua estratégia de e-commerce.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Solicitar Proposta E-commerce
+                </button>
+                <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Ver Portfolio de Lojas
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+</html>

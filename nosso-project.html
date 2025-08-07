@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Projetos - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .project-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .project-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+        }
+        
+        .category-badge {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-completed {
+            background: #DCFCE7;
+            color: #166534;
+        }
+        
+        .status-development {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-planning {
+            background: #E0E7FF;
+            color: #3730A3;
+        }
+        
+        .tech-stack {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 500;
+            color: #64748B;
+        }
+        
+        .metric-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: #3B82F6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: -32px;
+            width: 2px;
+            background: #E2E8F0;
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #E2E8F0;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+        }
+        
+        .filter-tab {
+            background: white;
+            border: 2px solid #E2E8F0;
+            color: #64748B;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-tab.active,
+        .filter-tab:hover {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            color: white;
+            border-color: #3B82F6;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .floating-card {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+    </style>
+    <script>
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-item');
+            const tabs = document.querySelectorAll('.filter-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter projects
+            projects.forEach(project => {
+                if (category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    setTimeout(() => {
+                        project.style.opacity = '1';
+                        project.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    project.style.opacity = '0';
+                    project.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        project.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add transition styles to project items
+            const projects = document.querySelectorAll('.project-item');
+            projects.forEach(project => {
+                project.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+        });
+    </script>
+</head>
+<body class="font-sans bg-white text-gray-800">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="keys/portfolio-showcase?prompt=Modern%20tech%20workspace%20with%20multiple%20screens%20showing%20different%20projects%2C%20clean%20office%20environment%2C%20professional%20development%20setup%2C%20bright%20lighting" 
+                 alt="Portfolio Showcase" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        📂 Portfolio & Projetos
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Nossos <span class="text-blue-300">Projetos</span> e 
+                    Soluções Entregues
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Apresentamos aqui nosso portfólio completo de projetos tecnológicos para comércio digital e físico. 
+                    Soluções que transformaram estabelecimentos e otimizaram operações comerciais.
+                </p>
+                
+                <!-- Métricas de Destaque -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-2">500+</div>
+                        <div class="text-blue-200 text-sm">Projetos Entregues</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-2">300+</div>
+                        <div class="text-blue-200 text-sm">Clientes Ativos</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-2">85%</div>
+                        <div class="text-blue-200 text-sm">Melhoria Média</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-2">4</div>
+                        <div class="text-blue-200 text-sm">Segmentos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtros do Portfolio -->
+    <section class="py-12 bg-white border-b border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="filter-tab active" onclick="filterProjects('all')">
+                    Todos os Projetos
+                </button>
+                <button class="filter-tab" onclick="filterProjects('gestao')">
+                    🏪 Gestão & PDV
+                </button>
+                <button class="filter-tab" onclick="filterProjects('ecommerce')">
+                    🛒 E-commerce
+                </button>
+                <button class="filter-tab" onclick="filterProjects('food-service')">
+                    🍽️ Food Service
+                </button>
+                <button class="filter-tab" onclick="filterProjects('marketing')">
+                    📊 Marketing & CRM
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio de Projetos -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Portfolio <span class="text-varcom-blue">Completo</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Projetos desenvolvidos e implementados em diferentes segmentos comerciais
+                </p>
+            </div>
+
+            <div class="portfolio-grid">
+                <!-- Projeto 1: Sistema PDV Supermercado -->
+                <div class="project-card project-item rounded-xl p-6" data-category="gestao">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">Gestão & PDV</div>
+                        <div class="status-badge status-completed">Concluído</div>
+                    </div>
+                    
+                    <img src="keys/supermarket-pdv-project?prompt=Modern%20supermarket%20with%20tablet%20POS%20systems%20at%20checkout%2C%20customers%20being%20served%20quickly%2C%20clean%20organized%20environment%2C%20professional%20setup" 
+                         alt="Sistema PDV Supermercado" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        Sistema PDV - Rede de Supermercados
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        Implementação de 15 PDVs tablet em rede de supermercados, incluindo gestão de estoque em tempo real, 
+                        automação de processos e dashboard gerencial.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">75% redução no tempo de checkout</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Controle 100% automático de estoque</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Dashboard em tempo real</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">React Native</span>
+                        <span class="tech-stack">Node.js</span>
+                        <span class="tech-stack">PostgreSQL</span>
+                        <span class="tech-stack">Fiscal API</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Impacto:</div>
+                        <div class="text-sm text-varcom-gray">
+                            ROI de 280% em 8 meses • 15 unidades implementadas • 45% redução custos operacionais
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 2: E-commerce Moda -->
+                <div class="project-card project-item rounded-xl p-6" data-category="ecommerce">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">E-commerce</div>
+                        <div class="status-badge status-completed">Concluído</div>
+                    </div>
+                    
+                    <img src="keys/fashion-ecommerce-project?prompt=Modern%20fashion%20e-commerce%20website%20on%20laptop%20screen%2C%20clean%20product%20showcase%2C%20mobile%20responsive%20design%2C%20professional%20photography" 
+                         alt="E-commerce de Moda" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        E-commerce Premium - Moda Feminina
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        Desenvolvimento completo de loja virtual com integração a 5 marketplaces, 
+                        automação de marketing e gestão unificada de estoque.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">200% aumento nas vendas online</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Taxa de conversão: 5,8%</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Integração multicanal completa</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">WordPress</span>
+                        <span class="tech-stack">WooCommerce</span>
+                        <span class="tech-stack">API Marketplaces</span>
+                        <span class="tech-stack">Google Analytics</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Impacto:</div>
+                        <div class="text-sm text-varcom-gray">
+                            R$ 2.5M faturamento anual • 5 marketplaces integrados • 320% ROI em 6 meses
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 3: Food Service -->
+                <div class="project-card project-item rounded-xl p-6" data-category="food-service">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">Food Service</div>
+                        <div class="status-badge status-completed">Concluído</div>
+                    </div>
+                    
+                    <img src="keys/restaurant-ai-project?prompt=Modern%20fast%20food%20restaurant%20with%20self-service%20kiosks%2C%20customers%20using%20touchscreen%20to%20order%2C%20AI%20interface%2C%20efficient%20service" 
+                         alt="Sistema Food Service com IA" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        Autoatendimento + IA - Rede Hamburgueria
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        Implementação de 6 totems de autoatendimento com IA, gestão inteligente de comandas 
+                        e integração completa com iFood e Uber Eats.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">70% redução tempo de fila</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">40% aumento ticket médio</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">IA para sugestões personalizadas</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">React Touch</span>
+                        <span class="tech-stack">Machine Learning</span>
+                        <span class="tech-stack">iFood API</span>
+                        <span class="tech-stack">Real-time</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Impacto:</div>
+                        <div class="text-sm text-varcom-gray">
+                            6 unidades • 150% crescimento delivery • Zero erros em comandas
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 4: Sistema Integrado Farmácia -->
+                <div class="project-card project-item rounded-xl p-6" data-category="gestao">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">Gestão & PDV</div>
+                        <div class="status-badge status-completed">Concluído</div>
+                    </div>
+                    
+                    <img src="keys/pharmacy-system-project?prompt=Modern%20pharmacy%20interior%20with%20digital%20systems%2C%20tablet%20POS%2C%20organized%20shelves%2C%20professional%20service%2C%20clean%20environment" 
+                         alt="Sistema Farmácia" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        Sistema Integrado - Rede de Farmácias
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        PDV especializado para farmácias com controle de medicamentos controlados, 
+                        gestão de validade e integração com sistemas de convênios.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Conformidade 100% ANVISA</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Controle automático validade</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Integração 15 convênios</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">Angular</span>
+                        <span class="tech-stack">ANVISA API</span>
+                        <span class="tech-stack">Fiscal SAT</span>
+                        <span class="tech-stack">Convênios</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Impacto:</div>
+                        <div class="text-sm text-varcom-gray">
+                            12 farmácias • Zero multas ANVISA • 55% redução tempo atendimento
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 5: CRM Imobiliária -->
+                <div class="project-card project-item rounded-xl p-6" data-category="marketing">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">Marketing & CRM</div>
+                        <div class="status-badge status-development">Em Desenvolvimento</div>
+                    </div>
+                    
+                    <img src="keys/real-estate-crm-project?prompt=Modern%20real%20estate%20office%20with%20CRM%20system%20on%20screens%2C%20professional%20agents%20working%2C%20clean%20modern%20workspace" 
+                         alt="CRM Imobiliária" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        CRM Inteligente - Imobiliária Premium
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        Sistema CRM completo com automação de follow-up, gestão de leads, 
+                        pipeline de vendas e integração com WhatsApp Business.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Automação completa de follow-up</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">WhatsApp Business integrado</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Analytics avançado de vendas</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">Laravel</span>
+                        <span class="tech-stack">WhatsApp API</span>
+                        <span class="tech-stack">AI Chatbot</span>
+                        <span class="tech-stack">Analytics</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Previsão de Impacto:</div>
+                        <div class="text-sm text-varcom-gray">
+                            80% automação atendimento • 300% melhoria follow-up • Lançamento Q2 2024
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 6: E-commerce Marketplace -->
+                <div class="project-card project-item rounded-xl p-6" data-category="ecommerce">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="category-badge">E-commerce</div>
+                        <div class="status-badge status-development">Em Desenvolvimento</div>
+                    </div>
+                    
+                    <img src="keys/marketplace-platform-project?prompt=Multi-vendor%20marketplace%20platform%20interface%2C%20multiple%20stores%20displayed%2C%20modern%20e-commerce%20design%2C%20professional%20layout" 
+                         alt="Plataforma Marketplace" 
+                         class="project-image">
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                        Plataforma Marketplace - Multi-vendor
+                    </h3>
+                    
+                    <p class="text-varcom-gray mb-4 leading-relaxed">
+                        Marketplace completo para múltiplos vendedores com gestão de comissões, 
+                        sistema de reviews e dashboard para cada lojista.
+                    </p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Multi-vendor completo</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Gestão automática comissões</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm text-varcom-gray">Dashboard por vendedor</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-stack">Vue.js</span>
+                        <span class="tech-stack">Multi-tenant</span>
+                        <span class="tech-stack">Payment Gateway</span>
+                        <span class="tech-stack">Reviews System</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-900 mb-2">Previsão:</div>
+                        <div class="text-sm text-varcom-gray">
+                            100+ vendedores • Sistema comissões • Lançamento Q3 2024
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Casos de Sucesso Destacados -->
+    <section id="cases" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Casos de <span class="text-varcom-blue">Sucesso</span> Destacados
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Resultados reais que transformaram negócios e otimizaram operações
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <!-- Case 1 -->
+                <div class="metric-card">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">280%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">ROI em 8 Meses</h4>
+                    <p class="text-varcom-gray">
+                        Rede de supermercados com 15 PDVs implementados alcançou ROI de 280% 
+                        com redução de 75% no tempo de checkout.
+                    </p>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="metric-card">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7H6l-1-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">R$ 2.5M</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">Faturamento Anual</h4>
+                    <p class="text-varcom-gray">
+                        E-commerce de moda alcançou R$ 2.5M de faturamento anual com integração 
+                        a 5 marketplaces e taxa de conversão de 5,8%.
+                    </p>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="metric-card">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-varcom-blue mb-4">70%</h3>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4">Redução Tempo Fila</h4>
+                    <p class="text-varcom-gray">
+                        Rede de hamburgueria com autoatendimento IA reduziu 70% do tempo de fila 
+                        e aumentou 40% o ticket médio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study Completo -->
+            <div class="project-card p-8 rounded-xl relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="1"/>
+                        </pattern>
+                        <rect width="100" height="100" fill="url(#grid)" />
+                    </svg>
+                </div>
+                
+                <div class="relative">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">Case Completo: Transformação Digital Supermercado Regional</h3>
+                    
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <span class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    </svg>
+                                </span>
+                                Desafios Iniciais
+                            </h4>
+                            <div class="space-y-3 text-varcom-gray">
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2"></span>
+                                    <span>Filas de até 30 minutos nos horários de pico</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2"></span>
+                                    <span>Controle de estoque 100% manual e sujeito a erros</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2"></span>
+                                    <span>Relatórios financeiros demorados e imprecisos</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2"></span>
+                                    <span>Alta rotatividade de funcionários no checkout</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mt-2"></span>
+                                    <span>Perda de vendas por clientes desistindo da compra</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                </span>
+                                Solução Implementada
+                            </h4>
+                            <div class="space-y-3 text-varcom-gray">
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2"></span>
+                                    <span>15 PDVs tablet com interface touch otimizada</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2"></span>
+                                    <span>Sistema de gestão de estoque em tempo real</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2"></span>
+                                    <span>Dashboard gerencial com KPIs em tempo real</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2"></span>
+                                    <span>Treinamento completo para 45 funcionários</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mt-2"></span>
+                                    <span>Integração com sistemas fiscais e contábeis</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </span>
+                                Resultados Alcançados
+                            </h4>
+                            <div class="space-y-3 text-varcom-gray">
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
+                                    <span><strong>75% redução</strong> no tempo médio de checkout</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
+                                    <span><strong>100% automação</strong> do controle de estoque</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
+                                    <span><strong>Relatórios instantâneos</strong> 24/7 disponíveis</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
+                                    <span><strong>85% redução</strong> na rotatividade de funcionários</span>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
+                                    <span><strong>280% ROI</strong> em apenas 8 meses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline do Projeto -->
+                    <div class="mt-12 bg-gray-50 rounded-lg p-6">
+                        <h5 class="text-lg font-semibold text-gray-900 mb-6">Timeline de Implementação</h5>
+                        <div class="grid md:grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-varcom-blue rounded-xl flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-white font-bold">1</span>
+                                </div>
+                                <div class="text-sm font-semibold text-gray-900">Semana 1-2</div>
+                                <div class="text-xs text-varcom-gray mt-1">Análise e diagnóstico</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-varcom-blue rounded-xl flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-white font-bold">2</span>
+                                </div>
+                                <div class="text-sm font-semibold text-gray-900">Semana 3-6</div>
+                                <div class="text-xs text-varcom-gray mt-1">Desenvolvimento e customização</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-varcom-blue rounded-xl flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-white font-bold">3</span>
+                                </div>
+                                <div class="text-sm font-semibold text-gray-900">Semana 7-8</div>
+                                <div class="text-xs text-varcom-gray mt-1">Instalação e testes</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-varcom-blue rounded-xl flex items-center justify-center mx-auto mb-3">
+                                    <span class="text-white font-bold">4</span>
+                                </div>
+                                <div class="text-sm font-semibold text-gray-900">Semana 9-10</div>
+                                <div class="text-xs text-varcom-gray mt-1">Treinamento e go-live</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tecnologias Utilizadas -->
+    <section id="tecnologias" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Stack <span class="text-varcom-blue">Tecnológico</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Tecnologias e ferramentas utilizadas em nossos projetos
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8 mb-16">
+                <!-- Frontend -->
+                <div class="project-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Frontend</h3>
+                    <div class="space-y-2">
+                        <div class="tech-stack">React.js</div>
+                        <div class="tech-stack">Vue.js</div>
+                        <div class="tech-stack">Angular</div>
+                        <div class="tech-stack">React Native</div>
+                        <div class="tech-stack">TypeScript</div>
+                        <div class="tech-stack">Tailwind CSS</div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="project-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Backend</h3>
+                    <div class="space-y-2">
+                        <div class="tech-stack">Node.js</div>
+                        <div class="tech-stack">Laravel</div>
+                        <div class="tech-stack">Django</div>
+                        <div class="tech-stack">Express.js</div>
+                        <div class="tech-stack">FastAPI</div>
+                        <div class="tech-stack">GraphQL</div>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="project-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Database</h3>
+                    <div class="space-y-2">
+                        <div class="tech-stack">PostgreSQL</div>
+                        <div class="tech-stack">MySQL</div>
+                        <div class="tech-stack">MongoDB</div>
+                        <div class="tech-stack">Redis</div>
+                        <div class="tech-stack">Firebase</div>
+                        <div class="tech-stack">Elasticsearch</div>
+                    </div>
+                </div>
+
+                <!-- Integrations -->
+                <div class="project-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Integrações</h3>
+                    <div class="space-y-2">
+                        <div class="tech-stack">APIs REST</div>
+                        <div class="tech-stack">WebSocket</div>
+                        <div class="tech-stack">Payment Gateways</div>
+                        <div class="tech-stack">Marketplaces</div>
+                        <div class="tech-stack">WhatsApp Business</div>
+                        <div class="tech-stack">Fiscal APIs</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metodologias -->
+            <div class="project-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Metodologias e Processos</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-2">Metodologia Ágil</h4>
+                        <p class="text-varcom-gray text-sm">Scrum e Kanban para entregas rápidas e iterativas</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-2">CI/CD</h4>
+                        <p class="text-varcom-gray text-sm">Integração e deploy contínuo para máxima qualidade</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-varcom-blue to-varcom-light rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-900 mb-2">DevOps</h4>
+                        <p class="text-varcom-gray text-sm">Automação completa de infraestrutura e deploy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap de Projetos -->
+    <section id="timeline" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Roadmap de <span class="text-varcom-blue">Projetos</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Projetos em desenvolvimento e planejamentos futuros
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Q1 2024 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Q1 2024 - Concluído</h3>
+                            <div class="status-badge status-completed">Finalizado</div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">✅ Sistema PDV Avançado</h4>
+                                <p class="text-sm text-varcom-gray">15 supermercados implementados</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">✅ E-commerce Premium</h4>
+                                <p class="text-sm text-varcom-gray">Loja de moda com 5 marketplaces</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">✅ Food Service IA</h4>
+                                <p class="text-sm text-varcom-gray">6 totems autoatendimento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 2024 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Q2 2024 - Em Desenvolvimento</h3>
+                            <div class="status-badge status-development">80% Concluído</div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">🔄 CRM Imobiliária</h4>
+                                <p class="text-sm text-varcom-gray">Sistema completo com IA e WhatsApp</p>
+                                <div class="bg-gray-100 rounded-full h-2 mt-2">
+                                    <div class="bg-varcom-blue h-2 rounded-full w-4/5"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">🔄 App Mobile PDV</h4>
+                                <p class="text-sm text-varcom-gray">Versão mobile nativa do sistema</p>
+                                <div class="bg-gray-100 rounded-full h-2 mt-2">
+                                    <div class="bg-varcom-blue h-2 rounded-full w-3/5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 2024 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Q3 2024 - Planejado</h3>
+                            <div class="status-badge status-planning">Em Planejamento</div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">📋 Marketplace Multi-vendor</h4>
+                                <p class="text-sm text-varcom-gray">Plataforma completa para múltiplos vendedores</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">📋 BI Analytics Avançado</h4>
+                                <p class="text-sm text-varcom-gray">Business Intelligence com Machine Learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 2024 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="project-card p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Q4 2024 - Futuro</h3>
+                            <div class="status-badge status-planning">Conceito</div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">🚀 IA Predictive Commerce</h4>
+                                <p class="text-sm text-varcom-gray">Predição de demanda com IA avançada</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">🚀 Blockchain Integration</h4>
+                                <p class="text-sm text-varcom-gray">Rastreabilidade e pagamentos crypto</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas Gerais -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Números do <span class="text-varcom-blue">Portfolio</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Impacto real em números</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">500+</div>
+                    <div class="text-gray-900 font-semibold mb-1">Projetos Entregues</div>
+                    <div class="text-sm text-varcom-gray">Desde 2020</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">300+</div>
+                    <div class="text-gray-900 font-semibold mb-1">Clientes Ativos</div>
+                    <div class="text-sm text-varcom-gray">Em 12 estados</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">98%</div>
+                    <div class="text-gray-900 font-semibold mb-1">Taxa de Satisfação</div>
+                    <div class="text-sm text-varcom-gray">NPS de 87</div>
+                </div>
+                <div class="metric-card">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">24/7</div>
+                    <div class="text-gray-900 font-semibold mb-1">Suporte Técnico</div>
+                    <div class="text-sm text-varcom-gray">SLA de 4h</div>
+                </div>
+            </div>
+
+            <!-- Distribuição por Segmento -->
+            <div class="project-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Distribuição de Projetos por Segmento</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 18 33.9155 A 15.9155 15.9155 0 0 1 2 18 A 15.9155 15.9155 0 0 1 18 2.0845 Z" fill="none" stroke="#E2E8F0" stroke-width="3"/>
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 24 33" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="45, 100"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold text-varcom-blue">45%</span>
+                            </div>
+                        </div>
+                        <div class="font-semibold text-gray-900">Gestão & PDV</div>
+                        <div class="text-sm text-varcom-gray">225 projetos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 18 33.9155 A 15.9155 15.9155 0 0 1 2 18 A 15.9155 15.9155 0 0 1 18 2.0845 Z" fill="none" stroke="#E2E8F0" stroke-width="3"/>
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 18 33.9155" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="30, 100"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold text-emerald-600">30%</span>
+                            </div>
+                        </div>
+                        <div class="font-semibold text-gray-900">E-commerce</div>
+                        <div class="text-sm text-varcom-gray">150 projetos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 18 33.9155 A 15.9155 15.9155 0 0 1 2 18 A 15.9155 15.9155 0 0 1 18 2.0845 Z" fill="none" stroke="#E2E8F0" stroke-width="3"/>
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 28 6" fill="none" stroke="#F59E0B" stroke-width="3" stroke-dasharray="15, 100"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold text-amber-600">15%</span>
+                            </div>
+                        </div>
+                        <div class="font-semibold text-gray-900">Food Service</div>
+                        <div class="text-sm text-varcom-gray">75 projetos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 34 18 A 15.9155 15.9155 0 0 1 18 33.9155 A 15.9155 15.9155 0 0 1 2 18 A 15.9155 15.9155 0 0 1 18 2.0845 Z" fill="none" stroke="#E2E8F0" stroke-width="3"/>
+                                <path d="M18 2.0845 A 15.9155 15.9155 0 0 1 22 2.5" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-dasharray="10, 100"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold text-purple-600">10%</span>
+                            </div>
+                        </div>
+                        <div class="font-semibold text-gray-900">Marketing & CRM</div>
+                        <div class="text-sm text-varcom-gray">50 projetos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                Pronto para ser o <span class="text-varcom-blue">Próximo Projeto</span>?
+            </h2>
+            <p class="text-xl text-varcom-gray mb-12 max-w-3xl mx-auto">
+                Junte-se aos mais de 300 clientes que já transformaram seus negócios com nossas soluções tecnológicas. 
+                Vamos discutir como podemos otimizar suas operações e aumentar seus resultados.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Solicitar Projeto Personalizado
+                </button>
+                <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                    Agendar Apresentação
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+</html>
