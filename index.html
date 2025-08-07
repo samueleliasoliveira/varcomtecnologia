@@ -1679,5 +1679,143 @@
         });
     </script>
 
+   <!-- Navbar JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // JavaScript para o menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inicializando menu mobile...');
+            
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const closeIcon = document.querySelector('.close-icon');
+            
+            console.log('Elementos encontrados:', {
+                button: !!mobileMenuButton,
+                menu: !!mobileMenu,
+                overlay: !!mobileOverlay,
+                hamburger: !!hamburgerIcon,
+                close: !!closeIcon
+            });
+            
+            if (!mobileMenuButton || !mobileMenu) {
+                console.error('Elementos essenciais não encontrados!');
+                return;
+            }
+            
+            // Função para alternar o menu
+            function toggleMenu() {
+                console.log('Alternando menu...');
+                const isActive = mobileMenu.classList.contains('active');
+                
+                if (isActive) {
+                    // Fechar
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    console.log('Menu fechado');
+                } else {
+                    // Abrir
+                    mobileMenu.classList.add('active');
+                    if (mobileOverlay) mobileOverlay.classList.add('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+                    if (closeIcon) closeIcon.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    console.log('Menu aberto');
+                }
+            }
+            
+            // Event listener principal
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Botão clicado!');
+                toggleMenu();
+            });
+            
+            // Fechar ao clicar no overlay
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function() {
+                    console.log('Overlay clicado - fechando menu');
+                    toggleMenu();
+                });
+            }
+            
+            // Botão fechar do menu mobile
+            const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', function() {
+                    console.log('Botão fechar clicado');
+                    toggleMenu();
+                });
+            }
+            
+            // Fechar ao clicar nos links
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log('Link clicado - fechando menu');
+                    setTimeout(toggleMenu, 100);
+                });
+            });
+            
+            // Dropdown mobile
+            const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+            dropdownBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Dropdown clicado');
+                    
+                    const content = this.parentElement.querySelector('.mobile-dropdown-content');
+                    const arrow = this.querySelector('.mobile-dropdown-arrow');
+                    
+                    if (content) {
+                        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        if (isOpen) {
+                            content.style.maxHeight = '0px';
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            if (arrow) arrow.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+            });
+            
+            // Fechar menu ao redimensionar para desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            console.log('Menu mobile inicializado com sucesso!');
+        });
+        
+        // Smooth scroll para links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
