@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Soluções - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .solution-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+        }
+        
+        .icon-wrapper {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #10B981;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="assets/solutions-tech.jpeg?prompt=Modern%20technology%20solutions%20workspace%2C%20multiple%20screens%20with%20different%20software%20interfaces%2C%20professional%20office%20environment%2C%20innovation%20and%20digital%20transformation" 
+                 alt="Nossas Soluções" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        🚀 Soluções Tecnológicas
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                    Transforme seu Negócio com
+                    <span class="text-blue-300">Nossas Soluções</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Oferecemos soluções completas de tecnologia para estabelecimentos comerciais. 
+                    Do PDV ao e-commerce, da gestão ao marketing digital - tudo integrado e sob medida para seu sucesso.
+                </p>
+                
+                <button onclick="document.getElementById('solucoes').scrollIntoView({behavior: 'smooth'})" 
+                        class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                    Conhecer Soluções
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossas Soluções -->
+    <section id="solucoes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nossas <span class="text-varcom-blue">Soluções</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Soluções integradas para otimizar e automatizar todas as operações do seu estabelecimento
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                <!-- Gestão e Operação -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Gestão e Operação</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Sistemas PDV modernos, automação de processos e gestão comercial completa para otimizar suas operações diárias.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">💻 Sistemas PDV</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>PDV em tablets touch responsivos</li>
+                                <li>Computadores com impressoras fiscais</li>
+                                <li>Checkout 70% mais rápido</li>
+                                <li>Múltiplas formas de pagamento</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">⚙️ Automação Completa</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Controle automático de estoque</li>
+                                <li>Emissão de notas fiscais</li>
+                                <li>Gestão financeira integrada</li>
+                                <li>Relatórios inteligentes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+
+                <!-- E-commerce -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7H6l-1-7z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">E-commerce Completo</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Lojas virtuais profissionais com integração total aos principais marketplaces para maximizar suas vendas online.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🛒 Loja Virtual</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Design responsivo e moderno</li>
+                                <li>Otimização para conversão</li>
+                                <li>SEO e performance otimizados</li>
+                                <li>Múltiplos meios de pagamento</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🏪 Integração Marketplaces</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Mercado Livre, Shopee, Amazon</li>
+                                <li>Sincronização automática</li>
+                                <li>Gestão centralizada</li>
+                                <li>Estoque unificado</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Marketing e CRM -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Marketing e CRM</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Estratégias de marketing digital e gestão de relacionamento com clientes para aumentar vendas e fidelização.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">📊 CRM Avançado</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Gestão completa de clientes</li>
+                                <li>Histórico de compras e preferências</li>
+                                <li>Segmentação automática</li>
+                                <li>Follow-up automatizado</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">📧 Marketing Digital</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Email marketing automatizado</li>
+                                <li>Campanhas personalizadas</li>
+                                <li>WhatsApp Business integrado</li>
+                                <li>Analytics e métricas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+
+                <!-- Food Service -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Food Service Especializado</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Soluções específicas para bares, restaurantes e delivery, incluindo integração completa com iFood e Uber Eats.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🍕 Gestão de Restaurante</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Cardápio digital inteligente</li>
+                                <li>Controle de comandas</li>
+                                <li>Gestão de mesas e reservas</li>
+                                <li>Relatórios específicos do setor</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🚚 Delivery Integrado</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Integração iFood e Uber Eats</li>
+                                <li>Gestão unificada de pedidos</li>
+                                <li>Cardápio sincronizado</li>
+                                <li>Controle de tempo e qualidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Por que escolher a <span class="text-varcom-blue">Varcom?</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Nosso diferencial está na integração completa e suporte especializado</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Implementação Rápida</h3>
+                    <p class="text-varcom-gray">Sua solução funcionando em até 48 horas com nossa metodologia especializada</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Integração Total</h3>
+                    <p class="text-varcom-gray">Todas as soluções funcionam integradas, compartilhando dados em tempo real</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Suporte Especializado</h3>
+                    <p class="text-varcom-gray">Equipe técnica especializada em soluções comerciais disponível 24/7</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Garantia Total</h3>
+                    <p class="text-varcom-gray">12 meses de garantia, treinamento incluído e satisfação assegurada</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    <span class="text-varcom-blue">Resultados</span> Comprovados
+                </h2>
+                <p class="text-xl text-varcom-gray">Números que demonstram o impacto das nossas soluções</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">500+</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Projetos Entregues</div>
+                    <div class="text-varcom-gray">Soluções implementadas com sucesso</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">150%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Aumento Médio Vendas</div>
+                    <div class="text-varcom-gray">Crescimento após implementação</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">70%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Redução Tempo</div>
+                    <div class="text-varcom-gray">Otimização de processos</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">98%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Satisfação</div>
+                    <div class="text-varcom-gray">Clientes satisfeitos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    Pronto para <span class="text-varcom-blue">Transformar</span> seu Negócio?
+                </h2>
+                <p class="text-xl text-varcom-gray mb-12">
+                    Solicite uma consultoria gratuita e descubra como nossas soluções podem revolucionar sua operação
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Solicitar Consultoria Gratuita
+                    </button>
+                    <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Ver Casos de Sucesso
+                    </button>
+                </div>
+                
+                <div class="mt-8 text-sm text-varcom-gray">
+                    ✅ Consultoria gratuita • ✅ Proposta em 48h • ✅ Sem compromisso
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
