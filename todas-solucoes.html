@@ -1,0 +1,1420 @@
+<!-- Script para carregar o Navbar insrir nas páginas -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!--Inicio Navbar-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre e Quem Somos - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos do Navbar -->
+    <style>
+        :root {
+            --varcom-blue: #2563eb;
+            --varcom-light: #3b82f6;
+        }
+
+        /* Classes de cores personalizadas */
+        .text-varcom-blue { color: var(--varcom-blue); }
+        .bg-varcom-blue { background-color: var(--varcom-blue); }
+        .bg-varcom-light { background-color: var(--varcom-light); }
+        .hover\:bg-varcom-light:hover { background-color: var(--varcom-light); }
+        .hover\:text-varcom-blue:hover { color: var(--varcom-blue); }
+        .border-varcom-blue { border-color: var(--varcom-blue); }
+        .hover\:border-varcom-blue:hover { border-color: var(--varcom-blue); }
+
+        /* Glassmorphism navbar */
+        .glass-navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Font alternativa se não tiver Cocogoose */
+        .font-cocogoose {
+            font-family: 'Cocogoose', 'Arial Black', sans-serif;
+            font-weight: 900;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background-color: var(--varcom-blue);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: var(--varcom-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Links hover effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--varcom-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown animations */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        /* Submenu hover effects */
+        .submenu-item {
+            transition: all 0.3s ease;
+        }
+        .submenu-item:hover {
+            background-color: #f9fafb;
+            padding-left: 1.25rem;
+        }
+
+        /* Mobile menu styles */
+        .mobile-dropdown-content {
+            transition: max-height 0.3s ease;
+        }
+        .mobile-dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        .mobile-dropdown-arrow.rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile nav link hover */
+        .mobile-nav-link {
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos da página About */
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        /* ... resto dos estilos da página about ... */
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+    <!-- Container para o Navbar -->
+    <!-- Navbar Global -->
+<nav class="glass-navbar fixed top-0 left-0 right-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="/" class="logo-container flex items-center space-x-3">
+                    <div class="w-10 h-10 flex items-center justify-center">
+                        <img src="https://raw.githubusercontent.com/samueleliasoliveira/Varcom_site/refs/heads/main/assets/img/xsKujnagrgdhTduJpwj66.png" 
+                             alt="Varcom Logo" 
+                             class="w-10 h-10 object-contain" 
+                             loading="eager">
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-2xl font-cocogoose font-bold text-varcom-blue lowercase tracking-tight">varcom</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8">
+                    <!-- Início -->
+                    <a href="/" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Início
+                    </a>
+
+                    <!-- Sobre -->
+                    <a href="/sobre" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Sobre
+                    </a>
+
+                    <!-- Soluções (Dropdown) -->
+                    <div class="dropdown relative">
+                        <button class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium flex items-center">
+                            Soluções
+                            <svg class="dropdown-arrow ml-1 w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu absolute left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-2">
+                            <div class="px-4 py-3 border-b border-gray-100">
+                                <h3 class="text-sm font-semibold text-gray-900">Nossas Soluções</h3>
+                                <p class="text-xs text-gray-500">Escolha a solução ideal para seu negócio</p>
+                            </div>
+
+                            <a href="/gestao-operacao" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h-9m9 0V21m-9-3v3" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Gestão e Operação</div>
+                                        <div class="text-xs text-gray-500">PDV, automação e gestão comercial</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/e-commerce" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">E-commerce</div>
+                                        <div class="text-xs text-gray-500">Lojas virtuais e marketplaces</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/marketing-relacionamento" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Marketing e Relacionamento</div>
+                                        <div class="text-xs text-gray-500">CRM e automação de marketing</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/food-service" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Bares, Restaurantes e iFood</div>
+                                        <div class="text-xs text-gray-500">Gestão completa para food service</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="border-t border-gray-100 mt-2 pt-2">
+                                <a href="#todas-solucoes" class="submenu-item block px-4 py-2 text-sm font-medium text-varcom-blue">
+                                    Ver todas as soluções →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contato -->
+                    <a href="/contato" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Contato
+                    </a>
+                </div>
+            </div>
+
+            <!-- CTA Button e Mobile Menu -->
+            <div class="flex items-center space-x-4">
+                <!-- CTA Button -->
+                <a href="/solicita-orcamento" class="hidden lg:block cta-button text-white px-6 py-2 rounded-lg text-sm font-semibold">
+                    Solicitar Consultoria
+                </a>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" 
+                            class="mobile-menu-button text-gray-700 hover:text-varcom-blue focus:outline-none focus:text-varcom-blue transition-colors"
+                            aria-controls="mobile-menu" 
+                            aria-expanded="false">
+                        <span class="sr-only">Abrir menu principal</span>
+                        <!-- Hamburguer Icon -->
+                        <svg class="hamburger-icon block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <!-- Close Icon -->
+                        <svg class="close-icon hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-[60] opacity-0 invisible transition-all duration-300"></div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu fixed top-0 right-0 bottom-0 w-80 bg-white shadow-2xl z-[70] md:hidden transform translate-x-full transition-transform duration-300">
+    <div class="h-full overflow-y-auto">
+        <div class="p-6">
+            <!-- Mobile Header com botão fechar -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 flex items-center justify-center">
+                        <img src="https://raw.githubusercontent.com/samueleliasoliveira/Varcom_site/refs/heads/main/assets/img/xsKujnagrgdhTduJpwj66.png" alt="Varcom Logo" class="w-10 h-10 object-contain">
+                    </div>
+                    <div>
+                        <div class="text-2xl font-cocogoose font-bold text-varcom-blue lowercase tracking-tight">varcom</div>
+                    </div>
+                </div>
+
+                <!-- Botão Fechar -->
+                <button class="mobile-close-btn p-2 text-gray-400 hover:text-varcom-blue transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="space-y-2">
+                <a href="/" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                    <span>Início</span>
+                </a>
+
+                <a href="/sobre" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                    </svg>
+                    <span>Sobre</span>
+                </a>
+
+                <!-- Mobile Soluções -->
+                <div class="mobile-dropdown bg-white rounded-xl shadow-sm border border-gray-100">
+                    <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-4 text-lg font-medium text-gray-800">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                            </svg>
+                            <span>Soluções</span>
+                        </div>
+                        <svg class="mobile-dropdown-arrow w-4 h-4 transition-transform duration-200 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+
+                    <div class="mobile-dropdown-content px-4 pb-4 space-y-2 max-h-0 overflow-hidden transition-all duration-300">
+                        <a href="/gestao-operacao" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h-9m9 0V21m-9-3v3" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Gestão e Operação</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">PDV e automação comercial</div>
+                        </a>
+                        <a href="/e-commerce" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">E-commerce</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">Lojas virtuais e marketplaces</div>
+                        </a>
+                        <a href="/marketing-relacionamento" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Marketing e Relacionamento</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">CRM e automação</div>
+                        </a>
+                        <a href="/food-service" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Bares, Restaurantes e iFood</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">Gestão para food service</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="/contato" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <span>Contato</span>
+                </a>
+
+                <!-- CTA Mobile -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <a href="/solicita-orcamento" class="block w-full text-center bg-varcom-blue hover:bg-varcom-light text-white px-6 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg">
+                        Solicitar Consultoria
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu elements
+    const mobileMenuBtn = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    const closeIcon = document.querySelector('.close-icon');
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+        
+        if (isOpen) {
+            // Close menu
+            mobileMenu.classList.add('translate-x-full');
+            mobileOverlay.classList.add('opacity-0', 'invisible');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+        } else {
+            // Open menu
+            mobileMenu.classList.remove('translate-x-full');
+            mobileOverlay.classList.remove('opacity-0', 'invisible');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // Event listeners
+    mobileMenuBtn?.addEventListener('click', toggleMenu);
+    mobileCloseBtn?.addEventListener('click', toggleMenu);
+    mobileOverlay?.addEventListener('click', toggleMenu);
+    
+    // Mobile dropdown functionality
+    document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const arrow = this.querySelector('.mobile-dropdown-arrow');
+            const isOpen = !content.classList.contains('max-h-0');
+            
+            if (isOpen) {
+                content.classList.add('max-h-0');
+                content.classList.remove('max-h-96');
+                arrow.classList.remove('rotate-180');
+            } else {
+                content.classList.remove('max-h-0');
+                content.classList.add('max-h-96');
+                arrow.classList.add('rotate-180');
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-content a').forEach(link => {
+        link.addEventListener('click', function() {
+            if (!mobileMenu.classList.contains('translate-x-full')) {
+                toggleMenu();
+            }
+        });
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.glass-navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('shadow-lg');
+        } else {
+            navbar.classList.remove('shadow-lg');
+        }
+    });
+});
+</script>
+
+    <!-- Script para carregar o Navbar -->
+    <script>
+    // Função para carregar o navbar
+    function loadNavbar() {
+        fetch('components/navbar.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Navbar não encontrado');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Extrair apenas o conteúdo relevante do navbar
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                
+                // Pegar o navbar e elementos relacionados
+                const navbar = doc.querySelector('nav.glass-navbar');
+                const mobileOverlay = doc.querySelector('.mobile-overlay');
+                const mobileMenu = doc.querySelector('.mobile-menu');
+                
+                // Inserir no container
+                if (navbar && mobileOverlay && mobileMenu) {
+                    document.getElementById('navbar-container').innerHTML = 
+                        navbar.outerHTML + 
+                        mobileOverlay.outerHTML + 
+                        mobileMenu.outerHTML;
+                    
+                    // Inicializar scripts do navbar
+                    initializeNavbarScripts();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o navbar:', error);
+            });
+    }
+
+    // Função para inicializar os scripts do navbar
+    function initializeNavbarScripts() {
+        // Mobile menu elements
+        const mobileMenuBtn = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            const isOpen = !mobileMenu.classList.contains('translate-x-full');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('opacity-0', 'invisible');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('opacity-0', 'invisible');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Event listeners
+        mobileMenuBtn?.addEventListener('click', toggleMenu);
+        mobileCloseBtn?.addEventListener('click', toggleMenu);
+        mobileOverlay?.addEventListener('click', toggleMenu);
+        
+        // Mobile dropdown functionality
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const arrow = this.querySelector('.mobile-dropdown-arrow');
+                const isOpen = !content.classList.contains('max-h-0');
+                
+                if (isOpen) {
+                    content.classList.add('max-h-0');
+                    content.classList.remove('max-h-96');
+                    arrow.classList.remove('rotate-180');
+                } else {
+                    content.classList.remove('max-h-0');
+                    content.classList.add('max-h-96');
+                    arrow.classList.add('rotate-180');
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-content a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (!mobileMenu.classList.contains('translate-x-full')) {
+                    toggleMenu();
+                }
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.glass-navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    }
+
+    // Carregar o navbar quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', () => {
+        loadNavbar();
+    });
+    }
+    </script>
+</body>
+
+<!-- Fim Navbar Topo -->
+
+    <!-- Navbar JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // JavaScript para o menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inicializando menu mobile...');
+            
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const closeIcon = document.querySelector('.close-icon');
+            
+            console.log('Elementos encontrados:', {
+                button: !!mobileMenuButton,
+                menu: !!mobileMenu,
+                overlay: !!mobileOverlay,
+                hamburger: !!hamburgerIcon,
+                close: !!closeIcon
+            });
+            
+            if (!mobileMenuButton || !mobileMenu) {
+                console.error('Elementos essenciais não encontrados!');
+                return;
+            }
+            
+            // Função para alternar o menu
+            function toggleMenu() {
+                console.log('Alternando menu...');
+                const isActive = mobileMenu.classList.contains('active');
+                
+                if (isActive) {
+                    // Fechar
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    console.log('Menu fechado');
+                } else {
+                    // Abrir
+                    mobileMenu.classList.add('active');
+                    if (mobileOverlay) mobileOverlay.classList.add('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+                    if (closeIcon) closeIcon.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    console.log('Menu aberto');
+                }
+            }
+            
+            // Event listener principal
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Botão clicado!');
+                toggleMenu();
+            });
+            
+            // Fechar ao clicar no overlay
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function() {
+                    console.log('Overlay clicado - fechando menu');
+                    toggleMenu();
+                });
+            }
+            
+            // Botão fechar do menu mobile
+            const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', function() {
+                    console.log('Botão fechar clicado');
+                    toggleMenu();
+                });
+            }
+            
+            // Fechar ao clicar nos links
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log('Link clicado - fechando menu');
+                    setTimeout(toggleMenu, 100);
+                });
+            });
+            
+            // Dropdown mobile
+            const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+            dropdownBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Dropdown clicado');
+                    
+                    const content = this.parentElement.querySelector('.mobile-dropdown-content');
+                    const arrow = this.querySelector('.mobile-dropdown-arrow');
+                    
+                    if (content) {
+                        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        if (isOpen) {
+                            content.style.maxHeight = '0px';
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            if (arrow) arrow.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+            });
+            
+            // Fechar menu ao redimensionar para desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            console.log('Menu mobile inicializado com sucesso!');
+        });
+        
+        // Smooth scroll para links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+<!--Fim navbar -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Soluções - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .solution-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+        }
+        
+        .icon-wrapper {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #10B981;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="assets/solutions-tech.jpeg?prompt=Modern%20technology%20solutions%20workspace%2C%20multiple%20screens%20with%20different%20software%20interfaces%2C%20professional%20office%20environment%2C%20innovation%20and%20digital%20transformation" 
+                 alt="Nossas Soluções" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="mb-6">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                        🚀 Soluções Tecnológicas
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                    Transforme seu Negócio com
+                    <span class="text-blue-300">Nossas Soluções</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-3xl mx-auto opacity-90">
+                    Oferecemos soluções completas de tecnologia para estabelecimentos comerciais. 
+                    Do PDV ao e-commerce, da gestão ao marketing digital - tudo integrado e sob medida para seu sucesso.
+                </p>
+                
+                <button onclick="document.getElementById('solucoes').scrollIntoView({behavior: 'smooth'})" 
+                        class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                    Conhecer Soluções
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossas Soluções -->
+    <section id="solucoes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nossas <span class="text-varcom-blue">Soluções</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Soluções integradas para otimizar e automatizar todas as operações do seu estabelecimento
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                <!-- Gestão e Operação -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Gestão e Operação</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Sistemas PDV modernos, automação de processos e gestão comercial completa para otimizar suas operações diárias.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">💻 Sistemas PDV</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>PDV em tablets touch responsivos</li>
+                                <li>Computadores com impressoras fiscais</li>
+                                <li>Checkout 70% mais rápido</li>
+                                <li>Múltiplas formas de pagamento</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">⚙️ Automação Completa</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Controle automático de estoque</li>
+                                <li>Emissão de notas fiscais</li>
+                                <li>Gestão financeira integrada</li>
+                                <li>Relatórios inteligentes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+
+                <!-- E-commerce -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7H6l-1-7z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">E-commerce Completo</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Lojas virtuais profissionais com integração total aos principais marketplaces para maximizar suas vendas online.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🛒 Loja Virtual</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Design responsivo e moderno</li>
+                                <li>Otimização para conversão</li>
+                                <li>SEO e performance otimizados</li>
+                                <li>Múltiplos meios de pagamento</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🏪 Integração Marketplaces</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Mercado Livre, Shopee, Amazon</li>
+                                <li>Sincronização automática</li>
+                                <li>Gestão centralizada</li>
+                                <li>Estoque unificado</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Marketing e CRM -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Marketing e CRM</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Estratégias de marketing digital e gestão de relacionamento com clientes para aumentar vendas e fidelização.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">📊 CRM Avançado</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Gestão completa de clientes</li>
+                                <li>Histórico de compras e preferências</li>
+                                <li>Segmentação automática</li>
+                                <li>Follow-up automatizado</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">📧 Marketing Digital</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Email marketing automatizado</li>
+                                <li>Campanhas personalizadas</li>
+                                <li>WhatsApp Business integrado</li>
+                                <li>Analytics e métricas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+
+                <!-- Food Service -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Food Service Especializado</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Soluções específicas para bares, restaurantes e delivery, incluindo integração completa com iFood e Uber Eats.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🍕 Gestão de Restaurante</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Cardápio digital inteligente</li>
+                                <li>Controle de comandas</li>
+                                <li>Gestão de mesas e reservas</li>
+                                <li>Relatórios específicos do setor</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🚚 Delivery Integrado</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Integração iFood e Uber Eats</li>
+                                <li>Gestão unificada de pedidos</li>
+                                <li>Cardápio sincronizado</li>
+                                <li>Controle de tempo e qualidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+
+                <!-- Eventos Corporativos -->
+                <div class="solution-card p-8 rounded-xl">
+                    <div class="icon-wrapper">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Eventos Corporativos</h3>
+                    <p class="text-varcom-gray mb-6 text-center">
+                        Tecnologia completa para eventos de qualquer porte. Da frente de caixa à infraestrutura, cuidamos de toda a tecnologia.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">💳 Sistemas de Pagamento</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>PDV móvel para eventos</li>
+                                <li>Processamento instantâneo</li>
+                                <li>Múltiplas formas de pagamento</li>
+                                <li>Relatórios em tempo real</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">📡 Infraestrutura Completa</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Wi-Fi dedicado e seguro</li>
+                                <li>Rede de dados resiliente</li>
+                                <li>Suporte técnico no local</li>
+                                <li>Setup em até 24 horas</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">🔄 Autoatendimento</h4>
+                            <ul class="feature-list space-y-2 text-sm text-varcom-gray">
+                                <li>Totens interativos</li>
+                                <li>Redução de filas em 80%</li>
+                                <li>Interface personalizada</li>
+                                <li>Integração com credenciamento</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full bg-varcom-blue hover:bg-varcom-light text-white py-3 rounded-lg font-semibold mt-6 transition-all">
+                        Saiba Mais
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Por que escolher a <span class="text-varcom-blue">Varcom?</span>
+                </h2>
+                <p class="text-xl text-varcom-gray">Nosso diferencial está na integração completa e suporte especializado</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Implementação Rápida</h3>
+                    <p class="text-varcom-gray">Sua solução funcionando em até 48 horas com nossa metodologia especializada</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Integração Total</h3>
+                    <p class="text-varcom-gray">Todas as soluções funcionam integradas, compartilhando dados em tempo real</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Suporte Especializado</h3>
+                    <p class="text-varcom-gray">Equipe técnica especializada em soluções comerciais disponível 24/7</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Garantia Total</h3>
+                    <p class="text-varcom-gray">12 meses de garantia, treinamento incluído e satisfação assegurada</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destaque Eventos Corporativos -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="bg-gradient-to-r from-varcom-blue to-varcom-light rounded-2xl p-12 text-white relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10">
+                    <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100" height="100" fill="url(#grid)" />
+                    </svg>
+                </div>
+                
+                <div class="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-6">
+                            🎯 Especialistas em <span class="text-blue-200">Eventos Corporativos</span>
+                        </h2>
+                        <p class="text-xl mb-8 opacity-90 leading-relaxed">
+                            Fornecemos tecnologia de ponta para eventos de qualquer porte: feiras, convenções, 
+                            festivais e eventos corporativos. Nossa experiência garante que sua tecnologia funcionará perfeitamente.
+                        </p>
+                        
+                        <div class="grid grid-cols-3 gap-6 mb-8">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">500+</div>
+                                <div class="text-sm opacity-80">Eventos</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">100%</div>
+                                <div class="text-sm opacity-80">Uptime</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">24h</div>
+                                <div class="text-sm opacity-80">Setup</div>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-lg">
+                            Solicitar Orçamento para Evento
+                        </button>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-4">✅ O que oferecemos:</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Sistemas PDV móveis para qualquer ambiente</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Infraestrutura de rede dedicada e segura</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Totems de autoatendimento inteligentes</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Suporte técnico presencial 24/7</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Setup e desmontagem inclusos</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                                    <span>Relatórios detalhados pós-evento</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    <span class="text-varcom-blue">Resultados</span> Comprovados
+                </h2>
+                <p class="text-xl text-varcom-gray">Números que demonstram o impacto das nossas soluções</p>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">500+</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Projetos Entregues</div>
+                    <div class="text-varcom-gray text-sm">Soluções implementadas com sucesso</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">150%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Aumento Médio Vendas</div>
+                    <div class="text-varcom-gray text-sm">Crescimento após implementação</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">200+</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Eventos Atendidos</div>
+                    <div class="text-varcom-gray text-sm">Feiras, festivais e corporativos</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">70%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Redução Tempo</div>
+                    <div class="text-varcom-gray text-sm">Otimização de processos</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-varcom-blue mb-2">98%</div>
+                    <div class="text-lg font-semibold text-gray-900 mb-2">Satisfação</div>
+                    <div class="text-varcom-gray text-sm">Clientes satisfeitos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    Pronto para <span class="text-varcom-blue">Transformar</span> seu Negócio?
+                </h2>
+                <p class="text-xl text-varcom-gray mb-12">
+                    Solicite uma consultoria gratuita e descubra como nossas soluções podem revolucionar sua operação
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Solicitar Consultoria Gratuita
+                    </button>
+                    <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Ver Casos de Sucesso
+                    </button>
+                </div>
+                
+                <div class="mt-8 text-sm text-varcom-gray">
+                    ✅ Consultoria gratuita • ✅ Proposta em 48h • ✅ Sem compromisso
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--Scripit para carregar o Footer da pasta components/footers-->
+    <div id="footer-container"></div>
+
+    <!-- Script para carregar o Footer -->
+    <script>
+    // Função para carregar o footer
+    function loadFooter() {
+        fetch('components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Footer não encontrado');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+                
+                // Reinicializar scripts do footer após carregamento
+                initializeFooterScripts();
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o footer:', error);
+                // Fallback: mostrar mensagem de erro amigável
+                document.getElementById('footer-container').innerHTML = `
+                    <footer class="bg-gray-900 text-white py-8">
+                        <div class="container mx-auto px-6 text-center">
+                            <p class="text-gray-400">© 2024 Varcom. Todos os direitos reservados.</p>
+                        </div>
+                    </footer>
+                `;
+            });
+    }
+
+    // Função para inicializar scripts do footer
+    function initializeFooterScripts() {
+        // Animação de contadores
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Observer para animação do footer
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    footerObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        // Observar o footer quando carregado
+        const footerElement = document.querySelector('footer');
+        if (footerElement) {
+            footerObserver.observe(footerElement);
+        }
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                if (email) {
+                    alert('Obrigado por se inscrever! Em breve você receberá nossas novidades técnicas.');
+                    e.target.reset();
+                }
+            });
+        }
+    }
+
+    // Carregar o footer quando o DOM estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFooter);
+    } else {
+        loadFooter();
+    }
+    </script>
+
+<!--Fim footer-->
+
+</body>
+</html>
