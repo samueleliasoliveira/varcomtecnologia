@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Corporativos - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .event-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            transform: translateY(-10px);
+        }
+        
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #3B82F6, #1E40AF);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+            z-index: 1;
+        }
+        
+        .solution-icon {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            position: relative;
+        }
+        
+        .solution-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+            top: 0;
+            left: 0;
+        }
+        
+        .floating-element {
+            animation: float 4s ease-in-out infinite;
+            position: absolute;
+            z-index: 5;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-8px) rotate(2deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-15px) rotate(-1deg); 
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateY(-8px) rotate(1deg);
+                opacity: 1;
+            }
+        }
+        
+        .floating-element:nth-child(1) { animation-delay: 0s; }
+        .floating-element:nth-child(2) { animation-delay: -1s; }
+        .floating-element:nth-child(3) { animation-delay: -2s; }
+        .floating-element:nth-child(4) { animation-delay: -3s; }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .infra-diagram {
+            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+            border: 3px dashed #CBD5E1;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .infra-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><circle cx="3" cy="3" r="2" fill="%23CBD5E1" opacity="0.4"/></svg>') repeat;
+            pointer-events: none;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .process-step {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .process-step:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+        }
+        
+        .benefit-icon {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 2px solid #E2E8F0;
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1);
+            transform: translateY(-8px);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="2" fill="%233B82F6" opacity="0.1"/></svg>') repeat;
+            pointer-events: none;
+        }
+        
+        /* Responsividade para elementos flutuantes */
+        @media (max-width: 768px) {
+            .floating-element {
+                animation-duration: 3s;
+                transform: scale(0.8);
+            }
+            
+            .floating-element:nth-child(1) {
+                top: 15%;
+                left: 5%;
+            }
+            
+            .floating-element:nth-child(2) {
+                top: 25%;
+                right: 5%;
+            }
+            
+            .floating-element:nth-child(3) {
+                bottom: 30%;
+                left: 10%;
+            }
+            
+            .floating-element:nth-child(4) {
+                bottom: 15%;
+                right: 10%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .floating-element {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+
+    <!-- Hero Section -->
+    <section class="relative py-24 overflow-hidden z-10">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                 alt="Eventos Corporativos" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <!-- Elementos flutuantes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-10" style="max-height: 100vh;">
+            <div class="floating-element top-20 left-10 w-20 h-20 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg border border-white/20">
+                <span class="text-3xl filter drop-shadow-lg">💳</span>
+            </div>
+            <div class="floating-element top-32 right-20 w-16 h-16 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg border border-white/20">
+                <span class="text-2xl filter drop-shadow-lg">📡</span>
+            </div>
+            <div class="floating-element bottom-40 left-1/4 w-18 h-18 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg border border-white/20">
+                <span class="text-2xl filter drop-shadow-lg">🚀</span>
+            </div>
+            <div class="floating-element bottom-20 right-1/3 w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg border border-white/20">
+                <span class="text-xl filter drop-shadow-lg">⚡</span>
+            </div>
+            <div class="floating-element top-40 right-10 w-16 h-16 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg border border-white/20" style="animation-delay: 2s;">
+                <span class="text-2xl filter drop-shadow-lg">🖥️</span>
+            </div>
+        </div>
+        
+        <div class="relative container mx-auto px-6 z-20">
+            <div class="max-w-6xl mx-auto text-center text-white">
+                <div class="mb-8">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-semibold">
+                        🎯 Eventos Corporativos de Alto Padrão
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+                    Tecnologia <span class="text-blue-300">Completa</span> 
+                    <br>para <span class="text-blue-300">Eventos</span> Corporativos
+                </h1>
+                
+                <p class="text-2xl mb-12 leading-relaxed max-w-4xl mx-auto opacity-90">
+                    Sistemas de frente de caixa + totems de autoatendimento + infraestrutura tecnológica completa. 
+                    Cuidamos de toda a tecnologia do seu evento para você focar no que realmente importa.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center mb-12">
+                    <button onclick="document.getElementById('solucoes').scrollIntoView({behavior: 'smooth'})" 
+                            class="bg-white text-varcom-blue px-10 py-5 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all shadow-lg">
+                        Ver Nossas Soluções
+                    </button>
+                    <button onclick="document.getElementById('contato').scrollIntoView({behavior: 'smooth'})" 
+                            class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-10 py-5 rounded-xl font-bold text-xl transition-all">
+                        Solicitar Proposta
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-code mb-3 pulse-animation">500+</div>
+                        <div class="text-lg opacity-90">Eventos Atendidos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-code mb-3 pulse-animation">100%</div>
+                        <div class="text-lg opacity-90">Uptime Garantido</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-code mb-3 pulse-animation">24h</div>
+                        <div class="text-lg opacity-90">Setup Rápido</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold font-code mb-3 pulse-animation">24/7</div>
+                        <div class="text-lg opacity-90">Suporte Técnico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluções para Eventos -->
+    <section id="solucoes" class="py-24 bg-white relative z-30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold text-gray-900 mb-6">
+                    Soluções <span class="text-varcom-blue">Completas</span> para Eventos
+                </h2>
+                <p class="text-2xl text-varcom-gray max-w-4xl mx-auto">
+                    Da frente de caixa à infraestrutura de rede - tecnologia de ponta para eventos de qualquer porte
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-20">
+                <!-- Sistemas de Frente de Caixa -->
+                <div class="event-card p-10 rounded-2xl">
+                    <div class="solution-icon">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6 text-center">💳 Sistemas de Frente de Caixa</h3>
+                    <p class="text-varcom-gray mb-8 text-center text-lg">
+                        Processamento de pagamentos ultrarrápido com tecnologia de ponta para eventos de qualquer escala
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-4 text-xl">🚀 Hardware de Alta Performance</h4>
+                            <ul class="space-y-3 text-varcom-gray">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-varcom-blue rounded-full mt-1.5"></span>
+                                    <span><strong>Tablets industriais</strong> resistentes e ultra-rápidos</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-varcom-blue rounded-full mt-1.5"></span>
+                                    <span><strong>Leitores NFC/contactless</strong> de última geração</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-varcom-blue rounded-full mt-1.5"></span>
+                                    <span><strong>Impressoras térmicas</strong> silenciosas e rápidas</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-varcom-blue rounded-full mt-1.5"></span>
+                                    <span><strong>Gavetas de dinheiro</strong> com segurança reforçada</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-4 text-xl">⚡ Processamento Instantâneo</h4>
+                            <ul class="space-y-3 text-varcom-gray">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mt-1.5"></span>
+                                    <span>Transações processadas em <strong>menos de 2 segundos</strong></span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mt-1.5"></span>
+                                    <span>Suporte a <strong>Pix, cartões e dinheiro</strong> simultaneamente</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mt-1.5"></span>
+                                    <span>Funcionamento <strong>offline</strong> com sincronização automática</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mt-1.5"></span>
+                                    <span>Relatórios em <strong>tempo real</strong> para gestão do evento</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infraestrutura Tecnológica -->
+                <div class="event-card p-10 rounded-2xl">
+                    <div class="solution-icon">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6 text-center">📡 Infraestrutura Completa</h3>
+                    <p class="text-varcom-gray mb-8 text-center text-lg">
+                        Montamos e gerenciamos toda a infraestrutura de rede e conectividade do seu evento
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-4 text-xl">🌐 Conectividade Premium</h4>
+                            <ul class="space-y-3 text-varcom-gray">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Rede Wi-Fi dedicada</strong> com múltiplos pontos de acesso</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Conexão 4G/5G</strong> como backup automático</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Switches gerenciáveis</strong> para redes segmentadas</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Cabeamento estruturado</strong> temporário profissional</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-4 text-xl">⚙️ Infraestrutura de TI</h4>
+                            <ul class="space-y-3 text-varcom-gray">
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Servidores locais</strong> para processamento crítico</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mt-1.5"></span>
+                                    <span><strong>UPS e geradores</strong> para energia ininterrupta</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Monitoramento 24/7</strong> de todos os sistemas</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mt-1.5"></span>
+                                    <span><strong>Suporte técnico</strong> presencial durante todo o evento</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagrama de Infraestrutura -->
+            <div class="infra-diagram p-16 mb-20">
+                <h3 class="text-3xl font-bold text-gray-900 mb-12 text-center">🏗️ Arquitetura de Infraestrutura para Eventos</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 relative">
+                    <!-- Internet -->
+                    <div class="text-center">
+                        <div class="bg-blue-500 text-white p-6 rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Internet</h4>
+                            <div class="text-sm space-y-1">
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Fibra Óptica</span>
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">4G/5G Backup</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Firewall -->
+                    <div class="text-center">
+                        <div class="bg-red-500 text-white p-6 rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Segurança</h4>
+                            <div class="text-sm space-y-1">
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Firewall</span>
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">VPN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Network -->
+                    <div class="text-center">
+                        <div class="bg-green-500 text-white p-6 rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Core Network</h4>
+                            <div class="text-sm space-y-1">
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Switch L3</span>
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Load Balance</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Access Points -->
+                    <div class="text-center">
+                        <div class="bg-purple-500 text-white p-6 rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Wi-Fi</h4>
+                            <div class="text-sm space-y-1">
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Wi-Fi 6</span>
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Mesh Network</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Devices -->
+                    <div class="text-center">
+                        <div class="bg-gray-700 text-white p-6 rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold mb-2">Dispositivos</h4>
+                            <div class="text-sm space-y-1">
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">PDV</span>
+                                <span class="tech-badge bg-white/20 text-white hover:bg-white/30">Tablets</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Setas de conexão (hidden em mobile) -->
+                    <div class="hidden lg:block absolute top-1/2 left-[18%] transform -translate-y-1/2">
+                        <svg class="w-12 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 left-[36%] transform -translate-y-1/2">
+                        <svg class="w-12 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 left-[54%] transform -translate-y-1/2">
+                        <svg class="w-12 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 left-[72%] transform -translate-y-1/2">
+                        <svg class="w-12 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soluções de Autoatendimento - DESTAQUE ESPECIAL -->
+            <div class="relative mb-16">
+                <!-- Background com gradiente especial -->
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl transform rotate-1"></div>
+                <div class="relative bg-white rounded-3xl p-12 shadow-2xl border-4 border-white transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                    
+                    <!-- Badge de destaque -->
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg">
+                            ⭐ SOLUÇÃO INOVADORA ⭐
+                        </span>
+                    </div>
+
+                    <!-- Layout com imagem destacada -->
+                    <div class="grid lg:grid-cols-3 gap-12 items-center">
+                        <!-- Conteúdo Principal -->
+                        <div class="lg:col-span-2">
+                            <div class="solution-icon mb-8">
+                                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            
+                            <h3 class="text-4xl font-bold text-gray-900 mb-6">🔄 Soluções de Autoatendimento</h3>
+                            <p class="text-varcom-gray mb-8 text-xl leading-relaxed">
+                                <strong>Revolução no atendimento:</strong> Totems e quiosques inteligentes que eliminam filas e transformam a experiência do cliente em eventos corporativos.
+                            </p>
+                            
+                            <!-- Destaques principais -->
+                            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                                    <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center">
+                                        <span class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3 text-white text-sm">📱</span>
+                                        Totems Interativos
+                                    </h4>
+                                    <ul class="space-y-2 text-varcom-gray text-sm">
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                            <span><strong>Telas touch 32" a 55"</strong> com ultra-alta resolução</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                            <span><strong>Interface intuitiva</strong> adaptada para eventos</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                            <span><strong>Múltiplas línguas</strong> para eventos internacionais</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                            <span><strong>Design robusto</strong> para uso intensivo 24/7</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+                                    <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center">
+                                        <span class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3 text-white text-sm">⚡</span>
+                                        Resultados Impressionantes
+                                    </h4>
+                                    <ul class="space-y-2 text-varcom-gray text-sm">
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                            <span><strong>80% redução</strong> no tempo de filas</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                            <span><strong>Integração total</strong> com credenciamento</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                            <span><strong>Pagamentos instantâneos</strong> por aproximação</span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                            <span><strong>Analytics em tempo real</strong> para organizadores</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Imagem Destacada -->
+                        <div class="lg:col-span-1">
+                            <div class="relative">
+                                <div class="absolute -inset-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl blur opacity-75"></div>
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Totem de Autoatendimento Varcom" 
+                                     class="relative w-full h-80 object-cover rounded-2xl shadow-2xl border-4 border-white">
+                                
+                                <!-- Badge sobre a imagem -->
+                                <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold text-gray-900 shadow-lg">
+                                    🚀 Tecnologia Varcom
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Casos de Uso em Destaque -->
+                    <div class="mt-12 p-8 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl border-2 border-blue-100 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-purple-100 rounded-full -ml-12 -mb-12 opacity-50"></div>
+                        
+                        <h4 class="font-bold text-gray-900 mb-6 text-center text-2xl">🎯 Transformando Eventos com Autoatendimento</h4>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="text-center bg-white p-6 rounded-xl shadow-lg border border-blue-100 relative z-10">
+                                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <span class="text-white text-2xl">🍔</span>
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2 text-lg">Food Courts Inteligentes</h5>
+                                <p class="text-varcom-gray text-sm">Pedidos de comida e bebida sem filas, com menu digital interativo e pagamento instantâneo</p>
+                            </div>
+                            <div class="text-center bg-white p-6 rounded-xl shadow-lg border border-green-100 relative z-10">
+                                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <span class="text-white text-2xl">🎫</span>
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2 text-lg">Credenciamento Express</h5>
+                                <p class="text-varcom-gray text-sm">Check-in automático de participantes com validação de credenciais e impressão de crachás</p>
+                            </div>
+                            <div class="text-center bg-white p-6 rounded-xl shadow-lg border border-purple-100 relative z-10">
+                                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <span class="text-white text-2xl">🛍️</span>
+                                </div>
+                                <h5 class="font-bold text-gray-900 mb-2 text-lg">Loja Virtual Física</h5>
+                                <p class="text-varcom-gray text-sm">Venda de souvenirs e merchandising com catálogo digital e checkout autônomo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action da seção -->
+                    <div class="mt-8 text-center">
+                        <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                            🚀 Quero Revolucionar Meu Evento
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Especialidades por Tipo de Evento -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="event-card p-8 rounded-xl text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-32 opacity-20">
+                        <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Convention Center" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative z-10 w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Convenções & Feiras</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Soluções para grandes volumes de transações com múltiplos expositores
+                    </p>
+                    <ul class="text-sm text-varcom-gray text-left space-y-2">
+                        <li>• Gestão centralizada multi-loja</li>
+                        <li>• Relatórios por expositor</li>
+                        <li>• Cadastro rápido de produtos</li>
+                        <li>• Suporte técnico 24h no local</li>
+                    </ul>
+                </div>
+
+                <div class="event-card p-8 rounded-xl text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-32 opacity-20">
+                        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Music Festival" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative z-10 w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Festivais & Shows</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Processamento ultrarrápido para filas enormes em ambientes desafiadores
+                    </p>
+                    <ul class="text-sm text-varcom-gray text-left space-y-2">
+                        <li>• Equipamentos resistentes a intempéries</li>
+                        <li>• Processamento instantâneo</li>
+                        <li>• Baterias de longa duração</li>
+                        <li>• Conexão redundante 4G/5G</li>
+                    </ul>
+                </div>
+
+                <div class="event-card p-8 rounded-xl text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-32 opacity-20">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Corporate Event" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative z-10 w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V5a2 2 0 012 2v6m0 0v1a2 2 0 01-2 2H6a2 2 0 01-2-2v-1m16 0V9a2 2 0 00-2-2V6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Eventos Corporativos</h3>
+                    <p class="text-varcom-gray mb-6">
+                        Soluções elegantes e discretas para eventos empresariais exclusivos
+                    </p>
+                    <ul class="text-sm text-varcom-gray text-left space-y-2">
+                        <li>• Design premium e discreto</li>
+                        <li>• Integração com credenciamento</li>
+                        <li>• Relatórios executivos</li>
+                        <li>• Suporte white-glove</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nosso Processo -->
+    <section id="processo" class="py-24 gradient-bg relative z-30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold text-gray-900 mb-6">
+                    Nosso <span class="text-varcom-blue">Processo</span> de Atendimento
+                </h2>
+                <p class="text-2xl text-varcom-gray max-w-4xl mx-auto">
+                    Do planejamento ao pós-evento - cuidamos de cada detalhe da tecnologia
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <!-- Etapa 1 -->
+                <div class="process-step p-8 rounded-xl text-center">
+                    <div class="step-number">1</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">📋 Planejamento</h3>
+                    <ul class="text-varcom-gray text-sm space-y-2">
+                        <li>• Análise das necessidades</li>
+                        <li>• Dimensionamento da infraestrutura</li>
+                        <li>• Cronograma de instalação</li>
+                        <li>• Plano de contingência</li>
+                    </ul>
+                    <div class="text-xs text-varcom-blue font-semibold mt-4">15-30 dias antes</div>
+                </div>
+
+                <!-- Etapa 2 -->
+                <div class="process-step p-8 rounded-xl text-center">
+                    <div class="step-number">2</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">🚚 Setup</h3>
+                    <ul class="text-varcom-gray text-sm space-y-2">
+                        <li>• Montagem da infraestrutura</li>
+                        <li>• Configuração dos equipamentos</li>
+                        <li>• Testes completos</li>
+                        <li>• Treinamento da equipe</li>
+                    </ul>
+                    <div class="text-xs text-varcom-blue font-semibold mt-4">1-2 dias antes</div>
+                </div>
+
+                <!-- Etapa 3 -->
+                <div class="process-step p-8 rounded-xl text-center">
+                    <div class="step-number">3</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">🎯 Execução</h3>
+                    <ul class="text-varcom-gray text-sm space-y-2">
+                        <li>• Suporte técnico presencial</li>
+                        <li>• Monitoramento 24/7</li>
+                        <li>• Manutenção preventiva</li>
+                        <li>• Relatórios em tempo real</li>
+                    </ul>
+                    <div class="text-xs text-varcom-blue font-semibold mt-4">Durante o evento</div>
+                </div>
+
+                <!-- Etapa 4 -->
+                <div class="process-step p-8 rounded-xl text-center">
+                    <div class="step-number">4</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">📊 Pós-Evento</h3>
+                    <ul class="text-varcom-gray text-sm space-y-2">
+                        <li>• Desmontagem cuidadosa</li>
+                        <li>• Relatório final detalhado</li>
+                        <li>• Análise de performance</li>
+                        <li>• Feedback e melhorias</li>
+                    </ul>
+                    <div class="text-xs text-varcom-blue font-semibold mt-4">Até 7 dias após</div>
+                </div>
+            </div>
+
+            <!-- Garantias -->
+            <div class="event-card p-12 rounded-2xl">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">🛡️ Nossas Garantias</h3>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="benefit-icon mx-auto">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">99.9% Uptime</h4>
+                        <p class="text-varcom-gray text-sm">Disponibilidade garantida durante todo o evento</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="benefit-icon mx-auto">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Suporte 24/7</h4>
+                        <p class="text-varcom-gray text-sm">Técnicos especializados presenciais</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="benefit-icon mx-auto">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Segurança Total</h4>
+                        <p class="text-varcom-gray text-sm">Conformidade PCI-DSS e criptografia</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="benefit-icon mx-auto">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Satisfação 100%</h4>
+                        <p class="text-varcom-gray text-sm">Ou devolvemos seu investimento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Call to Action -->
+    <section id="contato" class="cta-section py-24 relative z-30">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="max-w-5xl mx-auto text-white">
+                <h2 class="text-5xl lg:text-6xl font-bold mb-8">
+                    Pronto para o <span class="text-blue-300">Próximo Nível</span>?
+                </h2>
+                <p class="text-2xl mb-12 opacity-90 max-w-4xl mx-auto">
+                    Transforme seu evento em uma experiência tecnológica impecável. 
+                    Nossa equipe especializada está pronta para cuidar de toda a infraestrutura.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-8 justify-center mb-16">
+                    <button class="bg-white text-gray-900 px-12 py-6 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all shadow-lg">
+                        📞 Falar com Especialista
+                    </button>
+                    <button class="border-3 border-white text-white hover:bg-white hover:text-gray-900 px-12 py-6 rounded-xl font-bold text-xl transition-all">
+                        📧 Solicitar Proposta
+                    </button>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">⚡ Resposta Rápida</h3>
+                        <p class="opacity-90">Proposta personalizada em até 24 horas</p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">🎯 Solução Completa</h3>
+                        <p class="opacity-90">Da frente de caixa à infraestrutura completa</p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">🛡️ Garantia Total</h3>
+                        <p class="opacity-90">99.9% de uptime ou devolvemos o investimento</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-lg opacity-80">
+                    <p>📱 <strong>WhatsApp:</strong> (11) 9 9999-8888 • 📧 <strong>Email:</strong> eventos@varcom.dev</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de entrada para cards quando entram na tela
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animação de contadores
+        function animateCounters() {
+            const counters = document.querySelectorAll('.pulse-animation');
+            counters.forEach(counter => {
+                counter.style.animation = 'pulse 2s infinite';
+            });
+        }
+
+        // Inicialização das animações
+        document.addEventListener('DOMContentLoaded', () => {
+            // Preparar elementos para animação
+            document.querySelectorAll('.event-card, .process-step, .testimonial-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(card);
+            });
+
+            // Iniciar animação de contadores
+            setTimeout(() => {
+                animateCounters();
+            }, 1000);
+        });
+
+        // Efeito parallax suave no hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('section');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Scroll para seções
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
