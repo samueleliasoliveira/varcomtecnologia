@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologias - Varcom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tech-card:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+            transform: translateY(-8px);
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%);
+        }
+        
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover .tech-icon {
+            transform: scale(1.1);
+        }
+        
+        .stack-category {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 2px solid #E2E8F0;
+            transition: all 0.4s ease;
+        }
+        
+        .stack-category:hover {
+            border-color: #3B82F6;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .floating-tech {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .code-snippet {
+            background: #1E293B;
+            border: 1px solid #334155;
+            font-family: 'Fira Code', monospace;
+            border-radius: 12px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #3B82F6 0%, #1E40AF 100%);
+            height: 6px;
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .architecture-diagram {
+            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+            border: 2px dashed #CBD5E1;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="2" cy="2" r="1" fill="%23CBD5E1" opacity="0.5"/></svg>') repeat;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="assets/tech-workspace.jpeg?prompt=Modern%20technology%20workspace%20with%20multiple%20monitors%2C%20code%20on%20screens%2C%20servers%2C%20cloud%20infrastructure%2C%20clean%20professional%20tech%20environment%2C%20blue%20and%20white%20colors" 
+                 alt="Tecnologias Varcom" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <!-- Floating Tech Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="floating-tech absolute top-20 left-10 w-16 h-16 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <span class="text-2xl">⚛️</span>
+            </div>
+            <div class="floating-tech absolute top-32 right-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center" style="animation-delay: 0.5s;">
+                <span class="text-xl">🐍</span>
+            </div>
+            <div class="floating-tech absolute bottom-40 left-1/4 w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center" style="animation-delay: 1s;">
+                <span class="text-xl">🚀</span>
+            </div>
+            <div class="floating-tech absolute bottom-20 right-1/3 w-10 h-10 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center" style="animation-delay: 1.5s;">
+                <span class="text-lg">☁️</span>
+            </div>
+        </div>
+        
+        <div class="relative container mx-auto px-6">
+            <div class="max-w-5xl mx-auto text-center text-white">
+                <div class="mb-8">
+                    <span class="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-semibold">
+                        💻 Stack Tecnológico
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
+                    Tecnologias <span class="text-blue-300">Modernas</span> 
+                    <br>para Soluções <span class="text-blue-300">Escaláveis</span>
+                </h1>
+                
+                <p class="text-xl mb-12 leading-relaxed max-w-4xl mx-auto opacity-90">
+                    Utilizamos as melhores e mais atuais tecnologias do mercado para desenvolver soluções robustas, 
+                    escaláveis e de alta performance que atendem às necessidades específicas do seu negócio.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button onclick="document.getElementById('stack').scrollIntoView({behavior: 'smooth'})" 
+                            class="bg-white text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all">
+                        Ver Tecnologias
+                    </button>
+                    <button onclick="document.getElementById('arquitetura').scrollIntoView({behavior: 'smooth'})" 
+                            class="border-2 border-white text-white hover:bg-white hover:text-varcom-blue px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Nossa Arquitetura
+                    </button>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold font-code">15+</div>
+                        <div class="text-sm opacity-80">Tecnologias</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold font-code">99.9%</div>
+                        <div class="text-sm opacity-80">Uptime</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold font-code">&lt;200ms</div>
+                        <div class="text-sm opacity-80">Response Time</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold font-code">24/7</div>
+                        <div class="text-sm opacity-80">Monitoramento</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack Tecnológico -->
+    <section id="stack" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nosso <span class="text-varcom-blue">Stack</span> Tecnológico
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Tecnologias cuidadosamente selecionadas para garantir performance, segurança e escalabilidade
+                </p>
+            </div>
+
+            <!-- Frontend -->
+            <div class="stack-category p-8 rounded-xl mb-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">🎨 Frontend & Interface</h3>
+                    <p class="text-varcom-gray">Experiências de usuário modernas e responsivas</p>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-blue-100">
+                            <img src="assets/react-logo.jpeg?prompt=React%20logo%20official%20blue%20icon%20SVG%20style%20clean%20vector" alt="React" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">React</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Biblioteca JavaScript para interfaces dinâmicas</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 95%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 95%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-green-100">
+                            <img src="assets/nextjs-logo.jpeg?prompt=Next.js%20logo%20official%20black%20icon%20SVG%20style%20clean%20vector" alt="Next.js" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Next.js</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Framework React para produção</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 90%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 90%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-cyan-100">
+                            <img src="assets/tailwind-logo.jpeg?prompt=Tailwind%20CSS%20logo%20official%20cyan%20icon%20SVG%20style%20clean%20vector" alt="Tailwind" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Tailwind CSS</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Framework CSS utilitário</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 98%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Expert - 98%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-purple-100">
+                            <img src="assets/typescript-logo.jpeg?prompt=TypeScript%20logo%20official%20blue%20icon%20SVG%20style%20clean%20vector" alt="TypeScript" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">TypeScript</h4>
+                        <p class="text-sm text-varcom-gray mb-3">JavaScript com tipagem estática</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 92%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 92%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend -->
+            <div class="stack-category p-8 rounded-xl mb-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">⚙️ Backend & APIs</h3>
+                    <p class="text-varcom-gray">Serviços robustos e APIs escaláveis</p>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-green-100">
+                            <img src="assets/nodejs-logo.jpeg?prompt=Node.js%20logo%20official%20green%20icon%20SVG%20style%20clean%20vector" alt="Node.js" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Node.js</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Runtime JavaScript server-side</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 94%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 94%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-blue-100">
+                            <img src="assets/python-logo.jpeg?prompt=Python%20logo%20official%20blue%20yellow%20icon%20SVG%20style%20clean%20vector" alt="Python" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Python</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Linguagem versátil para backend</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 88%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 88%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-red-100">
+                            <img src="assets/fastapi-logo.jpeg?prompt=FastAPI%20logo%20official%20green%20icon%20SVG%20style%20clean%20vector" alt="FastAPI" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">FastAPI</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Framework Python moderno</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 90%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 90%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-gray-100">
+                            <img src="assets/graphql-logo.jpeg?prompt=GraphQL%20logo%20official%20pink%20icon%20SVG%20style%20clean%20vector" alt="GraphQL" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">GraphQL</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Query language para APIs</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Intermediário - 85%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database -->
+            <div class="stack-category p-8 rounded-xl mb-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">🗄️ Banco de Dados</h3>
+                    <p class="text-varcom-gray">Armazenamento seguro e otimizado</p>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-blue-100">
+                            <img src="assets/postgresql-logo.jpeg?prompt=PostgreSQL%20logo%20official%20blue%20elephant%20icon%20SVG%20style%20clean%20vector" alt="PostgreSQL" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">PostgreSQL</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Banco relacional avançado</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 93%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 93%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-green-100">
+                            <img src="assets/mongodb-logo.jpeg?prompt=MongoDB%20logo%20official%20green%20leaf%20icon%20SVG%20style%20clean%20vector" alt="MongoDB" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">MongoDB</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Banco NoSQL flexível</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 87%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Intermediário - 87%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-red-100">
+                            <img src="assets/redis-logo.jpeg?prompt=Redis%20logo%20official%20red%20icon%20SVG%20style%20clean%20vector" alt="Redis" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Redis</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Cache e sessões em memória</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 89%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 89%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-purple-100">
+                            <img src="assets/prisma-logo.jpeg?prompt=Prisma%20logo%20official%20dark%20icon%20SVG%20style%20clean%20vector" alt="Prisma" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Prisma</h4>
+                        <p class="text-sm text-varcom-gray mb-3">ORM moderno e type-safe</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 91%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 91%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DevOps & Cloud -->
+            <div class="stack-category p-8 rounded-xl">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">☁️ DevOps & Cloud</h3>
+                    <p class="text-varcom-gray">Infraestrutura escalável e automatizada</p>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-orange-100">
+                            <img src="assets/aws-logo.jpeg?prompt=AWS%20Amazon%20Web%20Services%20logo%20official%20orange%20icon%20SVG%20style%20clean%20vector" alt="AWS" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">AWS</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Cloud computing platform</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 86%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Intermediário - 86%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-blue-100">
+                            <img src="assets/docker-logo.jpeg?prompt=Docker%20logo%20official%20blue%20whale%20icon%20SVG%20style%20clean%20vector" alt="Docker" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Docker</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Containerização de aplicações</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 92%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 92%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-purple-100">
+                            <img src="assets/k8s-logo.jpeg?prompt=Kubernetes%20logo%20official%20blue%20helm%20icon%20SVG%20style%20clean%20vector" alt="Kubernetes" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Kubernetes</h4>
+                        <p class="text-sm text-varcom-gray mb-3">Orquestração de containers</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 78%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Intermediário - 78%</span>
+                    </div>
+                    
+                    <div class="tech-card p-6 rounded-xl text-center">
+                        <div class="tech-icon bg-gray-100">
+                            <img src="assets/github-logo.jpeg?prompt=GitHub%20logo%20official%20black%20octocat%20icon%20SVG%20style%20clean%20vector" alt="GitHub" class="w-8 h-8">
+                        </div>
+                        <h4 class="font-semibold text-gray-900 mb-2">GitHub Actions</h4>
+                        <p class="text-sm text-varcom-gray mb-3">CI/CD e automação</p>
+                        <div class="bg-gray-200 rounded-full h-2 mb-2">
+                            <div class="progress-bar" style="width: 95%"></div>
+                        </div>
+                        <span class="text-xs text-varcom-gray">Avançado - 95%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arquitetura -->
+    <section id="arquitetura" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nossa <span class="text-varcom-blue">Arquitetura</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Arquitetura moderna, escalável e segura baseada em microsserviços
+                </p>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- Diagrama de Arquitetura -->
+                <div class="architecture-diagram p-12 mb-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+                        <!-- Frontend -->
+                        <div class="text-center">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-blue-200">
+                                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-2">Frontend</h3>
+                                <div class="space-y-1 text-sm">
+                                    <span class="tech-badge">React</span>
+                                    <span class="tech-badge">Next.js</span>
+                                    <span class="tech-badge">TypeScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- API Gateway -->
+                        <div class="text-center">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-green-200">
+                                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-2">API Gateway</h3>
+                                <div class="space-y-1 text-sm">
+                                    <span class="tech-badge">Node.js</span>
+                                    <span class="tech-badge">GraphQL</span>
+                                    <span class="tech-badge">FastAPI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Database -->
+                        <div class="text-center">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-purple-200">
+                                <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-bold text-gray-900 mb-2">Database</h3>
+                                <div class="space-y-1 text-sm">
+                                    <span class="tech-badge">PostgreSQL</span>
+                                    <span class="tech-badge">MongoDB</span>
+                                    <span class="tech-badge">Redis</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Setas conectoras -->
+                        <div class="hidden lg:block absolute top-1/2 left-1/4 transform -translate-y-1/2">
+                            <svg class="w-16 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </div>
+                        <div class="hidden lg:block absolute top-1/2 right-1/4 transform -translate-y-1/2">
+                            <svg class="w-16 h-8 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Princípios Arquiteturais -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-blue-100">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Performance</h3>
+                        <ul class="space-y-2 text-sm text-varcom-gray">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Cache distribuído com Redis</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>CDN para assets estáticos</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Lazy loading e code splitting</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Otimização de consultas SQL</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-green-100">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Segurança</h3>
+                        <ul class="space-y-2 text-sm text-varcom-gray">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Autenticação JWT + OAuth</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Criptografia end-to-end</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Rate limiting e DDoS protection</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Auditoria e logs detalhados</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-purple-100">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Escalabilidade</h3>
+                        <ul class="space-y-2 text-sm text-varcom-gray">
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                <span>Arquitetura de microsserviços</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                <span>Auto-scaling horizontal</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                <span>Load balancing inteligente</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                <span>Database sharding e replicação</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Sample -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Código <span class="text-varcom-blue">Limpo</span> e <span class="text-varcom-blue">Moderno</span>
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Exemplos de nossa abordagem de desenvolvimento com boas práticas e padrões modernos
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- React Component -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🔹 React Component (TypeScript)</h3>
+                    <div class="code-snippet p-6">
+<pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-purple-400">import</span> <span class="text-yellow-300">React</span>, <span class="text-blue-300">{ useState, useEffect }</span> <span class="text-purple-400">from</span> <span class="text-green-400">'react'</span>;
+<span class="text-purple-400">import</span> <span class="text-blue-300">{ api }</span> <span class="text-purple-400">from</span> <span class="text-green-400">'@/lib/api'</span>;
+
+<span class="text-purple-400">interface</span> <span class="text-yellow-300">Product</span> {
+  <span class="text-blue-300">id</span>: <span class="text-cyan-400">string</span>;
+  <span class="text-blue-300">name</span>: <span class="text-cyan-400">string</span>;
+  <span class="text-blue-300">price</span>: <span class="text-cyan-400">number</span>;
+}
+
+<span class="text-purple-400">export const</span> <span class="text-yellow-300">ProductList</span> = () => {
+  <span class="text-purple-400">const</span> [<span class="text-blue-300">products</span>, <span class="text-blue-300">setProducts</span>] = <span class="text-yellow-300">useState</span>&lt;<span class="text-cyan-400">Product[]</span>&gt;([]);
+
+  <span class="text-yellow-300">useEffect</span>(() => {
+    <span class="text-yellow-300">api</span>.<span class="text-blue-300">getProducts</span>().<span class="text-blue-300">then</span>(<span class="text-blue-300">setProducts</span>);
+  }, []);
+
+  <span class="text-purple-400">return</span> (
+    &lt;<span class="text-red-400">div</span> <span class="text-green-400">className</span>=<span class="text-green-400">"grid gap-4"</span>&gt;
+      {<span class="text-blue-300">products</span>.<span class="text-blue-300">map</span>(<span class="text-blue-300">product</span> =&gt; (
+        &lt;<span class="text-red-400">ProductCard</span> <span class="text-green-400">key</span>={<span class="text-blue-300">product.id</span>} <span class="text-green-400">product</span>={<span class="text-blue-300">product</span>} /&gt;
+      ))}
+    &lt;/<span class="text-red-400">div</span>&gt;
+  );
+};</code></pre>
+                    </div>
+                </div>
+
+                <!-- FastAPI Backend -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🔹 FastAPI Backend (Python)</h3>
+                    <div class="code-snippet p-6">
+<pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-purple-400">from</span> <span class="text-yellow-300">fastapi</span> <span class="text-purple-400">import</span> <span class="text-blue-300">FastAPI</span>, <span class="text-blue-300">Depends</span>
+<span class="text-purple-400">from</span> <span class="text-yellow-300">sqlalchemy.orm</span> <span class="text-purple-400">import</span> <span class="text-blue-300">Session</span>
+<span class="text-purple-400">from</span> <span class="text-yellow-300">.</span> <span class="text-purple-400">import</span> <span class="text-blue-300">models</span>, <span class="text-blue-300">schemas</span>, <span class="text-blue-300">database</span>
+
+<span class="text-blue-300">app</span> = <span class="text-yellow-300">FastAPI</span>(<span class="text-green-400">title</span>=<span class="text-green-400">"Varcom API"</span>)
+
+<span class="text-gray-500"># Dependency</span>
+<span class="text-purple-400">def</span> <span class="text-yellow-300">get_db</span>():
+    <span class="text-blue-300">db</span> = <span class="text-blue-300">database</span>.<span class="text-yellow-300">SessionLocal</span>()
+    <span class="text-purple-400">try</span>:
+        <span class="text-purple-400">yield</span> <span class="text-blue-300">db</span>
+    <span class="text-purple-400">finally</span>:
+        <span class="text-blue-300">db</span>.<span class="text-yellow-300">close</span>()
+
+<span class="text-blue-300">@app</span>.<span class="text-yellow-300">get</span>(<span class="text-green-400">"/products/"</span>, <span class="text-green-400">response_model</span>=<span class="text-cyan-400">list</span>[<span class="text-blue-300">schemas</span>.<span class="text-blue-300">Product</span>])
+<span class="text-purple-400">async def</span> <span class="text-yellow-300">read_products</span>(
+    <span class="text-green-400">skip</span>: <span class="text-cyan-400">int</span> = <span class="text-orange-400">0</span>,
+    <span class="text-green-400">limit</span>: <span class="text-cyan-400">int</span> = <span class="text-orange-400">100</span>,
+    <span class="text-green-400">db</span>: <span class="text-blue-300">Session</span> = <span class="text-yellow-300">Depends</span>(<span class="text-blue-300">get_db</span>)
+):
+    <span class="text-purple-400">return</span> <span class="text-blue-300">db</span>.<span class="text-yellow-300">query</span>(<span class="text-blue-300">models</span>.<span class="text-blue-300">Product</span>).<span class="text-yellow-300">offset</span>(<span class="text-blue-300">skip</span>).<span class="text-yellow-300">limit</span>(<span class="text-blue-300">limit</span>).<span class="text-yellow-300">all</span>()</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-varcom-gray mb-6">Interessado em ver mais do nosso código?</p>
+                <a href="https://github.com/varcom-dev" target="_blank" 
+                   class="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Ver no GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo de Desenvolvimento -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nosso <span class="text-varcom-blue">Processo</span> de Desenvolvimento
+                </h2>
+                <p class="text-xl text-varcom-gray max-w-3xl mx-auto">
+                    Metodologia ágil com foco em qualidade, performance e experiência do usuário
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Etapa 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <span class="text-2xl font-bold text-white">1</span>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Discovery</h3>
+                    <p class="text-varcom-gray text-sm">Análise de requisitos, arquitetura e definição do stack tecnológico ideal</p>
+                </div>
+
+                <!-- Etapa 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <span class="text-2xl font-bold text-white">2</span>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Development</h3>
+                    <p class="text-varcom-gray text-sm">Desenvolvimento ágil com sprints curtos, code reviews e testes automatizados</p>
+                </div>
+
+                <!-- Etapa 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <span class="text-2xl font-bold text-white">3</span>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Testing</h3>
+                    <p class="text-varcom-gray text-sm">Testes unitários, integração e E2E para garantir qualidade e estabilidade</p>
+                </div>
+
+                <!-- Etapa 4 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                        <span class="text-2xl font-bold text-white">4</span>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-orange-600 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Deploy</h3>
+                    <p class="text-varcom-gray text-sm">Deploy automatizado, monitoramento em tempo real e suporte contínuo</p>
+                </div>
+            </div>
+
+            <!-- Métricas do Processo -->
+            <div class="grid md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                    <div class="text-3xl font-bold text-varcom-blue font-code mb-2">2 semanas</div>
+                    <div class="text-sm text-varcom-gray">Sprint Duration</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                    <div class="text-3xl font-bold text-varcom-blue font-code mb-2">95%</div>
+                    <div class="text-sm text-varcom-gray">Code Coverage</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                    <div class="text-3xl font-bold text-varcom-blue font-code mb-2">&lt;5min</div>
+                    <div class="text-sm text-varcom-gray">Deploy Time</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                    <div class="text-3xl font-bold text-varcom-blue font-code mb-2">24/7</div>
+                    <div class="text-sm text-varcom-gray">Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    Pronto para <span class="text-varcom-blue">Modernizar</span> sua Tecnologia?
+                </h2>
+                <p class="text-xl text-varcom-gray mb-12">
+                    Nossa equipe especializada está pronta para implementar as melhores tecnologias em seu projeto
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button class="bg-varcom-blue hover:bg-varcom-light text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Falar com Especialista
+                    </button>
+                    <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all">
+                        Ver Portfolio Técnico
+                    </button>
+                </div>
+                
+                <div class="mt-12 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">🚀 Próximas Tecnologias que Estamos Explorando</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium border border-gray-200">AI/Machine Learning</span>
+                        <span class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium border border-gray-200">Blockchain</span>
+                        <span class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium border border-gray-200">Edge Computing</span>
+                        <span class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium border border-gray-200">WebAssembly</span>
+                        <span class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium border border-gray-200">Quantum Computing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Animação das barras de progresso
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Observer para animar quando entrar na tela
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'stack') {
+                        animateProgressBars();
+                    }
+                    
+                    // Animação das tech cards
+                    const techCards = entry.target.querySelectorAll('.tech-card');
+                    techCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicialmente esconder cards para animação
+            document.querySelectorAll('.tech-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Observar seções
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Smooth scrolling para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
