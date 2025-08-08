@@ -1308,9 +1308,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 observer.observe(section);
             });
         });
+    </script>
 
-// Função para inicializar scripts do footer
-function initializeFooterScripts() {
+<!--Scripit para carregar o Footer da pasta components/footers-->
+    <div id="footer-container"></div>
+
+    <!-- Script para carregar o Footer -->
+    <script>
+    // Função para carregar o footer
+    function loadFooter() {
+        fetch('components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Footer não encontrado');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+                
+                // Reinicializar scripts do footer após carregamento
+                initializeFooterScripts();
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o footer:', error);
+                // Fallback: mostrar mensagem de erro amigável
+                document.getElementById('footer-container').innerHTML = `
+                    <footer class="bg-gray-900 text-white py-8">
+                        <div class="container mx-auto px-6 text-center">
+                            <p class="text-gray-400">© 2024 Varcom. Todos os direitos reservados.</p>
+                        </div>
+                    </footer>
+                `;
+            });
+    }
+
+    // Função para inicializar scripts do footer
+    function initializeFooterScripts() {
         // Animação de contadores
         function animateCounters() {
             const counters = document.querySelectorAll('.stats-counter');
@@ -1369,10 +1403,9 @@ function initializeFooterScripts() {
     } else {
         loadFooter();
     }
-</script>
+    </script>
 
 <!--Fim footer-->
-
 
 </body>
 </html>
