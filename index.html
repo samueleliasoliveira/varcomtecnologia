@@ -2144,20 +2144,6 @@ document.addEventListener('DOMContentLoaded', function() {
             footerObserver.observe(footerElement);
         }
 
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = e.target.querySelector('input[type="email"]').value;
-                if (email) {
-                    alert('Obrigado por se inscrever! Em breve você receberá nossas novidades técnicas.');
-                    e.target.reset();
-                }
-            });
-        }
-    }
-
     // Carregar o footer quando o DOM estiver pronto
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', loadFooter);
