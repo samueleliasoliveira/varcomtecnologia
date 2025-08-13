@@ -1,3 +1,772 @@
+<!-- Script para carregar o Navbar insrir nas páginas -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!--Inicio Navbar-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce | Soluções completas para sua loja online</title>
+    <meta name="description" content=" Especializados em desenvolver, implementar e gerenciar plataformas de e-commerce. Oferecemos soluções completas para empresas que desejam vender online com máxima eficiência."/><meta>
+    <meta property="og:image" content="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/e-commerce-page.png">
+    <meta property="og:url" content="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/e-commerce-page.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/x-icon" href="/assets/img/xsKujnagrgdhTduJpwj66.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cocogoose+Pro+Trial:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos do Navbar -->
+    <style>
+        :root {
+            --varcom-blue: #2563eb;
+            --varcom-light: #3b82f6;
+        }
+
+        /* Classes de cores personalizadas */
+        .text-varcom-blue { color: var(--varcom-blue); }
+        .bg-varcom-blue { background-color: var(--varcom-blue); }
+        .bg-varcom-light { background-color: var(--varcom-light); }
+        .hover\:bg-varcom-light:hover { background-color: var(--varcom-light); }
+        .hover\:text-varcom-blue:hover { color: var(--varcom-blue); }
+        .border-varcom-blue { border-color: var(--varcom-blue); }
+        .hover\:border-varcom-blue:hover { border-color: var(--varcom-blue); }
+
+        /* Glassmorphism navbar */
+        .glass-navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Font alternativa se não tiver Cocogoose */
+        .font-cocogoose {
+            font-family: 'Cocogoose', 'Arial Black', sans-serif;
+            font-weight: 900;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background-color: var(--varcom-blue);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: var(--varcom-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Links hover effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--varcom-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown animations */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        /* Submenu hover effects */
+        .submenu-item {
+            transition: all 0.3s ease;
+        }
+        .submenu-item:hover {
+            background-color: #f9fafb;
+            padding-left: 1.25rem;
+        }
+
+        /* Mobile menu styles */
+        .mobile-dropdown-content {
+            transition: max-height 0.3s ease;
+        }
+        .mobile-dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        .mobile-dropdown-arrow.rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile nav link hover */
+        .mobile-nav-link {
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos da página About */
+        .gradient-bg {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+        
+        /* ... resto dos estilos da página about ... */
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'code': ['Fira Code', 'monospace'],
+                        'cocogoose': ['Cocogoose Pro Trial', 'sans-serif']
+                    },
+                    colors: {
+                        'varcom-blue': '#1E40AF',
+                        'varcom-light': '#3B82F6',
+                        'varcom-bg': '#F8FAFC',
+                        'varcom-gray': '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-white text-gray-800">
+
+    <!-- Container para o Navbar -->
+    <!-- Navbar Global -->
+<nav class="glass-navbar fixed top-0 left-0 right-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="/" class="logo-container flex items-center space-x-3">
+                    <div class="w-10 h-10 flex items-center justify-center">
+                        <img src="https://raw.githubusercontent.com/samueleliasoliveira/Varcom_site/refs/heads/main/assets/img/xsKujnagrgdhTduJpwj66.png" 
+                             alt="Varcom Logo" 
+                             class="w-10 h-10 object-contain" 
+                             loading="eager">
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-2xl font-cocogoose font-bold text-varcom-blue lowercase tracking-tight">varcom</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8">
+                    <!-- Início -->
+                    <a href="/" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Início
+                    </a>
+
+                    <!-- Sobre -->
+                    <a href="/sobre" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Sobre
+                    </a>
+
+                    <!-- Soluções (Dropdown) -->
+                    <div class="dropdown relative">
+                        <button class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium flex items-center">
+                            Soluções
+                            <svg class="dropdown-arrow ml-1 w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu absolute left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-2">
+                            <div class="px-4 py-3 border-b border-gray-100">
+                                <h3 class="text-sm font-semibold text-gray-900">Nossas Soluções</h3>
+                                <p class="text-xs text-gray-500">Escolha a solução ideal para seu negócio</p>
+                            </div>
+
+                            <a href="/gestao-operacao" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h-9m9 0V21m-9-3v3" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Gestão e Operação</div>
+                                        <div class="text-xs text-gray-500">PDV, automação e gestão comercial</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/e-commerce" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">E-commerce</div>
+                                        <div class="text-xs text-gray-500">Lojas virtuais e marketplaces</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/marketing-relacionamento" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Marketing e Relacionamento</div>
+                                        <div class="text-xs text-gray-500">CRM e automação de marketing</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="/food-service" class="submenu-item block px-4 py-3 text-sm text-gray-700 border-l-2 border-transparent hover:border-varcom-blue">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Bares, Restaurantes e iFood</div>
+                                        <div class="text-xs text-gray-500">Gestão completa para food service</div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="border-t border-gray-100 mt-2 pt-2">
+                                <a href="#todas-solucoes" class="submenu-item block px-4 py-2 text-sm font-medium text-varcom-blue">
+                                    Ver todas as soluções →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contato -->
+                    <a href="/contato" class="nav-link text-gray-700 hover:text-varcom-blue px-3 py-2 text-sm font-medium">
+                        Contato
+                    </a>
+                </div>
+            </div>
+
+            <!-- CTA Button e Mobile Menu -->
+            <div class="flex items-center space-x-4">
+                <!-- CTA Button -->
+                <a href="/solicita-orcamento" class="hidden lg:block cta-button text-white px-6 py-2 rounded-lg text-sm font-semibold">
+                    Solicitar Consultoria
+                </a>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" 
+                            class="mobile-menu-button text-gray-700 hover:text-varcom-blue focus:outline-none focus:text-varcom-blue transition-colors"
+                            aria-controls="mobile-menu" 
+                            aria-expanded="false">
+                        <span class="sr-only">Abrir menu principal</span>
+                        <!-- Hamburguer Icon -->
+                        <svg class="hamburger-icon block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <!-- Close Icon -->
+                        <svg class="close-icon hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-[60] opacity-0 invisible transition-all duration-300"></div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu fixed top-0 right-0 bottom-0 w-80 bg-white shadow-2xl z-[70] md:hidden transform translate-x-full transition-transform duration-300">
+    <div class="h-full overflow-y-auto">
+        <div class="p-6">
+            <!-- Mobile Header com botão fechar -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 flex items-center justify-center">
+                        <img src="https://raw.githubusercontent.com/samueleliasoliveira/Varcom_site/refs/heads/main/assets/img/xsKujnagrgdhTduJpwj66.png" alt="Varcom Logo" class="w-10 h-10 object-contain">
+                    </div>
+                    <div>
+                        <div class="text-2xl font-cocogoose font-bold text-varcom-blue lowercase tracking-tight">varcom</div>
+                    </div>
+                </div>
+
+                <!-- Botão Fechar -->
+                <button class="mobile-close-btn p-2 text-gray-400 hover:text-varcom-blue transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="space-y-2">
+                <a href="/" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                    <span>Início</span>
+                </a>
+
+                <a href="/sobre" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                    </svg>
+                    <span>Sobre</span>
+                </a>
+
+                <!-- Mobile Soluções -->
+                <div class="mobile-dropdown bg-white rounded-xl shadow-sm border border-gray-100">
+                    <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-4 text-lg font-medium text-gray-800">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                            </svg>
+                            <span>Soluções</span>
+                        </div>
+                        <svg class="mobile-dropdown-arrow w-4 h-4 transition-transform duration-200 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+
+                    <div class="mobile-dropdown-content px-4 pb-4 space-y-2 max-h-0 overflow-hidden transition-all duration-300">
+                        <a href="/gestao-operacao" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h-9m9 0V21m-9-3v3" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Gestão e Operação</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">PDV e automação comercial</div>
+                        </a>
+                        <a href="/e-commerce" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">E-commerce</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">Lojas virtuais e marketplaces</div>
+                        </a>
+                        <a href="/marketing-relacionamento" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Marketing e Relacionamento</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">CRM e automação</div>
+                        </a>
+                        <a href="/food-service" class="block px-4 py-3 text-base text-gray-700 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                    </svg>
+                                </div>
+                                <div class="font-medium">Bares, Restaurantes e iFood</div>
+                            </div>
+                            <div class="text-sm text-gray-500 ml-11">Gestão para food service</div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="/contato" class="mobile-nav-link block px-4 py-4 text-lg font-medium text-gray-800 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-varcom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <span>Contato</span>
+                </a>
+
+                <!-- CTA Mobile -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <a href="/solicita-orcamento" class="block w-full text-center bg-varcom-blue hover:bg-varcom-light text-white px-6 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg">
+                        Solicitar Consultoria
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu elements
+    const mobileMenuBtn = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    const closeIcon = document.querySelector('.close-icon');
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+        
+        if (isOpen) {
+            // Close menu
+            mobileMenu.classList.add('translate-x-full');
+            mobileOverlay.classList.add('opacity-0', 'invisible');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+        } else {
+            // Open menu
+            mobileMenu.classList.remove('translate-x-full');
+            mobileOverlay.classList.remove('opacity-0', 'invisible');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // Event listeners
+    mobileMenuBtn?.addEventListener('click', toggleMenu);
+    mobileCloseBtn?.addEventListener('click', toggleMenu);
+    mobileOverlay?.addEventListener('click', toggleMenu);
+    
+    // Mobile dropdown functionality
+    document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const arrow = this.querySelector('.mobile-dropdown-arrow');
+            const isOpen = !content.classList.contains('max-h-0');
+            
+            if (isOpen) {
+                content.classList.add('max-h-0');
+                content.classList.remove('max-h-96');
+                arrow.classList.remove('rotate-180');
+            } else {
+                content.classList.remove('max-h-0');
+                content.classList.add('max-h-96');
+                arrow.classList.add('rotate-180');
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-content a').forEach(link => {
+        link.addEventListener('click', function() {
+            if (!mobileMenu.classList.contains('translate-x-full')) {
+                toggleMenu();
+            }
+        });
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.glass-navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('shadow-lg');
+        } else {
+            navbar.classList.remove('shadow-lg');
+        }
+    });
+});
+</script>
+
+    <!-- Script para carregar o Navbar -->
+    <script>
+    // Função para carregar o navbar
+    function loadNavbar() {
+        fetch('components/navbar.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Navbar não encontrado');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Extrair apenas o conteúdo relevante do navbar
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                
+                // Pegar o navbar e elementos relacionados
+                const navbar = doc.querySelector('nav.glass-navbar');
+                const mobileOverlay = doc.querySelector('.mobile-overlay');
+                const mobileMenu = doc.querySelector('.mobile-menu');
+                
+                // Inserir no container
+                if (navbar && mobileOverlay && mobileMenu) {
+                    document.getElementById('navbar-container').innerHTML = 
+                        navbar.outerHTML + 
+                        mobileOverlay.outerHTML + 
+                        mobileMenu.outerHTML;
+                    
+                    // Inicializar scripts do navbar
+                    initializeNavbarScripts();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o navbar:', error);
+            });
+    }
+
+    // Função para inicializar os scripts do navbar
+    function initializeNavbarScripts() {
+        // Mobile menu elements
+        const mobileMenuBtn = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            const isOpen = !mobileMenu.classList.contains('translate-x-full');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.add('translate-x-full');
+                mobileOverlay.classList.add('opacity-0', 'invisible');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('opacity-0', 'invisible');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Event listeners
+        mobileMenuBtn?.addEventListener('click', toggleMenu);
+        mobileCloseBtn?.addEventListener('click', toggleMenu);
+        mobileOverlay?.addEventListener('click', toggleMenu);
+        
+        // Mobile dropdown functionality
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const arrow = this.querySelector('.mobile-dropdown-arrow');
+                const isOpen = !content.classList.contains('max-h-0');
+                
+                if (isOpen) {
+                    content.classList.add('max-h-0');
+                    content.classList.remove('max-h-96');
+                    arrow.classList.remove('rotate-180');
+                } else {
+                    content.classList.remove('max-h-0');
+                    content.classList.add('max-h-96');
+                    arrow.classList.add('rotate-180');
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-content a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (!mobileMenu.classList.contains('translate-x-full')) {
+                    toggleMenu();
+                }
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.glass-navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    }
+
+    // Carregar o navbar quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', () => {
+        loadNavbar();
+    });
+    }
+    </script>
+</body>
+
+<!-- Fim Navbar Topo -->
+
+    <!-- Navbar JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // JavaScript para o menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inicializando menu mobile...');
+            
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const closeIcon = document.querySelector('.close-icon');
+            
+            console.log('Elementos encontrados:', {
+                button: !!mobileMenuButton,
+                menu: !!mobileMenu,
+                overlay: !!mobileOverlay,
+                hamburger: !!hamburgerIcon,
+                close: !!closeIcon
+            });
+            
+            if (!mobileMenuButton || !mobileMenu) {
+                console.error('Elementos essenciais não encontrados!');
+                return;
+            }
+            
+            // Função para alternar o menu
+            function toggleMenu() {
+                console.log('Alternando menu...');
+                const isActive = mobileMenu.classList.contains('active');
+                
+                if (isActive) {
+                    // Fechar
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    console.log('Menu fechado');
+                } else {
+                    // Abrir
+                    mobileMenu.classList.add('active');
+                    if (mobileOverlay) mobileOverlay.classList.add('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.add('hidden');
+                    if (closeIcon) closeIcon.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    console.log('Menu aberto');
+                }
+            }
+            
+            // Event listener principal
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Botão clicado!');
+                toggleMenu();
+            });
+            
+            // Fechar ao clicar no overlay
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function() {
+                    console.log('Overlay clicado - fechando menu');
+                    toggleMenu();
+                });
+            }
+            
+            // Botão fechar do menu mobile
+            const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', function() {
+                    console.log('Botão fechar clicado');
+                    toggleMenu();
+                });
+            }
+            
+            // Fechar ao clicar nos links
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log('Link clicado - fechando menu');
+                    setTimeout(toggleMenu, 100);
+                });
+            });
+            
+            // Dropdown mobile
+            const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+            dropdownBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Dropdown clicado');
+                    
+                    const content = this.parentElement.querySelector('.mobile-dropdown-content');
+                    const arrow = this.querySelector('.mobile-dropdown-arrow');
+                    
+                    if (content) {
+                        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                        
+                        if (isOpen) {
+                            content.style.maxHeight = '0px';
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            if (arrow) arrow.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+            });
+            
+            // Fechar menu ao redimensionar para desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    if (hamburgerIcon) hamburgerIcon.classList.remove('hidden');
+                    if (closeIcon) closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            console.log('Menu mobile inicializado com sucesso!');
+        });
+        
+        // Smooth scroll para links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
 
 <head>
     <meta charset="UTF-8">
