@@ -1131,19 +1131,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#" onclick="document.getElementById('demoModal').style.display='block'; return false;">
-                        <button class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all">
-                            Ver Demo Autoatendimento
-                        </a>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button 
+                                onclick="document.getElementById('demoModal').style.display='block';"
+                                class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all"
+                            >
+                                Ver Demo Autoatendimento
+                            </button>
+                        </div>
+
                         <div id="demoModal" class="modal">
                             <div class="modal-content">
                                 <span class="close" onclick="document.getElementById('demoModal').style.display='none'">&times;</span>
-                                <h3>Em breve!</h3>
+                                <h3 class="text-lg font-bold">Em breve!</h3>
                                 <p>A demonstração do Autoatendimento estará disponível em breve.</p>
                             </div>
                         </div>
-                        </button>
                         <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
                             Calcular ROI
                         </button>
