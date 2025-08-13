@@ -874,7 +874,34 @@ document.addEventListener('DOMContentLoaded', function() {
             font-size: 12px;
             font-weight: 600;
         }
+
+        /* CSS Modelo do botão para executar a mensagem - demonstração do Autoatendimento estará disponível em breve */
+
+             .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            margin: 15% auto;
+            width: 300px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .close {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
+
+
 </head>
 <body class="font-sans bg-white text-gray-800">
     <!-- Hero Section -->
@@ -1105,8 +1132,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" onclick="document.getElementById('demoModal').style.display='block'; return false;">
                         <button class="bg-varcom-blue hover:bg-varcom-light text-white px-8 py-3 rounded-lg font-semibold transition-all">
                             Ver Demo Autoatendimento
+                        </a>
+                        <div id="demoModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="document.getElementById('demoModal').style.display='none'">&times;</span>
+                                <h3>Em breve!</h3>
+                                <p>A demonstração do Autoatendimento estará disponível em breve.</p>
+                            </div>
+                        </div>
                         </button>
                         <button class="border-2 border-varcom-blue text-varcom-blue hover:bg-varcom-blue hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
                             Calcular ROI
@@ -1436,6 +1472,17 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </section>
+
+<!-- JavaScript do botão para executar a mensagem A demonstração do Autoatendimento estará disponível em breve -->
+    <script>
+    window.onclick = function(event) {
+        let modal = document.getElementById('demoModal');
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+    </script>
+
 
 <!--Scripit para carregar o Footer da pasta components/footers-->
     <div id="footer-container"></div>
