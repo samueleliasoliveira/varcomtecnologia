@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varcom Smart - Sistema de Gestão para Bares e Restaurantes</title>
+    <meta name="description" content="Transforme seu atendimento, reduza erros e aumente seu faturamento com o sistema de gestão completo para o setor de food service.">
+    
+    <!-- Tailwind CSS para um design rápido e moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo customizado para usar a fonte Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Efeito de destaque sutil para seções */
+        .section-highlight {
+            border-left: 4px solid #F59E0B; /* Amarelo/Laranja como cor de destaque */
+        }
+        /* Garante que o scroll para a âncora do formulário não fique colado no topo */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Animação de pisca para a faixa de atenção */
+        .blinking-banner {
+            animation: blink-animation 1.5s infinite;
+        }
+        @keyframes blink-animation {
+            50% {
+                background-color: #FBBF24; /* Um tom de amarelo mais claro do Tailwind */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- 1. Topo (Alerta/Atenção) com animação -->
+    <div class="bg-yellow-400 text-center p-2 text-black font-semibold blinking-banner">
+        ⚠️ ATENÇÃO: Seu concorrente já está usando a tecnologia para sair na sua frente. Não fique para trás!
+    </div>
+
+    <!-- Container Principal -->
+    <div class="container mx-auto max-w-5xl p-6">
+
+        <!-- 2. Headline, Sub-Headline e Imagem -->
+        <header class="grid md:grid-cols-2 gap-10 items-center my-12 md:my-16">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                    O Fim das Comandas Perdidas e Clientes Irritados.
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-600">
+                    Conheça o sistema de gestão completo que automatiza seu atendimento, agiliza sua cozinha e te dá o controle total do seu negócio.
+                </p>
+            </div>
+            <!-- Container da Imagem Principal para posicionar a logo -->
+            <div class="mt-8 md:mt-0 relative">
+                <img src="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/img-bareserestaurante-lp.png" 
+                     alt="Demonstração do sistema Varcom Smart em um tablet num cenário de cafeteria" 
+                     class="rounded-lg shadow-xl w-full h-auto">
+                
+                <!-- Logo da Empresa -->
+                <!-- AÇÃO NECESSÁRIA: Substitua o 'src' abaixo pelo link da sua logo -->
+                <div class="absolute bottom-4 right-4">
+                     <img src="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/logolp.png" 
+                         alt="Logo da Varcom" 
+                         class="w-20 h-20 rounded-full border-4 border-white shadow-lg">
+                </div>
+            </div>
+        </header>
+
+        <!-- Formulário de Contato (Posicionado estrategicamente no topo) -->
+        <div id="form" class="bg-white p-8 rounded-lg shadow-lg mb-16 max-w-2xl mx-auto scroll-mt-20">
+            <h2 class="text-2xl font-bold text-center mb-2">Fale com um Especialista Agora!</h2>
+            <p class="text-center text-gray-600 mb-6">Preencha os dados e veja na prática como podemos transformar seu estabelecimento.</p>
+            <form action="#" method="POST" class="grid grid-cols-1 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Seu Nome</label>
+                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                </div>
+                <div>
+                    <label for="establishment" class="block text-sm font-medium text-gray-700">Nome do Estabelecimento</label>
+                    <input type="text" id="establishment" name="establishment" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                </div>
+                <div>
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700">Seu WhatsApp</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(XX) XXXXX-XXXX" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-4 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-lg transition-transform transform hover:scale-105">
+                    QUERO UMA DEMONSTRAÇÃO GRATUITA
+                </button>
+            </form>
+        </div>
+
+        <!-- 3. Emocional (Dor) -->
+        <section class="my-16">
+            <div class="bg-red-50 p-6 rounded-lg section-highlight border-red-400 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold mb-4">Sua rotina parece com isso?</h2>
+                <ul class="list-none space-y-3 text-gray-700">
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Garçons correndo e anotando pedidos errados no papel.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Cozinha confusa sem saber a ordem e os detalhes dos pratos.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Filas no caixa e dor de cabeça para fechar as contas.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Falta de controle sobre o que entra e sai do seu estoque.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Sentimento de estar perdendo dinheiro e não saber onde.</li>
+                </ul>
+                <p class="mt-6 font-semibold">Se você se identificou, saiba que a culpa não é sua. A gestão manual é o caminho mais curto para o estresse e o prejuízo.</p>
+            </div>
+        </section>
+
+        <!-- 4. Lógico (O que tem no produto) -->
+        <section class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-8">O Controle Total do seu Negócio em um Único Lugar</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">PDV Ágil e Frente de Caixa</h3>
+                    <p>Venda rápida, fechamento de conta simplificado (parcial ou total) e integração com pagamentos via TEF e PIX.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Comanda Eletrônica e Cardápio Digital</h3>
+                    <p>O pedido feito pelo garçom ou pelo próprio cliente na mesa vai direto para a cozinha, sem erros e sem demora.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">KDS (Monitor de Preparo na Cozinha)</h3>
+                    <p>Organize a produção com uma visão clara dos pedidos, tempo de preparo e ordem de saída. Adeus, papel!</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Gestão de Estoque e Financeiro</h3>
+                    <p>Saiba exatamente o que você tem, o que precisa comprar e para onde seu dinheiro está indo. Controle total de ponta a ponta.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Autoatendimento e Totem</h3>
+                    <p>Dê autonomia ao seu cliente para fazer o pedido, reduzindo filas e a necessidade de atendentes.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Relatórios Inteligentes</h3>
+                    <p>Tome decisões baseadas em dados. Saiba quais pratos vendem mais, horários de pico e seu faturamento real.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Racional (Qualidade e Diferenças) -->
+        <section class="my-16">
+            <div class="bg-gray-800 text-white p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-center mb-6 text-yellow-400">Por que o Varcom Smart é a escolha certa?</h2>
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <p><strong class="text-yellow-400">✓ Foco no Essencial:</strong> Sem telas confusas ou funções que você nunca vai usar. É ligar e começar a vender.</p>
+                    <p><strong class="text-yellow-400">✓ Tecnologia de Ponta:</strong> Sistema rápido, estável e seguro, que funciona até mesmo se a internet cair (módulo de contingência).</p>
+                    <p><strong class="text-yellow-400">✓ Suporte que Resolve:</strong> Nosso time entende do seu negócio e está pronto para ajudar de verdade quando você precisar.</p>
+                    <p><strong class="text-yellow-400">✓ Feito para o Dono do Negócio:</strong> Desenvolvido por quem entende a correria de bares e restaurantes, pensando em facilitar a sua vida.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Reafirmação (FAQ e Chamada Final) -->
+        <section class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Ainda tem dúvidas?</h2>
+            <div class="space-y-6 max-w-2xl mx-auto">
+                <div>
+                    <h3 class="font-bold text-lg">O sistema é muito caro?</h3>
+                    <p class="text-gray-600 mt-1">Você vai se surpreender. Nosso plano é acessível e o retorno sobre o investimento é visto nos primeiros meses, com a redução de perdas e aumento de vendas.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">É difícil de instalar e usar?</h3>
+                    <p class="text-gray-600 mt-1">Não. A implantação é rápida e nossa equipe treina você e seus funcionários. A interface é tão intuitiva que em poucas horas todos já estarão usando.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Preciso comprar equipamentos especiais?</h3>
+                    <p class="text-gray-600 mt-1">O Varcom Smart é flexível. Ele roda em computadores, notebooks e tablets comuns que você provavelmente já possui.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 bg-white p-8 rounded-lg shadow-lg border-t-4 border-green-600 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-black text-gray-900">Chega de Gerenciar seu Negócio no Papel.</h2>
+                <p class="mt-4 text-lg text-gray-600">Está na hora de ter mais lucro, menos estresse e clientes mais satisfeitos. A modernização está a um clique de distância.</p>
+                <a href="#form" class="mt-8 inline-block bg-green-600 text-white font-bold py-4 px-8 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-xl transition-transform transform hover:scale-105">
+                    QUERO MODERNIZAR MEU NEGÓCIO
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p>&copy; 2024 Varcom Tecnologia. Todos os direitos reservados.</p>
+        <p class="text-sm text-gray-400">Um sistema de gestão feito para o sucesso do seu negócio.</p>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <!-- AÇÃO NECESSÁRIA: Substitua '5511999999999' pelo seu número de WhatsApp com código do país e DDD -->
+    <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20Varcom%20Smart." 
+       target="_blank" 
+       class="fixed bottom-5 right-5 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-transform transform hover:scale-110 z-50"
+       aria-label="Fale conosco pelo WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.512 1.916 6.36l-.866 3.127 3.232-.856z"/>
+        </svg>
+    </a>
+
+</body>
+</html>
