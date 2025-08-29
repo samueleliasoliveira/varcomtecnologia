@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     
+    <!-- Biblioteca do EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         /* Estilo customizado para usar a fonte Inter */
         body {
@@ -65,7 +68,6 @@
                      class="rounded-lg shadow-xl w-full h-auto">
                 
                 <!-- Logo da Empresa -->
-                <!-- AÇÃO NECESSÁRIA: Substitua o 'src' abaixo pelo link da sua logo -->
                 <div class="absolute bottom-4 right-4">
                      <img src="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/logolp.png" 
                          alt="Logo da Varcom" 
@@ -78,22 +80,26 @@
         <div id="form" class="bg-white p-8 rounded-lg shadow-lg mb-16 max-w-2xl mx-auto scroll-mt-20">
             <h2 class="text-2xl font-bold text-center mb-2">Fale com um Especialista Agora!</h2>
             <p class="text-center text-gray-600 mb-6">Preencha os dados e veja na prática como podemos transformar seu estabelecimento.</p>
-            <form action="#" method="POST" class="grid grid-cols-1 gap-6">
+            <!-- O 'id' do formulário é usado pelo JavaScript -->
+            <form id="contact-form" class="grid grid-cols-1 gap-6">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Seu Nome</label>
-                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                    <!-- O atributo 'name' é importante para o EmailJS -->
+                    <input type="text" id="name" name="from_name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
                 </div>
                 <div>
                     <label for="establishment" class="block text-sm font-medium text-gray-700">Nome do Estabelecimento</label>
-                    <input type="text" id="establishment" name="establishment" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                    <input type="text" id="establishment" name="establishment_name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
                 </div>
                 <div>
                     <label for="whatsapp" class="block text-sm font-medium text-gray-700">Seu WhatsApp</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(XX) XXXXX-XXXX" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
+                    <input type="tel" id="whatsapp" name="whatsapp_number" required placeholder="(XX) XXXXX-XXXX" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500">
                 </div>
                 <button type="submit" class="w-full bg-green-600 text-white font-bold py-4 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 text-lg transition-transform transform hover:scale-105">
                     QUERO UMA DEMONSTRAÇÃO GRATUITA
                 </button>
+                <!-- Elemento para exibir mensagens de status (sucesso/erro) -->
+                <p id="form-status" class="text-center font-medium"></p>
             </form>
         </div>
 
@@ -192,15 +198,54 @@
     </footer>
 
     <!-- Botão Flutuante do WhatsApp -->
-    <!-- AÇÃO NECESSÁRIA: Substitua '5511999999999' pelo seu número de WhatsApp com código do país e DDD -->
     <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20Varcom%20Smart." 
        target="_blank" 
        class="fixed bottom-5 right-5 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-transform transform hover:scale-110 z-50"
        aria-label="Fale conosco pelo WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="currentColor" class="w-6 h-6">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.512 1.916 6.36l-.866 3.127 3.232-.856z"/>
         </svg>
     </a>
+
+    <!-- Script de Integração com EmailJS -->
+    <script type="text/javascript">
+        (function(){
+            // Inicializa o EmailJS com a sua Public Key
+            emailjs.init({
+              publicKey: "s-4qy6c5NifjZQbzx",
+            });
+        })();
+
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio padrão do formulário
+                
+                const formStatus = document.getElementById('form-status');
+                const submitButton = this.querySelector('button[type="submit"]');
+
+                // IDs do seu serviço e template EmailJS
+                const serviceID = 'service_ycboaa8';
+                const templateID = 'template_ciu70vb';
+
+                formStatus.textContent = 'Enviando...';
+                submitButton.disabled = true;
+
+                // Envia o formulário usando o EmailJS
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        formStatus.textContent = 'Mensagem enviada com sucesso!';
+                        formStatus.style.color = 'green';
+                        submitButton.disabled = false;
+                        document.getElementById('contact-form').reset(); // Limpa o formulário
+                    }, (err) => {
+                        formStatus.textContent = 'Ocorreu um erro. Tente novamente.';
+                        formStatus.style.color = 'red';
+                        submitButton.disabled = false;
+                        console.error('EmailJS Error:', JSON.stringify(err));
+                    });
+            });
+        }
+    </script>
 
 </body>
 </html>
