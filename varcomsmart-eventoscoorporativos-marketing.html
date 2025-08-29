@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varcom Eventos - Venda Mais e Perca Menos em Feiras e Congressos</title>
+    <meta name="description" content="O sistema de PDV móvel e gestão de contatos que elimina filas e garante que você não perca nenhuma venda ou lead no seu stand.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js para o Carrossel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Biblioteca do EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .section-highlight {
+            border-left: 4px solid #ca8a04; /* Amarelo escuro */
+        }
+        /* Ajuste para o carrossel */
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        /* Estilo para os botões de navegação do carrossel */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #eab308; /* Cor amarela (yellow-500) para combinar com a identidade */
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 44px;
+            height: 44px;
+            border-radius: 100%;
+        }
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 20px;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- 1. Topo (Alerta/Atenção) -->
+    <div class="bg-yellow-500 text-center p-2 text-black font-semibold">
+        ⚠️ Seu próximo evento está chegando. Não arrisque perder vendas por falta de preparo!
+    </div>
+
+    <!-- Container Principal -->
+    <div class="container mx-auto max-w-5xl p-6">
+
+        <!-- 2. Headline, Sub-Headline e Imagens -->
+        <header class="grid md:grid-cols-2 gap-10 items-center my-12 md:my-16">
+            <!-- Coluna de Texto -->
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+                    Controle Suas Vendas em Tempo Real e Não Perca Nenhum Lead.
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-600">
+                    Transforme a correria do evento em lucro. Conheça o sistema de PDV móvel que agiliza suas vendas e captura cada contato, mesmo sem internet.
+                </p>
+            </div>
+            <!-- Coluna do Carrossel de Imagens -->
+            <div class="shadow-xl rounded-lg w-full mt-8 md:mt-0">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/feiracoorporativa.PNG" alt="Sistema de PDV da Varcom em uma feira ao ar livre">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://raw.githubusercontent.com/samueleliasoliveira/varcomtecnologia/refs/heads/main/assets/img/feiradinamica.png" alt="Sistema de PDV da Varcom em um evento corporativo">
+                        </div>
+                    </div>
+                    <!-- Botões de Navegação -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Formulário de Contato -->
+        <div id="form" class="bg-white p-8 rounded-lg shadow-lg mb-16 scroll-mt-20 max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-2">Fale com um Especialista em Eventos!</h2>
+            <p class="text-center text-gray-600 mb-6">Descubra como ter um stand mais lucrativo. Preencha os dados para uma demonstração rápida.</p>
+            <form id="contact-form" class="grid grid-cols-1 gap-6">
+                <input type="text" name="from_name" placeholder="Seu Nome" required class="w-full p-3 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                <input type="text" name="company_name" placeholder="Nome da sua Empresa/Stand" required class="w-full p-3 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                <input type="tel" name="whatsapp_number" placeholder="Seu WhatsApp" required class="w-full p-3 rounded-md bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-lg transition-transform transform hover:scale-105">
+                    QUERO UMA DEMONSTRAÇÃO
+                </button>
+                 <p id="form-status" class="text-center font-medium"></p>
+            </form>
+        </div>
+
+        <!-- 4. Emocional -->
+        <section class="my-16">
+            <div class="bg-red-50 p-6 rounded-lg section-highlight border-red-400">
+                <h2 class="text-3xl font-bold mb-4">A realidade do seu último evento foi essa?</h2>
+                <ul class="list-none space-y-3 text-gray-700">
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Clientes desistindo da compra por causa da fila no caixa.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Vendedores anotando contatos em papel e perdendo leads valiosos.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> O Wi-Fi do evento caiu e seu sistema de pagamento parou.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Dificuldade para saber o que foi vendido e qual o faturamento no final do dia.</li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span> Sensação de que o alto investimento no stand não deu o retorno esperado.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. Lógico (O que tem no produto) -->
+        <section class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-8">O Controle Total do seu Stand na Palma da Mão</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">PDV Móvel e Ágil</h3>
+                    <p>Venda em qualquer lugar do stand usando tablets ou celulares. O sistema é simples e rápido, feito para o ritmo acelerado de uma feira.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Captura de Leads Integrada</h3>
+                    <p>Não perca nenhum contato. Cadastre clientes e parceiros direto no sistema e exporte sua lista de leads qualificados no final do evento.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Funciona Offline</h3>
+                    <p>A internet do evento é instável? Sem problemas. Continue vendendo e registrando tudo. O sistema sincroniza os dados assim que a conexão voltar.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-bold text-xl mb-2">Relatórios em Tempo Real</h3>
+                    <p>Acompanhe as vendas, o estoque e o faturamento do seu stand a qualquer momento, direto do seu celular, de onde estiver.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Racional (Qualidade e Diferenças) -->
+        <section class="my-16">
+            <div class="bg-gray-800 text-white p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-center mb-6 text-yellow-400">Projetado para o Sucesso em Eventos</h2>
+                <div class="space-y-4">
+                    <p><strong class="text-yellow-400">✓ Implantação Rápida:</strong> Em poucas horas, seu time está treinado e o sistema pronto para usar antes do evento começar.</p>
+                    <p><strong class="text-yellow-400">✓ Sem Equipamentos Caros:</strong> Roda em tablets, celulares e notebooks que você já tem. Flexibilidade total para a sua operação.</p>
+                    <p><strong class="text-yellow-400">✓ Suporte Dedicado:</strong> Nosso time entende a urgência de um evento e está pronto para te ajudar a qualquer momento.</p>
+                    <p><strong class="text-yellow-400">✓ Foco em Resultados:</strong> Mais do que um PDV, uma ferramenta para medir o ROI do seu evento com dados precisos de vendas e leads.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Reafirmação (FAQ e Chamada Final) -->
+        <section class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-8">Perguntas Frequentes</h2>
+            <div class="space-y-6 max-w-3xl mx-auto">
+                <div>
+                    <h3 class="font-bold text-lg">Posso alugar o sistema apenas para um evento?</h3>
+                    <p class="text-gray-600 mt-1">Sim! Temos planos flexíveis que se adaptam à sua necessidade, seja para um único evento ou para todo o seu calendário anual.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">É difícil de usar? Minha equipe temporária vai aprender rápido?</h3>
+                    <p class="text-gray-600 mt-1">O sistema é extremamente intuitivo. O treinamento é rápido e em menos de uma hora qualquer pessoa consegue operar as vendas e registrar contatos.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Integra com maquininha de cartão?</h3>
+                    <p class="text-gray-600 mt-1">Sim, o sistema integra com as principais maquininhas (TEF), agilizando o pagamento e evitando erros de digitação de valores.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 bg-white p-8 rounded-lg shadow-lg border-t-4 border-blue-600">
+                <h2 class="text-3xl font-black text-gray-900">Transforme seu próximo evento no mais lucrativo de todos.</h2>
+                <p class="mt-4 text-lg text-gray-600">Chega de improviso. Tenha uma ferramenta profissional para vender mais, gerenciar melhor e capturar cada oportunidade.</p>
+                <a href="#form" class="mt-8 inline-block bg-blue-600 text-white font-bold py-4 px-8 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-xl transition-transform transform hover:scale-105">
+                    QUERO GARANTIR MEU SUCESSO
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white text-center p-6 mt-12">
+        <p>&copy; 2024 Varcom Tecnologia. Potencializando eventos de sucesso.</p>
+    </footer>
+
+    <!-- Script para inicializar o Swiper.js -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    
+    <!-- Script de Integração com EmailJS -->
+    <script type="text/javascript">
+        (function(){
+            // Suas chaves do EmailJS
+            emailjs.init({
+              publicKey: "s-4qy6c5NifjZQbzx",
+            });
+        })();
+
+        window.onload = function() {
+            // Garante que o script do Swiper já tenha sido executado
+            if (typeof Swiper === 'undefined') {
+                setTimeout(arguments.callee, 100);
+                return;
+            }
+
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio padrão do formulário
+                
+                const formStatus = document.getElementById('form-status');
+                const submitButton = this.querySelector('button[type="submit"]');
+
+                // Suas chaves do EmailJS
+                const serviceID = 'service_803ggpp';
+                const templateID = 'template_15tb3us';
+
+                formStatus.textContent = 'Enviando...';
+                submitButton.disabled = true;
+
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        formStatus.textContent = 'Mensagem enviada com sucesso!';
+                        formStatus.style.color = 'green';
+                        submitButton.disabled = false;
+                        document.getElementById('contact-form').reset();
+                    }, (err) => {
+                        formStatus.textContent = 'Ocorreu um erro. Tente novamente.';
+                        formStatus.style.color = 'red';
+                        submitButton.disabled = false;
+                        console.error('EmailJS Error:', JSON.stringify(err));
+                    });
+            });
+        }
+    </script>
+
+</body>
+</html>
