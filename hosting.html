@@ -1,17 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hosting - Varcom Tecnologia</title>
-  <meta name="description" content="Tudo o que o seu negócio precisa para crescer: gestão de tarefas, arquivos e novas soluções, a um clique de distância."/><meta>
-  <link rel="canonical" href="https://varcomweb.lovable.app/"/>
-  <meta http-equiv="refresh" content="0; url=https://varcomweb.lovable.app/">
+  <meta name="description" content="Tudo o que o seu negócio precisa para crescer: gestão de tarefas, arquivos e novas soluções, a um clique de distância.">
+  <link rel="canonical" href="https://varcom.vercel.app/">
+  
+  <!-- Fallback de redirecionamento caso o JavaScript falhe (8 segundos) -->
+  <meta http-equiv="refresh" content="8; url=https://varcom.vercel.app/">
+
+  <!-- Fontes do Google para um visual moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset básico e tipografia */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f6f8fd 0%, #e9eff5 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #334155;
+    }
+
+    /* Contentor centralizado e estilizado */
+    .loading-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    /* Estilo do Logótipo com animação (tamanho ainda mais reduzido) */
+    .logo {
+      max-width: 85px; /* Reduzido para 85px para ficar mais discreto */
+      margin-bottom: 2rem;
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+
+    /* Frase de impacto */
+    .impact-phrase {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 2rem;
+    }
+    .impact-phrase strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    /* Spinner de carregamento moderno */
+    .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid #e2e8f0;
+      border-top-color: #2563eb; /* Azul corporativo moderno */
+      border-radius: 50%;
+      display: inline-block;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Link de fallback */
+    .fallback-text {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 1rem;
+    }
+    .fallback-text a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .fallback-text a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    /* Animações CSS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Ajustes específicos para dispositivos móveis (Smartphones) */
+    @media (max-width: 480px) {
+      .loading-container {
+        padding: 2.5rem 1.5rem;
+        width: 92%;
+      }
+      .logo {
+        max-width: 70px;
+        margin-bottom: 1.5rem;
+      }
+      .impact-phrase {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .spinner {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 1rem;
+      }
+      .fallback-text {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hosting - Entrando...</h1>
-  <p>Se você não for redirecionado automaticamente, <a href="https://varcom.com.br">clique aqui</a>.</p>
+
+  <div class="loading-container">
+    <!-- Logótipo da Varcom -->
+    <img src="https://varcomweb.lovable.app/assets/logo-varcom-pwXUWREC.png" alt="Varcom Tecnologia" class="logo">
+    
+    <!-- Frase de Impacto -->
+    <p class="impact-phrase">
+      Preparando o seu ambiente de inovação.<br>
+      <strong>Tudo o que o seu negócio precisa para crescer</strong>, a um clique de distância.
+    </p>
+
+    <!-- Indicador de Carregamento -->
+    <div>
+      <span class="spinner"></span>
+    </div>
+
+    <!-- Texto Alternativo -->
+    <p class="fallback-text">
+      Se não for redirecionado automaticamente, <br>
+      <a href="https://varcom.vercel.app/">clique aqui para aceder</a>.
+    </p>
+  </div>
+
+  <!-- Script para redirecionamento exato após 8 segundos (8000 milissegundos) -->
+  <script>
+    setTimeout(function() {
+      window.location.href = "https://varcom.vercel.app/";
+    }, 8000);
+  </script>
+
 </body>
-
-
 </html>
-
